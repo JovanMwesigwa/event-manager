@@ -1,0 +1,88 @@
+import { EventActivityType } from "@/types";
+
+export const activities: EventActivityType[] = [
+  {
+    id: 1,
+    title: "Opening Ceremony",
+    description:
+      "Kick-off the event with opening prayers and a warm welcome from the hosting organization.",
+    host: "Rev. Charles & St. Mark Ministries",
+    start: "9:00 AM",
+    end: "9:30 AM",
+    duration: "30 minutes",
+    image: "/images/1.jpg",
+    active: false,
+    currentTime: "00:00:00",
+    done: true,
+  },
+  {
+    id: 2,
+    title: "Worship Session",
+    description:
+      "Engage in a soul-lifting praise and worship session led by the renowned choir.",
+    host: "St. Mark Ministries Choir",
+    start: "9:30 AM",
+    end: "10:30 AM",
+    duration: "1 hour",
+    image: "/images/2.jpg",
+    active: true,
+    currentTime: "03:12:23",
+    done: false,
+  },
+  {
+    id: 3,
+    title: "Keynote Sermon",
+    description:
+      "Be inspired by a powerful sermon from Rev. Charles, focusing on spiritual growth and community.",
+    host: "Rev. Charles",
+    start: "10:45 AM",
+    end: "12:00 PM",
+    duration: "1 hour 15 minutes",
+    image: "/images/3.jpg",
+    active: false,
+    currentTime: "0:00:00",
+    done: false,
+  },
+  {
+    id: 4,
+    title: "Announcements & Break",
+    description:
+      "Get updates on community news and take a short break before the next session.",
+    host: "Church Administration",
+    start: "12:00 PM",
+    end: "12:15 PM",
+    duration: "15 minutes",
+    image: "/images/4.jpg",
+    active: false,
+    currentTime: "0:00:00",
+    done: false,
+  },
+  {
+    id: 5,
+    title: "Community Networking",
+    description:
+      "Meet and connect with fellow community members over refreshments in the fellowship hall.",
+    host: "Community Leaders",
+    start: "12:30 PM",
+    end: "1:30 PM",
+    duration: "1 hour",
+    image: "/images/5.jpg",
+    active: false,
+    currentTime: "0:00:00",
+    done: false,
+  },
+  {
+    id: 6,
+    title: "Workshop Sessions",
+    description:
+      "Participate in interactive workshops focused on various aspects of spiritual life and community service.",
+    host: "Guest Facilitators",
+    start: "1:30 PM",
+    end: "3:30 PM",
+    duration: "2 hours",
+    image: "/images/6.jpg",
+    active: false,
+    currentTime: "0:00:00",
+    done: false,
+  },
+];
