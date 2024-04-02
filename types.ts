@@ -8,6 +8,8 @@ export type EventActivityType = {
   duration: string;
   image: string;
   active: boolean;
+  isPaused: boolean;
+  isReset: boolean;
   currentTime: string;
   done: boolean;
 };
