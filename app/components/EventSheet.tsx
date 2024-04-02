@@ -1,3 +1,4 @@
+import { Separator } from "@/components/ui/separator";
 import {
   Sheet,
   SheetContent,
@@ -6,19 +7,12 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import {
-  ChevronsRightIcon,
-  SeparatorHorizontal,
-  SheetIcon,
-} from "lucide-react";
-import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
+import { ChevronsRightIcon } from "lucide-react";
 import PollQuestion from "./PollQuestion";
+import { EventActivityType } from "@/types";
 
-const EventSheet = () => {
+const EventSheet = ({ event }: { event: EventActivityType }) => {
   return (
     <div className="flex w-full justify-end md:px-4 py-2 cursor-pointer ">
       <Sheet>
@@ -49,45 +43,34 @@ const EventSheet = () => {
                 <div className="w-full flex-row flex gap-3">
                   <div className="size-32 rounded-md bg-neutral-300"></div>
                   <div className="flex flex-col gap-2">
-                    <div className="flex flex-row items-center gap-2">
+                    <div className="flex flex-row items-center gap-2 w-full justify-between">
                       <SheetTitle className="text-sm">Starts:</SheetTitle>
-                      <SheetTitle className="text-sm">9:30 AM</SheetTitle>
+                      <SheetTitle className="text-sm">{event.start}</SheetTitle>
                     </div>
-                    <div className="flex flex-row items-center gap-2">
+                    <div className="flex flex-row items-center gap-2 w-full justify-between">
                       <SheetTitle className="text-sm">Stops:</SheetTitle>
-                      <SheetTitle className="text-sm">10:30 AM</SheetTitle>
+                      <SheetTitle className="text-sm">{event.end}</SheetTitle>
                     </div>
-                    <div className="flex flex-row items-center gap-2">
+                    <div className="flex flex-row items-center gap-2 w-full justify-between">
                       <SheetTitle className="text-sm">Hosted By:</SheetTitle>
-                      <SheetTitle className="text-sm">
-                        St: Marks Choir
-                      </SheetTitle>
+                      <SheetTitle className="text-sm">{event.host}</SheetTitle>
                     </div>
                   </div>
                 </div>
 
                 <div className="w-full flex flex-row items-center justify-between my-4">
-                  <SheetTitle>Worship Session</SheetTitle>
-                  <SheetTitle>03:12:23</SheetTitle>
+                  <SheetTitle>{event.title}</SheetTitle>
+                  <SheetTitle>{event.currentTime}</SheetTitle>
                 </div>
               </SheetHeader>
 
-              <SheetTitle className="text-neutral-500 text-sm ">
+              <Separator className="my-4" />
+
+              <SheetTitle className="text-neutral-400 font-bold text-sm mb-3">
                 About the activity
               </SheetTitle>
 
-              <Separator className="my-4" />
-
-              <SheetDescription>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas
-                amet rerum cumque impedit ea suscipit animi reiciendis
-                perferendis laudantium doloremque? Lorem ipsum dolor sit amet,
-                consectetur adipisicing elit. Quas amet rerum cumque impedit ea
-                suscipit animi reiciendis perferendis laudantium doloremque?
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas
-                amet rerum cumque impedit ea suscipit animi reiciendis
-                perferendis laudantium doloremque?
-              </SheetDescription>
+              <SheetDescription>{event.description}</SheetDescription>
             </TabsContent>
           </Tabs>
         </SheetContent>

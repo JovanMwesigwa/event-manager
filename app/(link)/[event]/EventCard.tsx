@@ -121,7 +121,7 @@ const EventCard = ({ item }: { item: EventActivityType }) => {
           <div className="col-span-3 flex md:items-center  justify-end p-4 flex-col">
             <div className=" size-14 md:size-28 bg-neutral-200 rounded-md"></div>
 
-            <EventSheet />
+            <EventSheet event={item} />
           </div>
         </div>
       </div>
