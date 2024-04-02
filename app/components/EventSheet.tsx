@@ -14,7 +14,7 @@ import { EventActivityType } from "@/types";
 
 const EventSheet = ({ event }: { event: EventActivityType }) => {
   return (
-    <div className="flex w-full justify-end md:px-4 py-2 cursor-pointer ">
+    <div className="flex w-full justify-end  py-2 cursor-pointer ">
       <Sheet>
         <SheetTrigger>
           <ChevronsRightIcon className="text-neutral-400 size-3 md:size-4" />

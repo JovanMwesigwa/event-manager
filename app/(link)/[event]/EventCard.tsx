@@ -59,10 +59,10 @@ const EventCard = ({ item }: { item: EventActivityType }) => {
             item.active && " relative border bg-white "
           } overflow-hidden grid grid-cols-12 `}
         >
-          <div className="absolute right-1 md:right-2 top-0 md:top-2 bg-white rounded-full p-1 ">
+          {/* <div className="absolute right-1 md:right-2 top-0 md:top-2 bg-white rounded-full p-1 ">
             <div className="size-1 md:block md:size-2 bg-red-500 rounded-full right-1 bottom-2 absolute" />
             <Bell className="text-red-500 size-4 md:size-5" />
-          </div>
+          </div> */}
 
           {item.active && (
             <div
