@@ -15,7 +15,11 @@ const EventCard = ({ item }: { item: EventActivityType }) => {
         <div className="hidden md:flex flex-row col-span-3 justify-between ">
           <div className=" flex-col justify-between flex w-full ">
             <div className="">
-              <h1>Prayers</h1>
+              <h1
+                className={`line-clamp-1 ${!item.active && "text-neutral-400"}`}
+              >
+                {item.title}
+              </h1>
               <p className="text-neutral-400 text-sm">By: {item.host}</p>
             </div>
 
@@ -41,7 +45,7 @@ const EventCard = ({ item }: { item: EventActivityType }) => {
         </div>
 
         <div
-          className={`rounded-md  cursor-pointer col-span-9 pl-2 ${
+          className={`rounded-md  cursor-pointer col-span-9 pl-2 md:pl-4 ${
             item.active && " relative border bg-white "
           } overflow-hidden grid grid-cols-12 `}
         >
@@ -99,7 +103,7 @@ const EventCard = ({ item }: { item: EventActivityType }) => {
             </div>
           </div>
 
-          <div className="col-span-3 flex md:items-center p-4 md:p-0 justify-center">
+          <div className="col-span-3 flex md:items-center  justify-end p-4">
             <div className=" size-14 md:size-28 bg-neutral-200 rounded-md"></div>
           </div>
         </div>
