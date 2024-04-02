@@ -1,8 +1,18 @@
+import EventSheet from "@/app/components/EventSheet";
 import { Progress } from "@/components/ui/progress";
 import { useProgress } from "@/hooks/useProgress";
 import { useVerticleProgress } from "@/hooks/useVerticlePorgess";
 import { EventActivityType } from "@/types";
-import { CircleDot, Clock, ClockIcon } from "lucide-react";
+import {
+  Bell,
+  BellDot,
+  BellDotIcon,
+  ChevronRight,
+  ChevronsRightIcon,
+  CircleDot,
+  Clock,
+  ClockIcon,
+} from "lucide-react";
 import React from "react";
 
 const EventCard = ({ item }: { item: EventActivityType }) => {
@@ -49,6 +59,11 @@ const EventCard = ({ item }: { item: EventActivityType }) => {
             item.active && " relative border bg-white "
           } overflow-hidden grid grid-cols-12 `}
         >
+          <div className="absolute right-1 md:right-2 top-0 md:top-2 bg-white rounded-full p-1 ">
+            <div className="size-1 md:block md:size-2 bg-red-500 rounded-full right-1 bottom-2 absolute" />
+            <Bell className="text-red-500 size-4 md:size-5" />
+          </div>
+
           {item.active && (
             <div
               className={`absolute bottom-0 left-0 bg-green-500 h-1 md:h-2 ${progressWidthClass}`}
@@ -85,7 +100,7 @@ const EventCard = ({ item }: { item: EventActivityType }) => {
               </h1>
             </div>
 
-            <div className="flex flex-row items-center gap-2 md:flex ">
+            <div className="flex flex-row items-center gap-2 md:flex">
               <ClockIcon
                 className={`hidden md:block md:size-5 ${
                   !item.active ? "text-neutral-400" : " text-green-500"
@@ -103,8 +118,10 @@ const EventCard = ({ item }: { item: EventActivityType }) => {
             </div>
           </div>
 
-          <div className="col-span-3 flex md:items-center  justify-end p-4">
+          <div className="col-span-3 flex md:items-center  justify-end p-4 flex-col">
             <div className=" size-14 md:size-28 bg-neutral-200 rounded-md"></div>
+
+            <EventSheet />
           </div>
         </div>
       </div>
