@@ -8,7 +8,7 @@ import React from "react";
 const PollQuestion = () => {
   return (
     <div className="flex flex-col">
-      <h1 className="text-base text-neutral-700 font-bold">
+      <h1 className="text-base text-neutral-700 font-bold my-3">
         What do you consider as a &quot;GOD Tier&quot; programming language?
       </h1>
       <RadioGroup defaultValue="python" className="py-2">
@@ -27,6 +27,14 @@ const PollQuestion = () => {
           </Label>
         </div>
 
+        <div className="flex items-center space-x-2">
+          <RadioGroupItem value="rust" id="rust" />
+
+          <Label htmlFor="rust">
+            <SheetTitle>Rust</SheetTitle>
+          </Label>
+        </div>
+
         <div className="w-full flex flex-row items-center justify-between">
           <div className="flex flex-row items-center text-sm gap-2">
             <div className="size-6 bg-neutral-300 rounded-full"></div>
@@ -34,6 +42,7 @@ const PollQuestion = () => {
             <Dot size={18} />
             <p>5 minutes left</p>
           </div>
+
           <Button size="sm" className="my-3">
             Vote
           </Button>

@@ -24,7 +24,7 @@ const EventSheet = ({ event }: { event: EventActivityType }) => {
           className="w-full md:w-[800px] md:m-3 md:rounded-md max-h-screen"
         >
           {/* Engaments and Polls */}
-          <Tabs defaultValue="details" className="w-full py-5 overflow-y-auto">
+          <Tabs defaultValue="engage" className="w-full py-5 overflow-y-auto">
             <TabsList className="w-full">
               <TabsTrigger className="w-full" value="engage">
                 Engagements
