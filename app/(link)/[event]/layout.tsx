@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
 import Header from "./header";
 import Footer from "./footer";
+import ReactQueryProvider from "@/context/react-query-provider";
 
 const EventLayout = ({ children }: { children: ReactNode }) => {
   return (

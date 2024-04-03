@@ -2,22 +2,14 @@ import EventSheet from "@/app/components/EventSheet";
 import { Progress } from "@/components/ui/progress";
 import { useProgress } from "@/hooks/useProgress";
 import { useVerticleProgress } from "@/hooks/useVerticlePorgess";
-import { EventActivityType } from "@/types";
-import {
-  Bell,
-  BellDot,
-  BellDotIcon,
-  ChevronRight,
-  ChevronsRightIcon,
-  CircleDot,
-  Clock,
-  ClockIcon,
-} from "lucide-react";
-import React from "react";
+import { Activity } from "@prisma/client";
+import { CircleDot, ClockIcon, Pause, PauseIcon } from "lucide-react";
 
-const EventCard = ({ item }: { item: EventActivityType }) => {
+const EventCard = ({ item }: { item: Activity }) => {
   const progressWidthClass = useProgress();
-  const verticleProgressWidthClass = useVerticleProgress();
+
+  const eventLife = item.active;
+  //  && !item.isPaused;
 
   return (
     <>
@@ -26,19 +18,29 @@ const EventCard = ({ item }: { item: EventActivityType }) => {
           <div className=" flex-col justify-between flex w-full ">
             <div className="">
               <h1
-                className={`line-clamp-1 ${!item.active && "text-neutral-400"}`}
+                className={`line-clamp-1 ${!eventLife && "text-neutral-400"}`}
               >
                 {item.title}
               </h1>
               <p className="text-neutral-400 text-sm">By: {item.host}</p>
             </div>
 
-            <div className={`pr-2 ${!item.active && "text-neutral-300 "}`}>
-              <h1 className="text-2xl md:text-4xl font-extrabold my-2">
+            <div className={`pr-2 ${!eventLife && "text-neutral-300 "}`}>
+              <h1 className="text-2xl md:text-4xl font-extrabold my-2 relative">
                 {item.currentTime}
+                {eventLife && item.isPaused && (
+                  <div className="absolute top-0 right-0 flex items-center">
+                    <PauseIcon className="text-yellow-500 heartbeat" />
+                  </div>
+                )}
               </h1>
-              {item.active ? (
-                <Progress value={50} className="w-full" />
+
+              {eventLife ? (
+                <Progress
+                  value={50}
+                  className={`w-full `}
+                  color={item.isPaused ? "paused" : "active"}
+                />
               ) : (
                 <Progress value={0} className="w-full" />
               )}
@@ -56,7 +58,7 @@ const EventCard = ({ item }: { item: EventActivityType }) => {
 
         <div
           className={`rounded-md  cursor-pointer col-span-9 pl-2 md:pl-4 ${
-            item.active && " relative border bg-white "
+            eventLife && " relative border bg-white "
           } overflow-hidden grid grid-cols-12 `}
         >
           {/* <div className="absolute right-1 md:right-2 top-0 md:top-2 bg-white rounded-full p-1 ">
@@ -64,7 +66,7 @@ const EventCard = ({ item }: { item: EventActivityType }) => {
             <Bell className="text-red-500 size-4 md:size-5" />
           </div> */}
 
-          {item.active && (
+          {eventLife && (
             <div
               className={`absolute bottom-0 left-0 bg-green-500 h-1 md:h-2 ${progressWidthClass}`}
             ></div>
@@ -78,7 +80,7 @@ const EventCard = ({ item }: { item: EventActivityType }) => {
             <div className="flex flex-col">
               <h1
                 className={`md:text-lg font-medium ${
-                  !item.active && "text-neutral-400"
+                  !eventLife && "text-neutral-400"
                 }`}
               >
                 {item.title}
@@ -93,7 +95,7 @@ const EventCard = ({ item }: { item: EventActivityType }) => {
 
               <h1
                 className={`${
-                  !item.active ? "text-neutral-400" : " text-neutral-800"
+                  !eventLife ? "text-neutral-400" : " text-neutral-800"
                 } md:text-sm text-[11px]`}
               >
                 By {item.host}
@@ -103,12 +105,12 @@ const EventCard = ({ item }: { item: EventActivityType }) => {
             <div className="flex flex-row items-center gap-2 md:flex">
               <ClockIcon
                 className={`hidden md:block md:size-5 ${
-                  !item.active ? "text-neutral-400" : " text-green-500"
+                  !eventLife ? "text-neutral-400" : " text-green-500"
                 }`}
               />
               <div
                 className={`flex flex-row gap-2 ${
-                  !item.active ? "text-neutral-400" : " text-neutral-800"
+                  !eventLife ? "text-neutral-400" : " text-neutral-800"
                 }`}
               >
                 <h1 className="text-[10px] md:text-xs line-clamp-1 ">
@@ -128,7 +130,7 @@ const EventCard = ({ item }: { item: EventActivityType }) => {
 
       <div
         className={`w-full flex-row items-center  md:hidden justify-between mb-6 ${
-          !item.active && "text-neutral-300"
+          !eventLife && "text-neutral-300"
         }`}
       >
         <h1 className="text-xl md:text-4xl font-extrabold text-end ">

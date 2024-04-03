@@ -11,8 +11,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ChevronsRightIcon } from "lucide-react";
 import PollQuestion from "./PollQuestion";
 import { EventActivityType } from "@/types";
+import { Activity } from "@prisma/client";
 
-const EventSheet = ({ event }: { event: EventActivityType }) => {
+const EventSheet = ({ event }: { event: Activity }) => {
   return (
     <div className="flex w-full justify-end  py-2 cursor-pointer ">
       <Sheet>
