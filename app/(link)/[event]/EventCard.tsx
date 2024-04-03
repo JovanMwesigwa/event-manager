@@ -1,4 +1,5 @@
 import EventSheet from "@/app/components/EventSheet";
+import Timer from "@/components/Timer";
 import { Progress } from "@/components/ui/progress";
 import { useProgress } from "@/hooks/useProgress";
 import { useVerticleProgress } from "@/hooks/useVerticlePorgess";
@@ -28,6 +29,7 @@ const EventCard = ({ item }: { item: Activity }) => {
             <div className={`pr-2 ${!eventLife && "text-neutral-300 "}`}>
               <h1 className="text-2xl md:text-4xl font-extrabold my-2 relative">
                 {item.currentTime}
+                {/* <Timer endTime={item.end} /> */}
                 {eventLife && item.isPaused && (
                   <div className="absolute top-0 right-0 flex items-center">
                     <PauseIcon className="text-yellow-500 heartbeat" />
