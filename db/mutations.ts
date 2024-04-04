@@ -1,4 +1,5 @@
 import prisma from "@/prisma/client";
+import { addTimer, pauseTimer } from "@/services/firebaseService";
 import { cache } from "react";
 
 export const startTheEvent = cache(async (eventId: number) => {
@@ -65,9 +66,11 @@ export const startTheEvent = cache(async (eventId: number) => {
 
   // If the active activity exists, then pause it
   if (activeActivity && activeActivity.activities.length > 0) {
+    const firstActivity = activeActivity.activities[0];
+
     await prisma.activity.update({
       where: {
-        id: activeActivity.activities[0].id,
+        id: firstActivity.id,
       },
       data: {
         active: true,
@@ -75,6 +78,10 @@ export const startTheEvent = cache(async (eventId: number) => {
         started: new Date(),
       },
     });
+
+    // This creates a timer in the firebase realtime database
+    await addTimer(firstActivity.id, Number(firstActivity.duration), false);
+
     return startedEvent;
   }
 
@@ -89,6 +96,13 @@ export const startTheEvent = cache(async (eventId: number) => {
       started: new Date(),
     },
   });
+
+  // This creates a timer in the firebase realtime database
+  await addTimer(
+    eventActivites.activities[0].id,
+    Number(eventActivites.activities[0].duration),
+    false
+  );
 
   return startedEvent;
 });
@@ -146,10 +160,13 @@ export const pauseTheEvent = cache(async (eventId: number) => {
         stopped: new Date(),
       },
     });
+
+    await pauseTimer(activeActivity.activities[0].id.toString(), true);
   }
 
   return pausedEvent;
 });
+
 export const stopTheEvent = cache(async (eventId: number) => {
   // First get the event
   const event = await prisma.event.findUnique({

@@ -11,6 +11,7 @@ export const upsertEvent = async (eventId: number) => {
 
 export const startEvent = async (eventId: number) => {
   const event = await startTheEvent(eventId);
+
   return event;
 };
 

@@ -2,6 +2,7 @@
 
 import { updateCurrentEventTime } from "@/db/mutations";
 import { getCurrentActivityTime } from "@/db/queries";
+import { addTimer } from "@/services/firebaseService";
 
 export const upsertActivityCurrentTime = async (activityId: number) => {
   const activityTime = await getCurrentActivityTime(activityId);
