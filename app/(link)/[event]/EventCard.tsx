@@ -3,16 +3,26 @@ import Timer from "@/components/Timer";
 import { useProgress } from "@/hooks/useProgress";
 import { Activity } from "@prisma/client";
 import { CircleDot, ClockIcon } from "lucide-react";
+import Image from "next/image";
+import { useEffect, useRef } from "react";
 
 const EventCard = ({ item }: { item: Activity }) => {
-  const progressWidthClass = useProgress();
-
   const eventLife = item.active;
   //  && !item.isPaused;
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (eventLife && cardRef.current) {
+      cardRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, [eventLife]);
 
   return (
     <>
-      <div className="grid md:grid-cols-12 min-h-[150px]   md:min-h-[200px] md:my-4 md:gap-6">
+      <div
+        ref={cardRef}
+        className="grid md:grid-cols-12 min-h-[150px]   md:min-h-[200px] md:my-4 md:gap-6"
+      >
         <div className="hidden md:flex flex-row col-span-3 justify-between ">
           <div className=" flex-col justify-between flex w-full ">
             <div className="">
@@ -29,6 +39,7 @@ const EventCard = ({ item }: { item: Activity }) => {
               paused={item.isPaused}
               durationInSeconds={Number(item.duration)}
               eventLife={eventLife}
+              currentTime={item.currentTime}
             />
           </div>
 
@@ -76,7 +87,17 @@ const EventCard = ({ item }: { item: Activity }) => {
             </div>
 
             <div className="flex flex-row items-center gap-2">
-              <div className="size-5 rounded-full bg-neutral-200"></div>
+              <div className="size-5 rounded-full bg-neutral-200 relative overflow-hidden">
+                {eventLife && (
+                  <Image
+                    src="https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=2,quality=75,width=960,height=480/event-covers/ba/32c7dea4-d373-4d62-abf7-70e2482187d1"
+                    alt={item.title}
+                    layout="fill"
+                    objectFit="cover"
+                    className="rounded-md"
+                  />
+                )}
+              </div>
 
               <h1
                 className={`${
@@ -106,7 +127,17 @@ const EventCard = ({ item }: { item: Activity }) => {
           </div>
 
           <div className="col-span-3 flex md:items-center  justify-end p-4 flex-col">
-            <div className=" size-14 md:size-28 bg-neutral-200 rounded-md"></div>
+            <div className=" size-14 md:size-28 bg-neutral-200 rounded-md relative">
+              {eventLife && (
+                <Image
+                  src="https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=2,quality=75,width=960,height=480/event-covers/ba/32c7dea4-d373-4d62-abf7-70e2482187d1"
+                  alt={item.title}
+                  layout="fill"
+                  objectFit="cover"
+                  className="rounded-md"
+                />
+              )}
+            </div>
 
             <EventSheet event={item} />
           </div>

@@ -1,8 +1,8 @@
+import ReactQueryProvider from "@/context/react-query-provider";
 import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
-import "./globals.css";
 import { Toaster } from "sonner";
-import ReactQueryProvider from "@/context/react-query-provider";
+import "./globals.css";
 
 const inter = Nunito({ subsets: ["latin"] });
 
