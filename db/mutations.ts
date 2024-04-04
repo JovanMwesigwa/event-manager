@@ -80,7 +80,11 @@ export const startTheEvent = cache(async (eventId: number) => {
     });
 
     // This creates a timer in the firebase realtime database
-    await addTimer(firstActivity.id, Number(firstActivity.duration), false);
+    await addTimer(
+      firstActivity.id.toString(),
+      Number(firstActivity.duration),
+      false
+    );
 
     return startedEvent;
   }
@@ -99,7 +103,7 @@ export const startTheEvent = cache(async (eventId: number) => {
 
   // This creates a timer in the firebase realtime database
   await addTimer(
-    eventActivites.activities[0].id,
+    eventActivites.activities[0].id.toString(),
     Number(eventActivites.activities[0].duration),
     false
   );

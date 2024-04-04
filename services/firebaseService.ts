@@ -1,12 +1,5 @@
-import { ref, set } from "firebase/database";
+import { get, ref, set, update } from "firebase/database";
 import database from "@/firebase/firebaseConfig"; // Import your configured database instance
-
-interface TimerData {
-  activityId: string;
-  startTime: number;
-  duration: number;
-  paused: boolean;
-}
 
 /**
  * Adds a timer document to Firebase Realtime Database and returns the reference.
@@ -16,15 +9,15 @@ interface TimerData {
  * @returns A promise resolving to the reference of the newly created timer.
  */
 export async function addTimer(
-  activityId: number,
+  activityId: string,
   duration: number,
   paused: boolean
 ): Promise<void> {
-  // Use the imported database instance
   return set(ref(database, "timers/" + activityId), {
     startTime: Date.now(),
     duration,
     paused,
+    pausedAt: null, // Initialize pausedAt as null when creating the timer
   });
 }
 
@@ -39,6 +32,33 @@ export async function pauseTimer(
   activityId: string,
   paused: boolean
 ): Promise<void> {
-  // Use the imported database instance
-  return set(ref(database, `timers/${activityId}/paused`), paused);
+  const timerRef = ref(database, `timers/${activityId}`);
+
+  if (paused) {
+    // Set the pausedAt time to the current timestamp when pausing
+    const now = Date.now();
+
+    return update(timerRef, {
+      paused: true,
+      pausedAt: now,
+    });
+  } else {
+    // Get the current timer data to calculate the new startTime based on pausedAt
+    const snapshot = await get(timerRef);
+    if (snapshot.exists()) {
+      const timer = snapshot.val();
+
+      if (timer.pausedAt) {
+        const pausedDuration = Date.now() - timer.pausedAt;
+        const newStartTime = timer.startTime + pausedDuration;
+
+        // When resuming, update startTime and clear pausedAt
+        return update(timerRef, {
+          paused: false,
+          startTime: newStartTime,
+          pausedAt: null,
+        });
+      }
+    }
+  }
 }

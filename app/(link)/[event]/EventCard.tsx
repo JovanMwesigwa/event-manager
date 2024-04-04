@@ -1,14 +1,16 @@
 import EventSheet from "@/app/components/EventSheet";
 import Timer from "@/components/Timer";
+import { Progress } from "@/components/ui/progress";
 import { useProgress } from "@/hooks/useProgress";
+import useTimer from "@/hooks/useTimer";
 import { Activity } from "@prisma/client";
 import { CircleDot, ClockIcon } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 
 const EventCard = ({ item }: { item: Activity }) => {
+  const { secondsRemaining, isLoading } = useTimer(item.id.toString());
   const eventLife = item.active;
-  //  && !item.isPaused;
   const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -16,6 +18,12 @@ const EventCard = ({ item }: { item: Activity }) => {
       cardRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
     }
   }, [eventLife]);
+
+  const durationInSeconds = Number(item.duration);
+  const progress =
+    !isLoading && durationInSeconds > 0
+      ? ((durationInSeconds - secondsRemaining) / durationInSeconds) * 100
+      : 0;
 
   return (
     <>
@@ -35,9 +43,9 @@ const EventCard = ({ item }: { item: Activity }) => {
             </div>
 
             <Timer
-              activityId={item.id}
+              activityId={item.id.toString()}
               paused={item.isPaused}
-              durationInSeconds={Number(item.duration)}
+              durationInSeconds={durationInSeconds}
               eventLife={eventLife}
               currentTime={item.currentTime}
             />
@@ -64,8 +72,14 @@ const EventCard = ({ item }: { item: Activity }) => {
 
           {eventLife && (
             <div
-              className={`absolute bottom-0 left-0 bg-green-500 h-1 md:h-2 w-1/2`}
-            ></div>
+              className={`absolute bottom-0 left-0 h-1 md:h-2 w-full overflow-hidden`}
+            >
+              <Progress
+                value={progress}
+                className="w-full rounded-none"
+                color={item.isPaused ? "paused" : "active"}
+              />
+            </div>
           )}
 
           <div className="col-span-9 flex flex-col justify-evenly">

@@ -1,29 +1,32 @@
-// useTimer hook (simplified version for illustration)
-
 import { useState, useEffect } from "react";
-import { getDatabase, ref, onValue } from "firebase/database";
+import { ref, onValue } from "firebase/database";
 import database from "@/firebase/firebaseConfig";
 
 interface TimerData {
   startTime: number;
   duration: number;
   paused: boolean;
+  pausedAt?: number;
 }
 
 const useTimer = (activityId: string) => {
   const [timerData, setTimerData] = useState<TimerData | null>(null);
-  const [secondsRemaining, setSecondsRemaining] = useState<number>(0);
+  const [elapsedTime, setElapsedTime] = useState<number>(0);
 
   useEffect(() => {
     const timerRef = ref(database, `timers/${activityId}`);
+
     const unsubscribe = onValue(timerRef, (snapshot) => {
       const data: TimerData | null = snapshot.val();
       setTimerData(data);
-      if (data && !data.paused) {
-        const elapsed = Math.floor(
-          (new Date().getTime() - data.startTime) / 1000
-        );
-        setSecondsRemaining(Math.max(data.duration - elapsed, 0));
+
+      if (data) {
+        const now = Date.now();
+        if (data.paused && data.pausedAt) {
+          setElapsedTime(data.pausedAt - data.startTime);
+        } else if (!data.paused) {
+          setElapsedTime(now - data.startTime);
+        }
       }
     });
 
@@ -31,17 +34,25 @@ const useTimer = (activityId: string) => {
   }, [activityId]);
 
   useEffect(() => {
-    if (timerData && !timerData.paused) {
-      const interval = setInterval(() => {
-        const elapsed = Math.floor(
-          (new Date().getTime() - timerData.startTime) / 1000
-        );
-        setSecondsRemaining(Math.max(timerData.duration - elapsed, 0));
-      }, 1000);
+    let interval: NodeJS.Timeout | null = null;
 
-      return () => clearInterval(interval);
+    if (timerData && !timerData.paused) {
+      interval = setInterval(() => {
+        setElapsedTime((prevElapsedTime) => prevElapsedTime + 1000);
+      }, 1000);
     }
+
+    return () => {
+      if (interval) {
+        clearInterval(interval);
+      }
+    };
   }, [timerData]);
+
+  // Calculate seconds remaining based on the elapsed time
+  const secondsRemaining = timerData
+    ? Math.max(timerData.duration - Math.floor(elapsedTime / 1000), 0)
+    : 0;
 
   // Convert seconds to hours, minutes, and seconds
   const formatTime = (totalSeconds: number) => {
@@ -53,7 +64,7 @@ const useTimer = (activityId: string) => {
       .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
   };
 
-  const formattedTime = timerData ? formatTime(secondsRemaining) : null;
+  const formattedTime = formatTime(secondsRemaining);
   const isLoading = !timerData;
 
   return { formattedTime, isLoading, secondsRemaining };
