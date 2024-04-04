@@ -5,7 +5,7 @@ import * as ProgressPrimitive from "@radix-ui/react-progress";
 
 interface ProgressProps
   extends React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root> {
-  color?: "primary" | "paused" | "active";
+  color?: "primary" | "paused" | "active" | "ended";
 }
 
 const Progress = React.forwardRef<
@@ -16,6 +16,7 @@ const Progress = React.forwardRef<
     primary: "bg-green-500",
     paused: "bg-yellow-500",
     active: "bg-green-500",
+    ended: "bg-red-500",
   }[color];
 
   return (

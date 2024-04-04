@@ -44,10 +44,20 @@ const Timer: React.FC<TimerProps> = ({
   const progress =
     ((durationInSeconds - secondsRemaining) / durationInSeconds) * 100;
 
+  // Determine if the timer is about to end
+  const threshold = Math.min(10, durationInSeconds * 0.3); // 10 seconds or 10% of total time, whichever is larger
+  const isEndingSoon =
+    secondsRemaining <= threshold &&
+    secondsRemaining > 0 &&
+    eventLife &&
+    !paused;
+
   return (
     <div className={`pr-2 ${!eventLife && "text-neutral-300 "}`}>
-      <h1 className="text-2xl md:text-4xl font-extrabold my-2 relative">
-        <div className="gap-4">
+      <h1 className="text-2xl md:text-5xl font-extrabold my-2 relative">
+        <div
+          className={`gap-4 ${isEndingSoon ? "text-red-500 minheartbeat" : ""}`}
+        >
           <div>
             {hours < 10 ? `0${hours}` : hours}:
             {minutes < 10 ? `0${minutes}` : minutes}:
@@ -55,8 +65,8 @@ const Timer: React.FC<TimerProps> = ({
           </div>
         </div>
         {eventLife && paused && (
-          <div className="absolute top-0 right-0 flex items-center">
-            <PauseIcon className="text-yellow-500 heartbeat" />
+          <div className="absolute top-0 right-0 b bg-yellow-500 rounded-md p-1 flex items-center">
+            <PauseIcon className="text-white heartbeat size-5" />
           </div>
         )}
       </h1>
@@ -64,8 +74,8 @@ const Timer: React.FC<TimerProps> = ({
       {eventLife ? (
         <Progress
           value={progress}
-          className={`w-full`}
-          color={paused ? "paused" : "active"}
+          className="w-full"
+          color={isEndingSoon ? "ended" : paused ? "paused" : "active"}
         />
       ) : (
         <Progress value={0} className="w-full" />

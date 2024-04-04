@@ -1,9 +1,8 @@
 import EventSheet from "@/app/components/EventSheet";
 import Timer from "@/components/Timer";
-import { Progress } from "@/components/ui/progress";
 import { useProgress } from "@/hooks/useProgress";
 import { Activity } from "@prisma/client";
-import { CircleDot, ClockIcon, PauseIcon } from "lucide-react";
+import { CircleDot, ClockIcon } from "lucide-react";
 
 const EventCard = ({ item }: { item: Activity }) => {
   const progressWidthClass = useProgress();
@@ -54,7 +53,7 @@ const EventCard = ({ item }: { item: Activity }) => {
 
           {eventLife && (
             <div
-              className={`absolute bottom-0 left-0 bg-green-500 h-1 md:h-2 ${progressWidthClass}`}
+              className={`absolute bottom-0 left-0 bg-green-500 h-1 md:h-2 w-1/2`}
             ></div>
           )}
 

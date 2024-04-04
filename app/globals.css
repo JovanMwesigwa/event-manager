@@ -96,3 +96,7 @@
 .heartbeat {
   animation: heartbeat 2s ease-in-out infinite;
 }
+
+.minheartbeat {
+  animation: heartbeat 5s ease-in-out;
+}
