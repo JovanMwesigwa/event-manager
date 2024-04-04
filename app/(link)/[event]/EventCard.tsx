@@ -2,9 +2,8 @@ import EventSheet from "@/app/components/EventSheet";
 import Timer from "@/components/Timer";
 import { Progress } from "@/components/ui/progress";
 import { useProgress } from "@/hooks/useProgress";
-import { useVerticleProgress } from "@/hooks/useVerticlePorgess";
 import { Activity } from "@prisma/client";
-import { CircleDot, ClockIcon, Pause, PauseIcon } from "lucide-react";
+import { CircleDot, ClockIcon, PauseIcon } from "lucide-react";
 
 const EventCard = ({ item }: { item: Activity }) => {
   const progressWidthClass = useProgress();
@@ -26,27 +25,12 @@ const EventCard = ({ item }: { item: Activity }) => {
               <p className="text-neutral-400 text-sm">By: {item.host}</p>
             </div>
 
-            <div className={`pr-2 ${!eventLife && "text-neutral-300 "}`}>
-              <h1 className="text-2xl md:text-4xl font-extrabold my-2 relative">
-                {item.currentTime}
-                {/* <Timer endTime={item.end} /> */}
-                {eventLife && item.isPaused && (
-                  <div className="absolute top-0 right-0 flex items-center">
-                    <PauseIcon className="text-yellow-500 heartbeat" />
-                  </div>
-                )}
-              </h1>
-
-              {eventLife ? (
-                <Progress
-                  value={50}
-                  className={`w-full `}
-                  color={item.isPaused ? "paused" : "active"}
-                />
-              ) : (
-                <Progress value={0} className="w-full" />
-              )}
-            </div>
+            <Timer
+              activityId={item.id}
+              paused={item.isPaused}
+              durationInSeconds={Number(item.duration)}
+              eventLife={eventLife}
+            />
           </div>
 
           {/* Icons */}
@@ -76,7 +60,7 @@ const EventCard = ({ item }: { item: Activity }) => {
 
           <div className="col-span-9 flex flex-col justify-evenly">
             <h1 className={`text-neutral-400 text-xs md:text-sm`}>
-              {item.start}
+              {/* {item.started} */}
             </h1>
 
             <div className="flex flex-col">
@@ -116,7 +100,7 @@ const EventCard = ({ item }: { item: Activity }) => {
                 }`}
               >
                 <h1 className="text-[10px] md:text-xs line-clamp-1 ">
-                  Starts {item.start}, ends {item.end}, runs for {item.duration}
+                  Starts 05:00 AM, ends 12:00 PM, runs for {item.duration}
                 </h1>
               </div>
             </div>

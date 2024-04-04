@@ -16,12 +16,12 @@ const EventTitle = ({ event }: { event: Event }) => {
             </span>
           </div>
         )}
-        <ActionButtons
+        {/* <ActionButtons
           eventId={event.id}
           active={event.active}
           paused={event.isPaused}
           stopped={event.isReset}
-        />
+        /> */}
       </div>
     </div>
   );

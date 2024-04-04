@@ -1,9 +1,16 @@
 "use server";
 
-import { getActivity } from "@/db/queries";
+import { updateCurrentEventTime } from "@/db/mutations";
+import { getCurrentActivityTime } from "@/db/queries";
 
-export const upsertActivity = async (activityId: number) => {
-  const activity = await getActivity(activityId);
+export const upsertActivityCurrentTime = async (activityId: number) => {
+  const activityTime = await getCurrentActivityTime(activityId);
 
-  return activity;
+  return activityTime;
+};
+
+export const upsertUpdateActivityCurrentTime = async (activityId: number) => {
+  const updatedTime = await updateCurrentEventTime(activityId);
+
+  return updatedTime;
 };

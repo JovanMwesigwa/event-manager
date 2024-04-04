@@ -72,6 +72,7 @@ export const startTheEvent = cache(async (eventId: number) => {
       data: {
         active: true,
         isPaused: false,
+        started: new Date(),
       },
     });
     return startedEvent;
@@ -85,6 +86,7 @@ export const startTheEvent = cache(async (eventId: number) => {
     data: {
       active: true,
       isPaused: false,
+      started: new Date(),
     },
   });
 
@@ -141,6 +143,7 @@ export const pauseTheEvent = cache(async (eventId: number) => {
       },
       data: {
         isPaused: true,
+        stopped: new Date(),
       },
     });
   }
@@ -185,11 +188,12 @@ export const stopTheEvent = cache(async (eventId: number) => {
     data: {
       active: false,
       isPaused: true,
+      stopped: new Date(),
     },
   });
 
   // Optional: Fetch the updated event with activities for verification/logging
-  const updatedEventWithActivities = await prisma.event.findUnique({
+  await prisma.event.findUnique({
     where: {
       id: eventId,
     },
@@ -200,3 +204,48 @@ export const stopTheEvent = cache(async (eventId: number) => {
 
   return stoppedEvent;
 });
+
+export const updateCurrentEventTime = async (activityId: number) => {
+  const event = await prisma.activity.findUnique({
+    where: {
+      id: activityId,
+    },
+  });
+
+  if (!event) {
+    throw new Error("Activity not found");
+  }
+
+  // If the activity is paused, reset, not active, or done, do not update the current time
+  if (event.isPaused || event.isReset || !event.active || event.done) {
+    return event.currentTime;
+  }
+
+  const startTime = new Date();
+  const currentTime = new Date();
+  const elapsed = currentTime.getTime() - startTime.getTime();
+
+  // Convert elapsed time in milliseconds to a time string format (HH:MM:SS)
+  const hours = Math.floor(elapsed / (1000 * 60 * 60))
+    .toString()
+    .padStart(2, "0");
+  const minutes = Math.floor((elapsed / (1000 * 60)) % 60)
+    .toString()
+    .padStart(2, "0");
+  const seconds = Math.floor((elapsed / 1000) % 60)
+    .toString()
+    .padStart(2, "0");
+  const newCurrentTime = `${hours}:${minutes}:${seconds}`;
+
+  // Update the activity with the new current time
+  const updatedEvent = await prisma.activity.update({
+    where: {
+      id: activityId,
+    },
+    data: {
+      currentTime: newCurrentTime,
+    },
+  });
+
+  return updatedEvent.currentTime;
+};

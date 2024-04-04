@@ -30,20 +30,20 @@ model Event {
 }
 
 model Activity {
-  id          Int      @id @default(autoincrement())
-  title       String   @db.VarChar(255)
+  id          Int       @id @default(autoincrement())
+  title       String    @db.VarChar(255)
   description String?
   host        String
-  start       String
-  end         String
+  started     DateTime?
+  stopped     DateTime?
   duration    String
   image       String?
-  active      Boolean  @default(false)
-  isPaused    Boolean  @default(false)
-  isReset     Boolean  @default(false)
+  active      Boolean   @default(false)
+  isPaused    Boolean   @default(true)
+  isReset     Boolean   @default(false)
   currentTime String
-  done        Boolean  @default(false)
-  createdAt   DateTime @default(now())
+  done        Boolean   @default(false)
+  createdAt   DateTime  @default(now())
   eventId     Int
-  event       Event    @relation(fields: [eventId], references: [id])
+  event       Event     @relation(fields: [eventId], references: [id])
 }
