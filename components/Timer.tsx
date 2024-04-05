@@ -1,9 +1,11 @@
 "use client";
 
-import React from "react";
-import useTimer from "@/hooks/useTimer"; // Adjust the path as necessary
+import React, { useEffect, useState } from "react";
+import useTimer from "@/hooks/useTimer";
 import { PauseIcon } from "lucide-react";
 import { Progress } from "./ui/progress";
+import { jumpToNextActivity } from "@/actions/activity"; // Import the function you want to call
+import { useEventActions } from "@/hooks/useEventActions";
 
 interface TimerProps {
   activityId: string;
@@ -11,6 +13,8 @@ interface TimerProps {
   durationInSeconds: number;
   eventLife: boolean;
   currentTime: string;
+  eventId: number; // Assume you have an eventId to use in the jumpToNextActivity function
+  isEndingSoon: boolean;
 }
 
 const Timer: React.FC<TimerProps> = ({
@@ -19,20 +23,41 @@ const Timer: React.FC<TimerProps> = ({
   durationInSeconds,
   eventLife,
   currentTime,
+  eventId,
+  isEndingSoon,
 }) => {
   const { formattedTime, isLoading, secondsRemaining } = useTimer(activityId);
 
-  // Calculate the progress percentage
+  const { jumpToNextActivityMutation } = useEventActions({ eventId, paused });
+
+  // State to track if the initial load is complete
+  const [initialized, setInitialized] = useState(false);
+
+  useEffect(() => {
+    if (!initialized) {
+      setInitialized(true);
+      return;
+    }
+
+    const handler = setTimeout(() => {
+      if (
+        secondsRemaining === 0 &&
+        !paused &&
+        eventLife &&
+        !jumpToNextActivityMutation.isPending &&
+        !jumpToNextActivityMutation.isError
+      ) {
+        jumpToNextActivityMutation.mutate();
+      }
+    }, 1000); // Delay the execution by 1 second to prevent immediate jumping
+
+    return () => clearTimeout(handler);
+  }, [secondsRemaining, eventId, paused, eventLife, initialized]);
+
   const progress =
     eventLife && !isLoading && durationInSeconds > 0
       ? ((durationInSeconds - secondsRemaining) / durationInSeconds) * 100
       : 0;
-
-  const isEndingSoon =
-    !isLoading &&
-    secondsRemaining <= durationInSeconds * 0.3 &&
-    eventLife &&
-    !paused;
 
   return (
     <div className={`pr-2 ${!eventLife && "text-neutral-300"}`}>

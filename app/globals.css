@@ -98,5 +98,6 @@
 }
 
 .minheartbeat {
-  animation: heartbeat 5s ease-in-out;
+  /* make a hearbeat that vibrate very fast for like 3 seconds and stops*/
+  animation: heartbeat 0.4s ease-in-out 4;
 }

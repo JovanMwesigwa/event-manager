@@ -383,8 +383,13 @@ export const activateNextActivity = async (eventId: number) => {
   });
 
   if (!activeActivity || activeActivity.activities.length < 0) {
-    throw new Error("No active activity found");
+    // throw new Error("No active activity found");
+    return { error: "No active activity found" };
   }
+
+  const currentTimer = await getTimerData(
+    activeActivity.activities[0].id.toString()
+  );
 
   // Get the next activity
   const nextActivity = await prisma.activity.findFirst({
@@ -400,7 +405,9 @@ export const activateNextActivity = async (eventId: number) => {
   });
 
   if (!nextActivity) {
-    throw new Error("No next activity found");
+    // throw new Error("No next activity found");
+    console.log("No next activity found");
+    return { error: "No next activity found" };
   }
 
   // Pause the active activity

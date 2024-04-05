@@ -25,6 +25,12 @@ const EventCard = ({ item }: { item: Activity }) => {
       ? ((durationInSeconds - secondsRemaining) / durationInSeconds) * 100
       : 0;
 
+  const isEndingSoon =
+    !isLoading &&
+    secondsRemaining <= durationInSeconds * 0.3 &&
+    eventLife &&
+    !item.isPaused;
+
   return (
     <>
       <div
@@ -48,6 +54,8 @@ const EventCard = ({ item }: { item: Activity }) => {
               durationInSeconds={durationInSeconds}
               eventLife={eventLife}
               currentTime={item.currentTime}
+              eventId={item.eventId}
+              isEndingSoon={isEndingSoon}
             />
           </div>
 
@@ -79,7 +87,10 @@ const EventCard = ({ item }: { item: Activity }) => {
               <Progress
                 value={progress}
                 className="w-full rounded-none"
-                color={item.isPaused ? "paused" : "active"}
+                // color={item.isPaused ? "paused" : "active"}
+                color={
+                  isEndingSoon ? "ended" : item.isPaused ? "paused" : "active"
+                }
               />
             </div>
           )}
@@ -175,6 +186,8 @@ const EventCard = ({ item }: { item: Activity }) => {
             durationInSeconds={durationInSeconds}
             eventLife={eventLife}
             currentTime={item.currentTime}
+            eventId={item.eventId}
+            isEndingSoon={isEndingSoon}
           />
         </div>
       </div>
