@@ -3,6 +3,7 @@
 import { useMutation, QueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { pauseEvent, startEvent, stopEvent } from "@/actions/event";
+import { jumpToNextActivity } from "@/actions/activity";
 
 const queryClient = new QueryClient();
 
@@ -49,6 +50,19 @@ export function useEventActions({ eventId, paused }: UseEventActionsProps) {
     },
   });
 
+  const jumpToNextActivityMutation = useMutation({
+    mutationFn: async () => {
+      // Jump to the next activity
+      await jumpToNextActivity(eventId);
+    },
+    onError: () => {
+      toast("Failed to jump to the next activity");
+    },
+    onSettled: async () => {
+      return await queryClient.invalidateQueries();
+    },
+  });
+
   const stopMutation = useMutation({
     mutationFn: async () => {
       await stopEvent(eventId);
@@ -62,5 +76,10 @@ export function useEventActions({ eventId, paused }: UseEventActionsProps) {
     },
   });
 
-  return { startMutation, pauseMutation, stopMutation };
+  return {
+    startMutation,
+    pauseMutation,
+    stopMutation,
+    jumpToNextActivityMutation,
+  };
 }

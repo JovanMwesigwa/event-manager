@@ -2,7 +2,14 @@
 
 import { Button } from "@/components/ui/button";
 import { useEventActions } from "@/hooks/useEventActions";
-import { Loader, PauseIcon, PlayIcon, StopCircleIcon } from "lucide-react";
+import {
+  Loader,
+  PauseIcon,
+  PlayIcon,
+  Redo,
+  Redo2,
+  StopCircleIcon,
+} from "lucide-react";
 
 const ActionButtons = ({
   active,
@@ -15,7 +22,12 @@ const ActionButtons = ({
   stopped: boolean;
   eventId: number;
 }) => {
-  const { startMutation, pauseMutation, stopMutation } = useEventActions({
+  const {
+    startMutation,
+    pauseMutation,
+    stopMutation,
+    jumpToNextActivityMutation,
+  } = useEventActions({
     eventId,
     paused,
   });
@@ -54,6 +66,15 @@ const ActionButtons = ({
           )}
         </Button>
       )}
+
+      <Button
+        disabled={jumpToNextActivityMutation.isPending}
+        onClick={() => jumpToNextActivityMutation.mutate()}
+        size="sm"
+        className="bg-blue-500 text-white"
+      >
+        <Redo size={18} />
+      </Button>
 
       <Button
         disabled={stopMutation.isPending}

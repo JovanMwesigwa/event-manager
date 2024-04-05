@@ -1,8 +1,11 @@
 "use server";
 
-import { jumpToActivity, updateCurrentEventTime } from "@/db/mutations";
+import {
+  activateNextActivity,
+  jumpToActivity,
+  updateCurrentEventTime,
+} from "@/db/mutations";
 import { getCurrentActivityTime } from "@/db/queries";
-import { addTimer } from "@/services/firebaseService";
 
 export const upsertActivityCurrentTime = async (activityId: number) => {
   const activityTime = await getCurrentActivityTime(activityId);
@@ -18,4 +21,10 @@ export const upsertUpdateActivityCurrentTime = async (activityId: number) => {
 
 export const activateActivity = async (activityId: number, eventId: number) => {
   await jumpToActivity(activityId, eventId);
+};
+
+export const jumpToNextActivity = async (eventId: number) => {
+  const activity = await activateNextActivity(eventId);
+
+  return activity;
 };

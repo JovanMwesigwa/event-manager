@@ -354,3 +354,86 @@ export const jumpToActivity = async (activityId: number, eventId: number) => {
   // add a timer for the activity
   await addTimer(activityId.toString(), Number(activity.duration), false);
 };
+
+export const activateNextActivity = async (eventId: number) => {
+  // Get the event
+  const event = await prisma.event.findUnique({
+    where: {
+      id: eventId,
+    },
+  });
+
+  if (!event) {
+    throw new Error("Event not found");
+  }
+
+  // Get the active activity
+  const activeActivity = await prisma.event.findUnique({
+    where: {
+      id: eventId,
+    },
+    include: {
+      activities: {
+        where: {
+          active: true,
+          isPaused: false,
+        },
+      },
+    },
+  });
+
+  if (!activeActivity || activeActivity.activities.length < 0) {
+    throw new Error("No active activity found");
+  }
+
+  // Get the next activity
+  const nextActivity = await prisma.activity.findFirst({
+    where: {
+      eventId: eventId,
+      id: {
+        gt: activeActivity.activities[0].id,
+      },
+    },
+    orderBy: {
+      id: "asc",
+    },
+  });
+
+  if (!nextActivity) {
+    throw new Error("No next activity found");
+  }
+
+  // Pause the active activity
+  await prisma.activity.update({
+    where: {
+      id: activeActivity.activities[0].id,
+    },
+    data: {
+      active: false,
+      isPaused: true,
+      stopped: new Date(),
+    },
+  });
+
+  // Pause the timer for the active activity
+  await pauseTimer(activeActivity.activities[0].id.toString(), true);
+
+  // Start the next activity
+  await prisma.activity.update({
+    where: {
+      id: nextActivity.id,
+    },
+    data: {
+      active: true,
+      isPaused: false,
+      started: new Date(),
+    },
+  });
+
+  // Add a timer for the next activity
+  await addTimer(
+    nextActivity.id.toString(),
+    Number(nextActivity.duration),
+    false
+  );
+};

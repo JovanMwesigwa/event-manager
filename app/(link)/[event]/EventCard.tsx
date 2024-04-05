@@ -65,10 +65,12 @@ const EventCard = ({ item }: { item: Activity }) => {
             eventLife && " relative border bg-white "
           } overflow-hidden grid grid-cols-12 `}
         >
-          {/* <div className="absolute right-1 md:right-2 top-0 md:top-2 bg-white rounded-full p-1 ">
-            <div className="size-1 md:block md:size-2 bg-red-500 rounded-full right-1 bottom-2 absolute" />
-            <Bell className="text-red-500 size-4 md:size-5" />
-          </div> */}
+          {/* 
+            <div className="absolute right-1 md:right-2 top-0 md:top-2 bg-white rounded-full p-1 ">
+              <div className="size-1 md:block md:size-2 bg-red-500 rounded-full right-1 bottom-2 absolute" />
+              <Bell className="text-red-500 size-4 md:size-5" />
+            </div> 
+          */}
 
           {eventLife && (
             <div
@@ -143,7 +145,7 @@ const EventCard = ({ item }: { item: Activity }) => {
           <div className="col-span-3 flex md:items-center  justify-end p-4 flex-col">
             <CardButtons eventId={item.eventId} activityId={item.id} />
 
-            <div className=" size-14 md:size-28 bg-neutral-200 rounded-md relative">
+            <div className=" size-24 md:size-28 bg-neutral-200 rounded-md relative">
               {eventLife && (
                 <Image
                   src="https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=2,quality=75,width=960,height=480/event-covers/ba/32c7dea4-d373-4d62-abf7-70e2482187d1"
