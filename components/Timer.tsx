@@ -63,11 +63,11 @@ const Timer: React.FC<TimerProps> = ({
       {eventLife ? (
         <Progress
           value={progress}
-          className="w-full"
+          className="w-full hidden md:block"
           color={isEndingSoon ? "ended" : paused ? "paused" : "active"}
         />
       ) : (
-        <Progress value={0} className="w-full" />
+        <Progress value={0} className="w-full hidden md:block" />
       )}
     </div>
   );

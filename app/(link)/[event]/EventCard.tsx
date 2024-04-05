@@ -165,9 +165,16 @@ const EventCard = ({ item }: { item: Activity }) => {
           !eventLife && "text-neutral-300"
         }`}
       >
-        <h1 className="text-xl md:text-4xl font-extrabold text-end ">
-          - {item.currentTime}
-        </h1>
+        <div className="flex flex-1"></div>
+        <div className="">
+          <Timer
+            activityId={item.id.toString()}
+            paused={item.isPaused}
+            durationInSeconds={durationInSeconds}
+            eventLife={eventLife}
+            currentTime={item.currentTime}
+          />
+        </div>
       </div>
     </>
   );
