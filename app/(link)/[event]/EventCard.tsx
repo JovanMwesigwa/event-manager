@@ -4,9 +4,12 @@ import { Progress } from "@/components/ui/progress";
 import useTimer from "@/hooks/useTimer";
 import { Activity } from "@prisma/client";
 import { CircleDot, ClockIcon } from "lucide-react";
+import { FaPlay, FaStop } from "react-icons/fa";
+import { MdSkipNext } from "react-icons/md";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 import CardButtons from "./CardButtons";
+import { Button } from "@/components/ui/button";
 
 const EventCard = ({ item }: { item: Activity }) => {
   const { secondsRemaining, isLoading } = useTimer(item.id.toString());
@@ -37,15 +40,30 @@ const EventCard = ({ item }: { item: Activity }) => {
         ref={cardRef}
         className="grid md:grid-cols-12 min-h-[150px]  md:min-h-[200px] md:my-4 md:gap-6"
       >
+        {/* Left Side */}
         <div className="hidden md:flex flex-row col-span-3 justify-between ">
-          <div className=" flex-col justify-between flex w-full ">
-            <div className="">
+          <div className=" flex-col justify-between flex w-full  ">
+            <div className="flex flex-1 flex-col">
               <h1
                 className={`line-clamp-1 ${!eventLife && "text-neutral-400"}`}
               >
                 {item.title}
               </h1>
               <p className="text-neutral-400 text-sm">By: {item.host}</p>
+            </div>
+
+            <div className="bg-yellow-h-full w-full flex flex-1 flex-col">
+              <div className="flex flex-row items-center w-full gap-x-3 h-full justify-between">
+                <Button variant="ghost" className="border w-full">
+                  <FaStop size={13} />
+                </Button>
+                <Button variant="ghost" className="border w-full">
+                  <FaPlay size={12} />
+                </Button>
+                <Button variant="ghost" className="border w-full">
+                  <MdSkipNext size={25} />
+                </Button>
+              </div>
             </div>
 
             <Timer
@@ -68,18 +86,12 @@ const EventCard = ({ item }: { item: Activity }) => {
           </div>
         </div>
 
+        {/* Right side */}
         <div
           className={`rounded-md  col-span-9 pl-2 md:pl-4 ${
             eventLife && " relative border bg-white "
           } overflow-hidden grid grid-cols-12 `}
         >
-          {/* 
-            <div className="absolute right-1 md:right-2 top-0 md:top-2 bg-white rounded-full p-1 ">
-              <div className="size-1 md:block md:size-2 bg-red-500 rounded-full right-1 bottom-2 absolute" />
-              <Bell className="text-red-500 size-4 md:size-5" />
-            </div> 
-          */}
-
           {eventLife && (
             <div
               className={`absolute bottom-0 left-0 h-1 md:h-2 w-full overflow-hidden`}
