@@ -282,10 +282,10 @@ export const jumpToActivity = async (activityId: number, eventId: number) => {
     throw new Error("Activity not found");
   }
 
-  // Check if the activity is already done
-  if (activity.done) {
-    throw new Error("Activity is already done");
-  }
+  // // Check if the activity is already done
+  // if (activity.done) {
+  //   throw new Error("Activity is already done");
+  // }
 
   // Check if the activity is paused
   if (!activity.isPaused) {

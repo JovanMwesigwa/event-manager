@@ -28,31 +28,31 @@ const Timer: React.FC<TimerProps> = ({
 }) => {
   const { formattedTime, isLoading, secondsRemaining } = useTimer(activityId);
 
-  const { jumpToNextActivityMutation } = useEventActions({ eventId, paused });
+  // const { jumpToNextActivityMutation } = useEventActions({ eventId, paused });
 
-  // State to track if the initial load is complete
-  const [initialized, setInitialized] = useState(false);
+  // // State to track if the initial load is complete
+  // const [initialized, setInitialized] = useState(false);
 
-  useEffect(() => {
-    if (!initialized) {
-      setInitialized(true);
-      return;
-    }
+  // useEffect(() => {
+  //   if (!initialized) {
+  //     setInitialized(true);
+  //     return;
+  //   }
 
-    const handler = setTimeout(() => {
-      if (
-        secondsRemaining === 0 &&
-        !paused &&
-        eventLife &&
-        !jumpToNextActivityMutation.isPending &&
-        !jumpToNextActivityMutation.isError
-      ) {
-        jumpToNextActivityMutation.mutate();
-      }
-    }, 1000); // Delay the execution by 1 second to prevent immediate jumping
+  //   const handler = setTimeout(() => {
+  //     if (
+  //       secondsRemaining === 0 &&
+  //       !paused &&
+  //       eventLife &&
+  //       !jumpToNextActivityMutation.isPending &&
+  //       !jumpToNextActivityMutation.isError
+  //     ) {
+  //       jumpToNextActivityMutation.mutate();
+  //     }
+  //   }, 1000); // Delay the execution by 1 second to prevent immediate jumping
 
-    return () => clearTimeout(handler);
-  }, [secondsRemaining, eventId, paused, eventLife, initialized]);
+  //   return () => clearTimeout(handler);
+  // }, [secondsRemaining, eventId, paused, eventLife, initialized]);
 
   const progress =
     eventLife && !isLoading && durationInSeconds > 0
