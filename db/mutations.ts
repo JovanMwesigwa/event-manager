@@ -271,10 +271,7 @@ export const updateCurrentEventTime = async (activityId: number) => {
   return updatedEvent.currentTime;
 };
 
-export const jumpToActivity = async (
-  activityId: number,
-  currentActiveActivity: number | null
-) => {
+export const jumpToActivity = async (activityId: number, eventId: number) => {
   const activity = await prisma.activity.findUnique({
     where: {
       id: activityId,
@@ -300,23 +297,36 @@ export const jumpToActivity = async (
     throw new Error("Activity is already active");
   }
 
-  // Check if the activity is already the active activity
-  if (currentActiveActivity) {
-    // get the current active activity and stop it
-    const currentActivity = await prisma.activity.findUnique({
-      where: {
-        id: currentActiveActivity,
+  // Get the event
+  const event = await prisma.event.findUnique({
+    where: {
+      id: eventId,
+    },
+  });
+
+  if (!event) {
+    throw new Error("Event not found");
+  }
+
+  // Get the current active activity from the activities[] in the event and pause it
+  const activeActivity = await prisma.event.findUnique({
+    where: {
+      id: eventId,
+    },
+    include: {
+      activities: {
+        where: {
+          active: true,
+          isPaused: false,
+        },
       },
-    });
+    },
+  });
 
-    if (!currentActivity) {
-      throw new Error("Current active activity not found");
-    }
-
-    // Stop the current active activity
+  if (activeActivity && activeActivity.activities.length > 0) {
     await prisma.activity.update({
       where: {
-        id: currentActiveActivity,
+        id: activeActivity.activities[0].id,
       },
       data: {
         active: false,
@@ -325,8 +335,8 @@ export const jumpToActivity = async (
       },
     });
 
-    // Pause the timer for the current active activity
-    await pauseTimer(currentActiveActivity.toString(), true);
+    // Pause the timer for the active activity
+    await pauseTimer(activeActivity.activities[0].id.toString(), true);
   }
 
   // Start the activity

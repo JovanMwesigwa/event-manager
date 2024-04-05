@@ -3,16 +3,17 @@ import { PlayIcon } from "lucide-react";
 import React from "react";
 
 const CardButtons = ({
-  activeActivityId,
+  eventId,
   activityId,
 }: {
   activityId: number;
-  activeActivityId: number | null;
+  eventId: number;
 }) => {
   const { jumpToActivityMutation } = useJumpToActivity({
     activityId,
-    activeActivityId,
+    eventId,
   });
+
   return (
     <div className="w-full flex flex-row items-center justify-end">
       <div

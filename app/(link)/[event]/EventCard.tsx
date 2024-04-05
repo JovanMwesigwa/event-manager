@@ -1,10 +1,9 @@
 import EventSheet from "@/app/components/EventSheet";
 import Timer from "@/components/Timer";
 import { Progress } from "@/components/ui/progress";
-import { useProgress } from "@/hooks/useProgress";
 import useTimer from "@/hooks/useTimer";
 import { Activity } from "@prisma/client";
-import { CircleDot, ClockIcon, Play, PlayIcon } from "lucide-react";
+import { CircleDot, ClockIcon } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 import CardButtons from "./CardButtons";
@@ -142,7 +141,7 @@ const EventCard = ({ item }: { item: Activity }) => {
           </div>
 
           <div className="col-span-3 flex md:items-center  justify-end p-4 flex-col">
-            <CardButtons activeActivityId={1} activityId={item.id} />
+            <CardButtons eventId={item.eventId} activityId={item.id} />
 
             <div className=" size-14 md:size-28 bg-neutral-200 rounded-md relative">
               {eventLife && (

@@ -20,6 +20,7 @@ export function useEventActions({ eventId, paused }: UseEventActionsProps) {
       }
 
       await startEvent(eventId);
+
       toast("Event has been started");
     },
     onError: () => {

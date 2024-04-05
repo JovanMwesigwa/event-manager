@@ -16,9 +16,6 @@ export const upsertUpdateActivityCurrentTime = async (activityId: number) => {
   return updatedTime;
 };
 
-export const activateActivity = async (
-  activityId: number,
-  activeActivityId: number | null
-) => {
-  await jumpToActivity(activityId, activeActivityId);
+export const activateActivity = async (activityId: number, eventId: number) => {
+  await jumpToActivity(activityId, eventId);
 };

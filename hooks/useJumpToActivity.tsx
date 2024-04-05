@@ -9,14 +9,14 @@ const queryClient = new QueryClient();
 
 const useJumpToActivity = ({
   activityId,
-  activeActivityId,
+  eventId,
 }: {
   activityId: number;
-  activeActivityId: number | null;
+  eventId: number;
 }) => {
   const jumpToActivityMutation = useMutation({
     mutationFn: async () => {
-      await activateActivity(activityId, activeActivityId);
+      await activateActivity(activityId, eventId);
     },
     onError: () => {
       //   toast("Failed to start the event");
