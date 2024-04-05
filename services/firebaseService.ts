@@ -62,3 +62,14 @@ export async function pauseTimer(
     }
   }
 }
+
+// get timer data from the Realtime Database.
+/**
+ * Retrieves timer data for a specific activity from Firebase Realtime Database.
+ * @param activityId The ID of the activity for which the timer data is retrieved.
+ * @returns A promise resolving to the timer data.
+ */
+export async function getTimerData(activityId: string): Promise<any> {
+  const snapshot = await get(ref(database, `timers/${activityId}`));
+  return snapshot.val();
+}

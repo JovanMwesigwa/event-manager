@@ -4,9 +4,10 @@ import { Progress } from "@/components/ui/progress";
 import { useProgress } from "@/hooks/useProgress";
 import useTimer from "@/hooks/useTimer";
 import { Activity } from "@prisma/client";
-import { CircleDot, ClockIcon } from "lucide-react";
+import { CircleDot, ClockIcon, Play, PlayIcon } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
+import CardButtons from "./CardButtons";
 
 const EventCard = ({ item }: { item: Activity }) => {
   const { secondsRemaining, isLoading } = useTimer(item.id.toString());
@@ -29,7 +30,7 @@ const EventCard = ({ item }: { item: Activity }) => {
     <>
       <div
         ref={cardRef}
-        className="grid md:grid-cols-12 min-h-[150px]   md:min-h-[200px] md:my-4 md:gap-6"
+        className="grid md:grid-cols-12 min-h-[150px]  md:min-h-[200px] md:my-4 md:gap-6"
       >
         <div className="hidden md:flex flex-row col-span-3 justify-between ">
           <div className=" flex-col justify-between flex w-full ">
@@ -61,7 +62,7 @@ const EventCard = ({ item }: { item: Activity }) => {
         </div>
 
         <div
-          className={`rounded-md  cursor-pointer col-span-9 pl-2 md:pl-4 ${
+          className={`rounded-md  col-span-9 pl-2 md:pl-4 ${
             eventLife && " relative border bg-white "
           } overflow-hidden grid grid-cols-12 `}
         >
@@ -141,6 +142,8 @@ const EventCard = ({ item }: { item: Activity }) => {
           </div>
 
           <div className="col-span-3 flex md:items-center  justify-end p-4 flex-col">
+            <CardButtons activeActivityId={1} activityId={item.id} />
+
             <div className=" size-14 md:size-28 bg-neutral-200 rounded-md relative">
               {eventLife && (
                 <Image

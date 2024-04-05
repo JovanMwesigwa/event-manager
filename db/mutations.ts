@@ -1,5 +1,5 @@
 import prisma from "@/prisma/client";
-import { addTimer, pauseTimer } from "@/services/firebaseService";
+import { addTimer, getTimerData, pauseTimer } from "@/services/firebaseService";
 import { cache } from "react";
 
 export const startTheEvent = cache(async (eventId: number) => {
@@ -269,4 +269,78 @@ export const updateCurrentEventTime = async (activityId: number) => {
   });
 
   return updatedEvent.currentTime;
+};
+
+export const jumpToActivity = async (
+  activityId: number,
+  currentActiveActivity: number | null
+) => {
+  const activity = await prisma.activity.findUnique({
+    where: {
+      id: activityId,
+    },
+  });
+
+  if (!activity) {
+    throw new Error("Activity not found");
+  }
+
+  // Check if the activity is already done
+  if (activity.done) {
+    throw new Error("Activity is already done");
+  }
+
+  // Check if the activity is paused
+  if (!activity.isPaused) {
+    throw new Error("Activity is not paused");
+  }
+
+  // Check if the activity is active
+  if (activity.active) {
+    throw new Error("Activity is already active");
+  }
+
+  // Check if the activity is already the active activity
+  if (currentActiveActivity) {
+    // get the current active activity and stop it
+    const currentActivity = await prisma.activity.findUnique({
+      where: {
+        id: currentActiveActivity,
+      },
+    });
+
+    if (!currentActivity) {
+      throw new Error("Current active activity not found");
+    }
+
+    // Stop the current active activity
+    await prisma.activity.update({
+      where: {
+        id: currentActiveActivity,
+      },
+      data: {
+        active: false,
+        isPaused: true,
+        stopped: new Date(),
+      },
+    });
+
+    // Pause the timer for the current active activity
+    await pauseTimer(currentActiveActivity.toString(), true);
+  }
+
+  // Start the activity
+  await prisma.activity.update({
+    where: {
+      id: activityId,
+    },
+    data: {
+      started: new Date(),
+      isPaused: false,
+      active: true,
+    },
+  });
+
+  // add a timer for the activity
+  await addTimer(activityId.toString(), Number(activity.duration), false);
 };
