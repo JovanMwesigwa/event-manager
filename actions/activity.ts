@@ -31,6 +31,5 @@ export const jumpToNextActivity = async (eventId: number) => {
 
 export const upsertGetTheActiveActivity = async (eventId: number) => {
   const activity = await getTheActiveActivity(eventId);
-
-  return activity?.activities[0];
+  return activity?.activities[0] ?? {}; // Return an empty object (or suitable default) if undefined
 };

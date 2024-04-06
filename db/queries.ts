@@ -72,11 +72,11 @@ export const getTheActiveActivity = cache(async (eventId: number) => {
       activities: {
         where: {
           active: true,
-          isPaused: false,
+          // isPaused: false,
         },
       },
     },
   });
 
-  return activeActivity;
+  return activeActivity; // Return an empty object (or suitable default) if no event is found
 });

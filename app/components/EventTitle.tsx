@@ -1,13 +1,13 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Event } from "@prisma/client";
 import useTimer from "@/hooks/useTimer"; // Assuming this is the path to your hook
 import { Button } from "@/components/ui/button";
 import { ExpandIcon, RocketIcon } from "lucide-react";
 import { useEventActions } from "@/hooks/useEventActions";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
-import FullScreenTimer from "./FullScreenTimer";
+import FullScreenTimer from "./FullScreen/FullScreenTimer";
 import useGetActiveActivity from "@/hooks/reactquery/useGetActiveActivity";
 
 const EventTitle = ({ event }: { event: Event }) => {
@@ -22,6 +22,8 @@ const EventTitle = ({ event }: { event: Event }) => {
     eventId: event.id,
     paused: event.isPaused,
   });
+
+  const { data, error, isLoading: loading } = useGetActiveActivity(event.id);
 
   return (
     <div className="flex flex-row items-center justify-between w-full">
@@ -51,7 +53,9 @@ const EventTitle = ({ event }: { event: Event }) => {
           <RocketIcon size={15} />
         </Button>
 
-        <FullScreenTimer event={event} />
+        {!loading && !error && (
+          <FullScreenTimer event={event} activity={data} />
+        )}
       </div>
     </div>
   );

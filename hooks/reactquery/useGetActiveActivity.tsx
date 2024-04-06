@@ -2,15 +2,15 @@ import { upsertGetTheActiveActivity } from "@/actions/activity";
 import { upsertEvent } from "@/actions/event";
 import { useQuery } from "@tanstack/react-query";
 
-const useGetActiveActivity = () => {
+const useGetActiveActivity = (eventId: number) => {
   const request = async () => {
-    const event = await upsertGetTheActiveActivity(1);
+    const event = await upsertGetTheActiveActivity(eventId);
 
     return event;
   };
 
   const response = useQuery({
-    queryKey: ["event", 1],
+    queryKey: ["active", eventId],
     queryFn: request,
     refetchIntervalInBackground: true,
     // refetchInterval: 1000,
