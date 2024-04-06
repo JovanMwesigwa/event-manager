@@ -52,19 +52,11 @@ const EventCard = ({ item }: { item: Activity }) => {
               <p className="text-neutral-400 text-sm">By: {item.host}</p>
             </div>
 
-            <div className="bg-yellow-h-full w-full flex flex-1 flex-col">
-              <div className="flex flex-row items-center w-full gap-x-3 h-full justify-between">
-                <Button variant="ghost" className="border w-full">
-                  <FaStop size={13} />
-                </Button>
-                <Button variant="ghost" className="border w-full">
-                  <FaPlay size={12} />
-                </Button>
-                <Button variant="ghost" className="border w-full">
-                  <MdSkipNext size={25} />
-                </Button>
-              </div>
-            </div>
+            <CardButtons
+              eventId={item.eventId}
+              activityId={item.id}
+              paused={item.isPaused}
+            />
 
             <Timer
               activityId={item.id.toString()}
@@ -166,8 +158,6 @@ const EventCard = ({ item }: { item: Activity }) => {
           </div>
 
           <div className="col-span-3 flex md:items-center  justify-end p-4 flex-col">
-            <CardButtons eventId={item.eventId} activityId={item.id} />
-
             <div className=" size-24 md:size-28 bg-neutral-200 rounded-md relative">
               {eventLife && (
                 <Image

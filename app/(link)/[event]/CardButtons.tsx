@@ -1,26 +1,104 @@
+import { InfoModal } from "@/app/components/Modals/InfoModal";
+import { Button } from "@/components/ui/button";
+import useGetEvent from "@/hooks/reactquery/useGetEvent";
+import { useEventActions } from "@/hooks/useEventActions";
 import useJumpToActivity from "@/hooks/useJumpToActivity";
-import { PlayIcon } from "lucide-react";
 import React from "react";
+import { FaPause, FaPlay, FaStop } from "react-icons/fa";
+import { MdSkipNext } from "react-icons/md";
 
 const CardButtons = ({
   eventId,
   activityId,
+  paused,
 }: {
   activityId: number;
   eventId: number;
+  paused: boolean;
 }) => {
   const { jumpToActivityMutation } = useJumpToActivity({
     activityId,
     eventId,
   });
 
+  const {
+    startMutation,
+    pauseMutation,
+    stopMutation,
+    jumpToNextActivityMutation,
+  } = useEventActions({
+    eventId,
+    paused,
+  });
+
+  const { data, error, isLoading, isError } = useGetEvent();
+
+  if (!data || isLoading || isError) {
+    return;
+  }
+
   return (
-    <div className="w-full flex flex-row items-center justify-end">
-      <div
-        className="cursor-pointer"
-        onClick={() => jumpToActivityMutation.mutate()}
-      >
-        <PlayIcon className="size-3 text-green-500" />
+    <div className="bg-yellow-h-full w-full flex flex-1 flex-col">
+      <div className="flex flex-row items-center w-full gap-x-3 h-full justify-between">
+        <Button
+          onClick={() => stopMutation.mutate()}
+          disabled={stopMutation.isPending}
+          variant="ghost"
+          className="border w-full"
+        >
+          {/* <FaStop size={13} /> */}
+          <p>Stop</p>
+        </Button>
+
+        {data.isPaused && !data.active ? (
+          <InfoModal
+            title="Would you like to start the event?"
+            describe="Start the even to run through your activities"
+            btnText="Start"
+            onClick={() => startMutation.mutate()}
+            disabled={startMutation.isPending}
+          />
+        ) : (
+          <>
+            {paused ? (
+              <Button
+                onClick={() => {
+                  data.isPaused
+                    ? startMutation.mutate()
+                    : jumpToActivityMutation.mutate();
+                }}
+                disabled={
+                  jumpToActivityMutation.isPending || startMutation.isPending
+                }
+                variant="ghost"
+                className="border w-full"
+              >
+                {/* <FaPlay size={12} /> */}
+                <p>Play</p>
+              </Button>
+            ) : (
+              <Button
+                onClick={() => pauseMutation.mutate()}
+                disabled={pauseMutation.isPending}
+                variant="ghost"
+                className="border w-full"
+              >
+                {/* <FaPause size={12} /> */}
+                <p>Pause</p>
+              </Button>
+            )}
+          </>
+        )}
+
+        <Button
+          onClick={() => jumpToNextActivityMutation.mutate()}
+          disabled={jumpToNextActivityMutation.isPending}
+          variant="ghost"
+          className="border w-full"
+        >
+          {/* <MdSkipNext size={25} /> */}
+          <p>Next</p>
+        </Button>
       </div>
     </div>
   );
