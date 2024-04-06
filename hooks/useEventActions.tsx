@@ -1,11 +1,7 @@
-// useEventActions.ts
-
-import { useMutation, QueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { pauseEvent, startEvent, stopEvent } from "@/actions/event";
 import { jumpToNextActivity } from "@/actions/activity";
-
-const queryClient = new QueryClient();
 
 interface UseEventActionsProps {
   eventId: number;
@@ -13,6 +9,8 @@ interface UseEventActionsProps {
 }
 
 export function useEventActions({ eventId, paused }: UseEventActionsProps) {
+  const queryClient = useQueryClient(); // Access the query client instance
+
   const startMutation = useMutation({
     mutationFn: async () => {
       if (!paused) {
@@ -21,14 +19,13 @@ export function useEventActions({ eventId, paused }: UseEventActionsProps) {
       }
 
       await startEvent(eventId);
-
       toast("Event has been started");
     },
     onError: () => {
       toast("Failed to start the event");
     },
     onSettled: async () => {
-      return await queryClient.invalidateQueries();
+      await queryClient.invalidateQueries();
     },
   });
 
@@ -46,20 +43,19 @@ export function useEventActions({ eventId, paused }: UseEventActionsProps) {
       toast("Failed to pause the event");
     },
     onSettled: async () => {
-      return await queryClient.invalidateQueries();
+      await queryClient.invalidateQueries();
     },
   });
 
   const jumpToNextActivityMutation = useMutation({
     mutationFn: async () => {
-      // Jump to the next activity
       await jumpToNextActivity(eventId);
     },
     onError: () => {
       toast("Failed to jump to the next activity");
     },
     onSettled: async () => {
-      return await queryClient.invalidateQueries();
+      await queryClient.invalidateQueries();
     },
   });
 
@@ -72,7 +68,7 @@ export function useEventActions({ eventId, paused }: UseEventActionsProps) {
       toast("Failed to stop the event");
     },
     onSettled: async () => {
-      return await queryClient.invalidateQueries();
+      await queryClient.invalidateQueries();
     },
   });
 

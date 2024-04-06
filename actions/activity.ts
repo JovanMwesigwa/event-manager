@@ -5,7 +5,7 @@ import {
   jumpToActivity,
   updateCurrentEventTime,
 } from "@/db/mutations";
-import { getCurrentActivityTime } from "@/db/queries";
+import { getCurrentActivityTime, getTheActiveActivity } from "@/db/queries";
 
 export const upsertActivityCurrentTime = async (activityId: number) => {
   const activityTime = await getCurrentActivityTime(activityId);
@@ -27,4 +27,10 @@ export const jumpToNextActivity = async (eventId: number) => {
   const activity = await activateNextActivity(eventId);
 
   return activity;
+};
+
+export const upsertGetTheActiveActivity = async (eventId: number) => {
+  const activity = await getTheActiveActivity(eventId);
+
+  return activity?.activities[0];
 };

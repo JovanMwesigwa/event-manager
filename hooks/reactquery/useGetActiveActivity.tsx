@@ -1,9 +1,11 @@
+import { upsertGetTheActiveActivity } from "@/actions/activity";
 import { upsertEvent } from "@/actions/event";
 import { useQuery } from "@tanstack/react-query";
 
-const useGetEvent = () => {
+const useGetActiveActivity = () => {
   const request = async () => {
-    const event = await upsertEvent(1);
+    const event = await upsertGetTheActiveActivity(1);
+
     return event;
   };
 
@@ -19,4 +21,4 @@ const useGetEvent = () => {
   };
 };
 
-export default useGetEvent;
+export default useGetActiveActivity;

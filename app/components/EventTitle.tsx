@@ -4,8 +4,11 @@ import React from "react";
 import { Event } from "@prisma/client";
 import useTimer from "@/hooks/useTimer"; // Assuming this is the path to your hook
 import { Button } from "@/components/ui/button";
-import { RocketIcon } from "lucide-react";
+import { ExpandIcon, RocketIcon } from "lucide-react";
 import { useEventActions } from "@/hooks/useEventActions";
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
+import FullScreenTimer from "./FullScreenTimer";
+import useGetActiveActivity from "@/hooks/reactquery/useGetActiveActivity";
 
 const EventTitle = ({ event }: { event: Event }) => {
   const { formattedTime, isLoading } = useTimer("1"); // Convert to string if necessary
@@ -47,6 +50,8 @@ const EventTitle = ({ event }: { event: Event }) => {
           {!isLoading && event.active ? formattedTime : "Start the event"}
           <RocketIcon size={15} />
         </Button>
+
+        <FullScreenTimer event={event} />
       </div>
     </div>
   );

@@ -18,7 +18,7 @@ const EventPage = () => {
       {/* header */}
       <EventTitle event={data} />
 
-      {data.activities.map((activity) => (
+      {data.activities?.map((activity) => (
         <EventCard key={activity.id} item={activity} />
       ))}
     </div>

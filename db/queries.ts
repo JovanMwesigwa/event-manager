@@ -41,11 +41,11 @@ export const getCurrentActivityTime = cache(async (activityId: number) => {
 
   // If the event is reset, return the start time
   if (event.isReset) {
-    return event.start;
+    return event.started;
   }
 
   // Calculate the current time of the event if it is active and not paused
-  const startTime = new Date(event.start);
+  const startTime = new Date(event.started as Date);
   const currentTime = new Date();
   const elapsed = currentTime.getTime() - startTime.getTime();
 
@@ -61,4 +61,22 @@ export const getCurrentActivityTime = cache(async (activityId: number) => {
     .padStart(2, "0");
 
   return `${hours}:${minutes}:${seconds}`;
+});
+
+export const getTheActiveActivity = cache(async (eventId: number) => {
+  const activeActivity = await prisma.event.findUnique({
+    where: {
+      id: eventId,
+    },
+    include: {
+      activities: {
+        where: {
+          active: true,
+          isPaused: false,
+        },
+      },
+    },
+  });
+
+  return activeActivity;
 });

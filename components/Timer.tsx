@@ -28,8 +28,8 @@ const Timer: React.FC<TimerProps> = ({
 }) => {
   const { formattedTime, isLoading, secondsRemaining } = useTimer(activityId);
 
+  // Don't delete this logic, it will allow auto navigation
   // const { jumpToNextActivityMutation } = useEventActions({ eventId, paused });
-
   // // State to track if the initial load is complete
   // const [initialized, setInitialized] = useState(false);
 
