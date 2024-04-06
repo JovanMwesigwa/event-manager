@@ -1,7 +1,7 @@
 import { upsertEvent } from "@/actions/event";
 import { useQuery } from "@tanstack/react-query";
 
-const useGetEvent = () => {
+const useGetEvent = (eventId: number) => {
   const request = async () => {
     const event = await upsertEvent(1);
     return event;
@@ -11,7 +11,7 @@ const useGetEvent = () => {
     queryKey: ["event", 1],
     queryFn: request,
     refetchIntervalInBackground: true,
-    // refetchInterval: 1000,
+    refetchInterval: 1000,
   });
 
   return {

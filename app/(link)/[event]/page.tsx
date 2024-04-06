@@ -5,9 +5,7 @@ import useGetEvent from "@/hooks/reactquery/useGetEvent";
 import EventCard from "./EventCard";
 
 const EventPage = () => {
-  // const event = await upsertEvent(1);
-
-  const { data, error, isLoading, isError } = useGetEvent();
+  const { data, error, isLoading, isError } = useGetEvent(1);
 
   if (!data || isLoading || isError) {
     return <div>Event not found</div>;

@@ -11,7 +11,7 @@ const useGetEventTimer = (activityId: number) => {
     queryKey: ["time", activityId],
     queryFn: request,
     refetchIntervalInBackground: true,
-    // refetchInterval: 1000,
+    refetchInterval: 1000,
   });
 
   return {
