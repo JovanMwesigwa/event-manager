@@ -5,9 +5,20 @@ import { Event } from "@prisma/client";
 import useTimer from "@/hooks/useTimer"; // Assuming this is the path to your hook
 import { Button } from "@/components/ui/button";
 import { RocketIcon } from "lucide-react";
+import { useEventActions } from "@/hooks/useEventActions";
 
 const EventTitle = ({ event }: { event: Event }) => {
   const { formattedTime, isLoading } = useTimer("1"); // Convert to string if necessary
+
+  const {
+    startMutation,
+    pauseMutation,
+    stopMutation,
+    // jumpToNextActivityMutation,
+  } = useEventActions({
+    eventId: event.id,
+    paused: event.isPaused,
+  });
 
   return (
     <div className="flex flex-row items-center justify-between w-full">
@@ -27,6 +38,8 @@ const EventTitle = ({ event }: { event: Event }) => {
 
         <Button
           variant="ghost"
+          onClick={() => startMutation.mutate()}
+          disabled={startMutation.isPending}
           className={`border max-w-40 border-b-2 border-b-neutral-300 bg-white flex flex-row items-center gap-2 ${
             event.active && "border-b-green-500"
           }  `}
