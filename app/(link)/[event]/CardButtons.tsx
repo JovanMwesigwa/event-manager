@@ -37,6 +37,8 @@ const CardButtons = ({
     return;
   }
 
+  const nowActive = !data.isPaused && data.active && !paused;
+
   return (
     <div className="bg-yellow-h-full w-full flex flex-1 flex-col">
       <div className="flex flex-row items-center w-full gap-x-3 h-full justify-between">
@@ -44,7 +46,9 @@ const CardButtons = ({
           onClick={() => stopMutation.mutate()}
           disabled={stopMutation.isPending}
           variant="ghost"
-          className="border w-full"
+          className={`border w-full border-b-2 border-b-neutral-300 ${
+            nowActive && "bg-white border-b-2 border-b-red-500"
+          }`}
         >
           {/* <FaStop size={13} /> */}
           <p>Stop</p>
@@ -57,6 +61,8 @@ const CardButtons = ({
             btnText="Start"
             onClick={() => startMutation.mutate()}
             disabled={startMutation.isPending}
+            nowActive={nowActive}
+            eventPaused={data.isPaused}
           />
         ) : (
           <>
@@ -71,7 +77,11 @@ const CardButtons = ({
                   jumpToActivityMutation.isPending || startMutation.isPending
                 }
                 variant="ghost"
-                className="border w-full"
+                className={`border w-full border-b-2 border-b-neutral-300  ${
+                  nowActive && "bg-white border-b-2 border-b-green-500"
+                } ${
+                  data.isPaused && "bg-white border-b-2 border-b-yellow-500"
+                }`}
               >
                 {/* <FaPlay size={12} /> */}
                 <p>Play</p>
@@ -81,7 +91,9 @@ const CardButtons = ({
                 onClick={() => pauseMutation.mutate()}
                 disabled={pauseMutation.isPending}
                 variant="ghost"
-                className="border w-full"
+                className={`border w-full border-b-2 border-b-neutral-300  ${
+                  nowActive && "bg-white border-b-2 border-b-yellow-500"
+                }`}
               >
                 {/* <FaPause size={12} /> */}
                 <p>Pause</p>
@@ -94,7 +106,9 @@ const CardButtons = ({
           onClick={() => jumpToNextActivityMutation.mutate()}
           disabled={jumpToNextActivityMutation.isPending}
           variant="ghost"
-          className="border w-full"
+          className={`border w-full border-b-2 border-b-neutral-300  ${
+            nowActive && "bg-white border-b-2 border-b-blue-500"
+          }`}
         >
           {/* <MdSkipNext size={25} /> */}
           <p>Next</p>

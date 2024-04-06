@@ -18,17 +18,26 @@ export function InfoModal({
   describe,
   disabled,
   onClick,
+  nowActive,
+  eventPaused,
 }: {
   btnText?: string;
   title: string;
   describe: string;
   onClick?: () => void;
   disabled?: boolean;
+  nowActive?: boolean;
+  eventPaused?: boolean;
 }) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="ghost" className="border w-full">
+        <Button
+          variant="ghost"
+          className={`border w-full border-b-2 border-b-neutral-300  ${
+            nowActive && "bg-white border-b-2 border-b-green-500"
+          } `}
+        >
           {btnText}
         </Button>
       </AlertDialogTrigger>
