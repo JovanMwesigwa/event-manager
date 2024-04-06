@@ -3,6 +3,8 @@
 import React from "react";
 import { Event } from "@prisma/client";
 import useTimer from "@/hooks/useTimer"; // Assuming this is the path to your hook
+import { Button } from "@/components/ui/button";
+import { RocketIcon } from "lucide-react";
 
 const EventTitle = ({ event }: { event: Event }) => {
   const { formattedTime, isLoading } = useTimer("1"); // Convert to string if necessary
@@ -11,9 +13,9 @@ const EventTitle = ({ event }: { event: Event }) => {
     <div className="flex flex-row items-center justify-between w-full">
       <h1 className="text-2xl font-bold text-neutral-800">{event.title}</h1>
       <div className="flex flex-row items-center gap-4">
-        <h1 className="text-sm text-neutral-600 font-bold">
+        {/* <h1 className="text-sm text-neutral-600 font-bold">
           {isLoading ? "Loading timer..." : formattedTime}
-        </h1>
+        </h1> */}
         {event.active && !event.isPaused && (
           <div className="flex items-center gap-2">
             <span className="relative flex size-4">
@@ -22,6 +24,16 @@ const EventTitle = ({ event }: { event: Event }) => {
             </span>
           </div>
         )}
+
+        <Button
+          variant="ghost"
+          className={`border max-w-40 border-b-2 border-b-neutral-300 bg-white flex flex-row items-center gap-2 ${
+            event.active && "border-b-green-500"
+          }  `}
+        >
+          {!isLoading && event.active ? formattedTime : "Start the event"}
+          <RocketIcon size={15} />
+        </Button>
       </div>
     </div>
   );
