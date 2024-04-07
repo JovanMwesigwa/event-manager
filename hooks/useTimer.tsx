@@ -65,11 +65,11 @@ const useTimer = (activityId: string, formated?: boolean) => {
 
     if (!formated) return time;
 
-    const parts = time.split(":");
+    const parts = time.split("·");
     const filteredParts = parts.filter(
       (part, index) => part !== "00" || index === parts.length - 1
     );
-    return filteredParts.join(":");
+    return filteredParts.join("·");
   };
 
   const formattedTime = formatTime(secondsRemaining);

@@ -63,7 +63,7 @@ const FullScreenTimer = ({
                           isEndingSoon
                             ? "text-red-500 minheartbeat"
                             : "text-white"
-                        }  font-extrabold text-[350px]`}
+                        }  font-extrabold text-[300px]`}
                       >
                         {!isLoading && (
                           <>{formattedTime ? formattedTime : "N/A"}</>
@@ -78,7 +78,7 @@ const FullScreenTimer = ({
                     </div>
                   </div>
 
-                  <div className="h-full w-1/5 bg-neutral-900 p-4 flex flex-col"></div>
+                  {/* <div className="h-full w-1/5 bg-neutral-800 p-4 flex flex-col"></div> */}
                 </div>
 
                 <div className="w-full h-1/5 gap-4 flex  flex-col bg-green-500">
