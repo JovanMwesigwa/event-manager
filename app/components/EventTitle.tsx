@@ -43,12 +43,15 @@ const EventTitle = ({ event }: { event: Event }) => {
           variant="ghost"
           onClick={() => startMutation.mutate()}
           disabled={startMutation.isPending}
-          className={`border max-w-40 border-b-2 border-b-neutral-300 bg-white flex flex-row items-center gap-2 ${
+          className={`border max-w-40 border-b-2 p-3 border-b-neutral-300 bg-white flex flex-row items-center gap-2 ${
             event.active && "border-b-green-500"
           }  `}
         >
+          <div className="bg-green-200 p-1 rounded-md">
+            <RocketIcon size={16} className="text-green-600" />
+          </div>
+
           {!isLoading && event.active ? formattedTime : "Start the event"}
-          <RocketIcon size={15} />
         </Button>
 
         {!loading && !error && (

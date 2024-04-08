@@ -11,7 +11,7 @@ const CreateHeader = () => {
   return (
     <div className="w-full items-center justify-between flex-row flex pl-3">
       <Select>
-        <SelectTrigger className="custom-select-trigger w-[180px] border-b-4">
+        <SelectTrigger className="custom-select-trigger w-[180px] border-b-4 border-b-neutral-300">
           <SelectValue placeholder="Personal" />
         </SelectTrigger>
         <SelectContent>
@@ -20,7 +20,7 @@ const CreateHeader = () => {
       </Select>
 
       <Select>
-        <SelectTrigger className="custom-select-trigger w-[180px] border-b-4">
+        <SelectTrigger className="custom-select-trigger w-[180px] border-b-4 border-b-neutral-300">
           <SelectValue placeholder="Public" />
         </SelectTrigger>
         <SelectContent>

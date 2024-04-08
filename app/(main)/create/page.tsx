@@ -9,9 +9,9 @@ import EventLocationCard from "./location-card";
 
 const EventsPage = () => {
   return (
-    <div className="grid grid-cols-12 h-screen text-slate-500">
+    <div className="grid grid-cols-12 h-screen text-neutral-500">
       <div className="col-span-5 flex items-center flex-col pr-4">
-        <div className="flex bg-slate-200 cursor-pointer rounded-lg h-1/2 w-full"></div>
+        <div className="flex bg-neutral-200 cursor-pointer rounded-lg h-1/2 w-full"></div>
       </div>
       <div className="col-span-7 flex flex-col">
         <CreateHeader />
@@ -27,7 +27,7 @@ const EventsPage = () => {
 
         <DescriptionCard />
 
-        <Link href="/events">
+        <Link href="/event/1">
           <div className="flex w-full justify-between  ml-3 mb-5">
             <div className="h-12 w-full text-white rounded-md bg-primary flex items-center justify-center">
               Create Event
