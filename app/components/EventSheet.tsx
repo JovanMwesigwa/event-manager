@@ -15,17 +15,20 @@ import { Activity } from "@prisma/client";
 
 const EventSheet = ({ event }: { event: Activity }) => {
   return (
-    <div className="flex w-full justify-end  py-2 cursor-pointer ">
+    <div className="flex w-full  justify-end  py-2 cursor-pointer ">
       <Sheet>
         <SheetTrigger>
           <ChevronsRightIcon className="text-neutral-400 size-3 md:size-4" />
         </SheetTrigger>
         <SheetContent
           side="right"
-          className="w-full md:w-[800px] md:m-3 md:rounded-md max-h-screen"
+          className="w-full md:w-[900px] md:m-3 md:rounded-md max-h-screen"
         >
           {/* Engaments and Polls */}
-          <Tabs defaultValue="engage" className="w-full py-5 overflow-y-auto">
+          <Tabs
+            defaultValue="engage"
+            className="w-full py-5 overflow-y-auto h-full "
+          >
             <TabsList className="w-full">
               <TabsTrigger className="w-full" value="engage">
                 Engagements
@@ -34,7 +37,10 @@ const EventSheet = ({ event }: { event: Activity }) => {
                 Details
               </TabsTrigger>
             </TabsList>
-            <TabsContent value="engage" className="py-4 flex flex-col">
+            <TabsContent
+              value="engage"
+              className="py-4 flex flex-col overflow-y-auto h-full "
+            >
               <PollQuestion />
             </TabsContent>
 
@@ -44,13 +50,19 @@ const EventSheet = ({ event }: { event: Activity }) => {
                 <div className="w-full flex-row flex gap-3">
                   <div className="size-32 rounded-md bg-neutral-300"></div>
                   <div className="flex flex-col gap-2">
-                    <div className="flex flex-row items-center gap-2 w-full justify-between">
+                    <div className="flex flex-clo items-center gap-2 w-full justify-between">
                       <SheetTitle className="text-sm">Starts:</SheetTitle>
-                      <SheetTitle className="text-sm">{event.start}</SheetTitle>
+                      <SheetTitle className="text-sm">
+                        {/* {event.started} */}
+                        Dater
+                      </SheetTitle>
                     </div>
-                    <div className="flex flex-row items-center gap-2 w-full justify-between">
+                    <div className="flex flex-col items-center gap-2 w-full justify-between">
                       <SheetTitle className="text-sm">Stops:</SheetTitle>
-                      <SheetTitle className="text-sm">{event.end}</SheetTitle>
+                      <SheetTitle className="text-sm">
+                        {/* {event.started} */}
+                        Date here
+                      </SheetTitle>
                     </div>
                     <div className="flex flex-row items-center gap-2 w-full justify-between">
                       <SheetTitle className="text-sm">Hosted By:</SheetTitle>

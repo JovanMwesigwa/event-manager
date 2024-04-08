@@ -59,9 +59,9 @@ const useTimer = (activityId: string, formated?: boolean) => {
     const hours = Math.floor(totalSeconds / 3600);
     const minutes = Math.floor((totalSeconds % 3600) / 60);
     const seconds = totalSeconds % 60;
-    const time = `${hours.toString().padStart(2, "0")}:${minutes
+    const time = `${hours.toString().padStart(2, "0")}·${minutes
       .toString()
-      .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+      .padStart(2, "0")}·${seconds.toString().padStart(2, "0")}`;
 
     if (!formated) return time;
 

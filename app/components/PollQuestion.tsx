@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { Progress } from "@/components/ui/progress";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { SheetTitle } from "@/components/ui/sheet";
 import { Dot } from "lucide-react";
@@ -13,39 +14,49 @@ const PollQuestion = () => {
       </h1>
       <RadioGroup defaultValue="python" className="py-2">
         <div className="flex items-center space-x-2">
-          <RadioGroupItem color="#3b82f6" value="python" id="option-one" />
-          <Label htmlFor="python">
-            <SheetTitle className="">Python</SheetTitle>
-          </Label>
+          <div className="flex flex-row w-full h-[35px] relative items-center ">
+            <Progress value={60} className="rounded-sm h-full " />
+
+            <Label htmlFor="javascript" className="absolute left-3">
+              <h1 className="font-medium">Python</h1>
+            </Label>
+          </div>
+
+          <h1 className="font-medium">60%</h1>
         </div>
 
         <div className="flex items-center space-x-2">
-          <RadioGroupItem value="javascript" id="option-two" />
+          <div className="flex flex-row w-full h-[35px] relative items-center ">
+            <Progress value={35} className="rounded-sm h-full " />
 
-          <Label htmlFor="javascript">
-            <SheetTitle>Javascript</SheetTitle>
-          </Label>
+            <Label htmlFor="javascript" className="absolute left-3">
+              <h1 className="font-medium">JavaScript</h1>
+            </Label>
+          </div>
+
+          <h1 className="font-medium">35%</h1>
         </div>
 
         <div className="flex items-center space-x-2">
-          <RadioGroupItem value="rust" id="rust" />
+          <div className="flex flex-row w-full h-[35px] relative items-center ">
+            <Progress value={45} className="rounded-sm h-full " />
 
-          <Label htmlFor="rust">
-            <SheetTitle>Rust</SheetTitle>
-          </Label>
+            <Label htmlFor="javascript" className="absolute left-3">
+              <h1 className="font-medium">Rust</h1>
+            </Label>
+          </div>
+
+          <h1 className="font-medium">45%</h1>
         </div>
 
         <div className="w-full flex flex-row items-center justify-between">
-          <div className="flex flex-row items-center text-sm gap-2">
-            <div className="size-6 bg-neutral-300 rounded-full"></div>
-            <p>Total Votes: 45</p>
-            <Dot size={18} />
-            <p>5 minutes left</p>
-          </div>
-
-          <Button size="sm" className="my-3">
+          <Button size="sm" className="my-3 bg-blue-500">
             Vote
           </Button>
+
+          <div className="flex flex-row items-center text-sm gap-2">
+            <p>45 Votes</p>
+          </div>
         </div>
       </RadioGroup>
     </div>

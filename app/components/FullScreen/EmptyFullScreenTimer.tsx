@@ -5,11 +5,11 @@ import { PauseIcon } from "lucide-react";
 
 const EmptyFullScreenTimer = ({}: {}) => {
   return (
-    <div className="flex justify-center items-center w-full h-full bg-black flex-col">
+    <div className="flex justify-center items-center w-full h-full bg-white flex-col">
       <div className="flex flex-1 h-full w-full flex-row items-center ">
         <div className="flex flex-1 h-full w-full items-center justify-center ">
           <div className="relative">
-            <h1 className="text-white font-extrabold text-[300px] ">
+            <h1 className="text-black font-extrabold text-[300px] ">
               00&middot;00&middot;00
             </h1>
 
@@ -32,7 +32,7 @@ const EmptyFullScreenTimer = ({}: {}) => {
           />
         </div>
 
-        <div className="flex flex-col p-4">
+        <div className="flex flex-col p-4 text-white">
           <h1 className="text-5xl font-extrabold ">Event will start soon...</h1>
 
           <div className="flex flex-row items-center gap-4">
