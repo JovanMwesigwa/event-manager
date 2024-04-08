@@ -101,3 +101,13 @@
   /* make a hearbeat that vibrate very fast for like 3 seconds and stops*/
   animation: heartbeat 0.4s ease-in-out 4;
 }
+
+.custom-input:focus,
+.custom-select-trigger:focus {
+  outline: none;
+}
+
+/* Add this to your CSS file */
+.custom-placeholder::placeholder {
+  color: #ddd; /* Your desired placeholder text color */
+}

@@ -1,14 +1,12 @@
 "use client";
 
-import React, { useEffect } from "react";
-import { Event } from "@prisma/client";
-import useTimer from "@/hooks/useTimer"; // Assuming this is the path to your hook
 import { Button } from "@/components/ui/button";
-import { ExpandIcon, RocketIcon } from "lucide-react";
-import { useEventActions } from "@/hooks/useEventActions";
-import { FullScreen, useFullScreenHandle } from "react-full-screen";
-import FullScreenTimer from "./FullScreen/FullScreenTimer";
 import useGetActiveActivity from "@/hooks/reactquery/useGetActiveActivity";
+import { useEventActions } from "@/hooks/useEventActions";
+import useTimer from "@/hooks/useTimer"; // Assuming this is the path to your hook
+import { Event } from "@prisma/client";
+import { RocketIcon } from "lucide-react";
+import FullScreenTimer from "./FullScreen/FullScreenTimer";
 
 const EventTitle = ({ event }: { event: Event }) => {
   const { formattedTime, isLoading } = useTimer("1"); // Convert to string if necessary

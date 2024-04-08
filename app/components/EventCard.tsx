@@ -8,7 +8,7 @@ import { FaPlay, FaStop } from "react-icons/fa";
 import { MdSkipNext } from "react-icons/md";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
-import CardButtons from "./CardButtons";
+import CardButtons from "./buttons/CardButtons";
 import { Button } from "@/components/ui/button";
 
 const EventCard = ({ item }: { item: Activity }) => {

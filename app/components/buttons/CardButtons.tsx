@@ -31,7 +31,7 @@ const CardButtons = ({
     paused,
   });
 
-  const { data, error, isLoading, isError } = useGetEvent();
+  const { data, error, isLoading, isError } = useGetEvent(1);
 
   if (!data || isLoading || isError) {
     return;
