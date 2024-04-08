@@ -1,5 +1,10 @@
 import prisma from "@/prisma/client";
-import { addTimer, getTimerData, pauseTimer } from "@/services/firebaseService";
+import {
+  addTimer,
+  getTimerData,
+  pauseTimer,
+  setActiveEventAndActivity,
+} from "@/services/firebaseService";
 import { cache } from "react";
 
 export const startTheEvent = cache(async (eventId: number) => {
@@ -86,6 +91,12 @@ export const startTheEvent = cache(async (eventId: number) => {
       false
     );
 
+    // Save the active activity and event to the firebase realtime database
+    await setActiveEventAndActivity(
+      eventId.toString(),
+      firstActivity.id.toString()
+    );
+
     return startedEvent;
   }
 
@@ -106,6 +117,12 @@ export const startTheEvent = cache(async (eventId: number) => {
     eventActivites.activities[0].id.toString(),
     Number(eventActivites.activities[0].duration),
     false
+  );
+
+  // Save the active activity and event to the firebase realtime database
+  await setActiveEventAndActivity(
+    eventId.toString(),
+    eventActivites.activities[0].id.toString()
   );
 
   return startedEvent;
@@ -337,6 +354,12 @@ export const jumpToActivity = async (activityId: number, eventId: number) => {
 
     // Pause the timer for the active activity
     await pauseTimer(activeActivity.activities[0].id.toString(), true);
+
+    // Save the active activity and event to the firebase realtime database
+    await setActiveEventAndActivity(
+      eventId.toString(),
+      activeActivity.activities[0].id.toString()
+    );
   }
 
   // Start the activity
@@ -353,6 +376,9 @@ export const jumpToActivity = async (activityId: number, eventId: number) => {
 
   // add a timer for the activity
   await addTimer(activityId.toString(), Number(activity.duration), false);
+
+  // Save the active activity and event to the firebase realtime database
+  await setActiveEventAndActivity(eventId.toString(), activityId.toString());
 };
 
 export const activateNextActivity = async (eventId: number) => {
@@ -425,6 +451,12 @@ export const activateNextActivity = async (eventId: number) => {
   // Pause the timer for the active activity
   await pauseTimer(activeActivity.activities[0].id.toString(), true);
 
+  // Save the active activity and event to the firebase realtime database
+  await setActiveEventAndActivity(
+    eventId.toString(),
+    activeActivity.activities[0].id.toString()
+  );
+
   // Start the next activity
   await prisma.activity.update({
     where: {
@@ -442,5 +474,11 @@ export const activateNextActivity = async (eventId: number) => {
     nextActivity.id.toString(),
     Number(nextActivity.duration),
     false
+  );
+
+  // Save the active activity and event to the firebase realtime database
+  await setActiveEventAndActivity(
+    eventId.toString(),
+    nextActivity.id.toString()
   );
 };

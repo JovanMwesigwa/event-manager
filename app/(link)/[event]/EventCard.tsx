@@ -41,7 +41,7 @@ const EventCard = ({ item }: { item: Activity }) => {
         className="grid md:grid-cols-12 min-h-[150px]  md:min-h-[200px] md:my-4 md:gap-6"
       >
         {/* Left Side */}
-        <div className="hidden md:flex flex-row col-span-3 justify-between ">
+        <div className="hidden md:flex flex-row col-span-3 justify-between md:w-[255px] ">
           <div className=" flex-col justify-between flex w-full  ">
             <div className="flex flex-1 flex-col">
               <h1
@@ -70,7 +70,7 @@ const EventCard = ({ item }: { item: Activity }) => {
           </div>
 
           {/* Icons */}
-          <div className="flex flex-col items-center gap-1">
+          <div className="flex flex-col items-center gap-1 ml-2">
             <CircleDot size={15} className={`text-neutral-600`} />
             <div
               className={`h-full flex items-center justify-center border-[1.5px]  border-dashed relative `}
@@ -80,8 +80,8 @@ const EventCard = ({ item }: { item: Activity }) => {
 
         {/* Right side */}
         <div
-          className={`rounded-md  col-span-9 pl-2 md:pl-4 ${
-            eventLife && " relative border bg-white "
+          className={`rounded-md  col-span-9  ml-3 ${
+            eventLife && " relative border bg-white pl-3 "
           } overflow-hidden grid grid-cols-12 `}
         >
           {eventLife && (
@@ -100,10 +100,6 @@ const EventCard = ({ item }: { item: Activity }) => {
           )}
 
           <div className="col-span-9 flex flex-col justify-evenly">
-            <h1 className={`text-neutral-400 text-xs md:text-sm`}>
-              {/* {item.started} */}
-            </h1>
-
             <div className="flex flex-col">
               <h1
                 className={`md:text-lg font-medium ${

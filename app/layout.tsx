@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
 import { Toaster } from "sonner";
 import "./globals.css";
+import EventQueryProvider from "@/context/event-query-provider";
 
 const inter = Nunito({ subsets: ["latin"] });
 
@@ -20,9 +21,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ReactQueryProvider>{children}</ReactQueryProvider>
-
-        <Toaster />
+        <ReactQueryProvider>
+          <EventQueryProvider>{children}</EventQueryProvider>
+          <Toaster />
+        </ReactQueryProvider>
       </body>
     </html>
   );

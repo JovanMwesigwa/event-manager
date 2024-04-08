@@ -1,4 +1,4 @@
-import { get, ref, set, update } from "firebase/database";
+import { get, onValue, ref, set, update } from "firebase/database";
 import database from "@/firebase/firebaseConfig"; // Import your configured database instance
 
 /**
@@ -72,4 +72,49 @@ export async function pauseTimer(
 export async function getTimerData(activityId: string): Promise<any> {
   const snapshot = await get(ref(database, `timers/${activityId}`));
   return snapshot.val();
+}
+
+// Create an active document called active that saves the eventId and the activityId
+// in the Realtime Database.
+/**
+ * Sets the active event and activity in Firebase Realtime Database.
+ * @param eventId The ID of the event.
+ * @param activityId The ID of the activity.
+ */
+export async function setActiveEventAndActivity(
+  eventId: string,
+  activityId: string
+): Promise<void> {
+  // Before first checking if the active eventId exists then just update the activityId
+  const activeRef = ref(database, "active");
+  const activeSnapshot = await get(activeRef);
+
+  if (activeSnapshot.exists()) {
+    return update(activeRef, {
+      eventId,
+      activityId,
+      newPoll: false,
+    });
+  }
+
+  // If active eventId doesn't exist, set the eventId and activityId
+  return set(ref(database, "active"), {
+    eventId,
+    activityId,
+    newPoll: false,
+  });
+}
+
+// Create a function that listens for changes to the active document in the Realtime Database.
+/**
+ * Listens for changes to the active event and activity in Firebase Realtime Database.
+ * @param callback A function to be called when the active event or activity changes.
+ */
+export function onActiveEventAndActivityChange(callback: (data: any) => void) {
+  const activeRef = ref(database, "active");
+
+  return onValue(activeRef, (snapshot) => {
+    const data = snapshot.val();
+    callback(data);
+  });
 }
