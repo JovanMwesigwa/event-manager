@@ -1,6 +1,7 @@
 import prisma from "@/prisma/client";
 import {
   addTimer,
+  deleteTimer,
   getTimerData,
   pauseTimer,
   setActiveEventAndActivity,
@@ -529,4 +530,27 @@ export const createActivity = async (data: any) => {
   });
 
   return activity;
+};
+
+export const deleteActivity = async (activityId: number) => {
+  // Get the activity
+  const activity = await prisma.activity.findUnique({
+    where: {
+      id: activityId,
+    },
+  });
+
+  if (!activity) {
+    throw new Error("Activity not found");
+  }
+
+  // Delete the activity
+  await prisma.activity.delete({
+    where: {
+      id: activityId,
+    },
+  });
+
+  // Delete the timer for the activity
+  await deleteTimer(activityId.toString());
 };

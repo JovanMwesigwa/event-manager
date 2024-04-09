@@ -3,13 +3,14 @@ import Timer from "@/components/Timer";
 import { Progress } from "@/components/ui/progress";
 import useTimer from "@/hooks/useTimer";
 import { Activity } from "@prisma/client";
-import { CircleDot, ClockIcon } from "lucide-react";
+import { CircleDot, ClockIcon, Delete, DeleteIcon, Trash } from "lucide-react";
 import { FaPlay, FaStop } from "react-icons/fa";
 import { MdSkipNext } from "react-icons/md";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 import CardButtons from "./buttons/CardButtons";
 import { Button } from "@/components/ui/button";
+import { DeleteAlert } from "./Modals/DeleteAlert";
 
 const EventCard = ({ item }: { item: Activity }) => {
   const { secondsRemaining, isLoading } = useTimer(item.id.toString());
@@ -156,6 +157,12 @@ const EventCard = ({ item }: { item: Activity }) => {
           </div>
 
           <div className="col-span-3 flex md:items-center  justify-end p-4 flex-col">
+            {!eventLife && (
+              <div className="flex justify-end p-2 w-full">
+                <DeleteAlert item={item} />
+              </div>
+            )}
+
             <div className=" size-24 md:size-28 bg-neutral-200 rounded-md relative">
               {eventLife && (
                 <Image

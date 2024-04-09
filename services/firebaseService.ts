@@ -118,3 +118,12 @@ export function onActiveEventAndActivityChange(callback: (data: any) => void) {
     callback(data);
   });
 }
+
+// Create a function that deletes the timer document from the Realtime Database.
+/**
+ * Deletes a timer document from Firebase Realtime Database.
+ * @param activityId The ID of the activity for which the timer is deleted.
+ */
+export async function deleteTimer(activityId: string): Promise<void> {
+  return set(ref(database, `timers/${activityId}`), null);
+}

@@ -3,6 +3,7 @@
 import {
   activateNextActivity,
   createActivity,
+  deleteActivity,
   jumpToActivity,
   updateCurrentEventTime,
 } from "@/db/mutations";
@@ -61,4 +62,10 @@ export const upsertNewActivity = async (data: any) => {
   } catch (error: any) {
     throw new Error(error.message);
   }
+};
+
+export const upsertRemoveActivity = async (activityId: number) => {
+  await deleteActivity(activityId);
+
+  return;
 };
