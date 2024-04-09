@@ -13,7 +13,7 @@ const DescriptionCard = () => {
           </div>
 
           <Textarea
-            className="w-1/2 h-full bg-white border-b-4 border-b-neutral-300 text-neutral-700 outline-none"
+            className="w-1/2 h-full bg-white focus:outline-none border-b-4 border-b-neutral-300 text-neutral-700 outline-none"
             placeholder="Enter event description"
           />
         </div>

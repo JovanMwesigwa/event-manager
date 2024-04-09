@@ -111,3 +111,14 @@
 .custom-placeholder::placeholder {
   color: #ddd; /* Your desired placeholder text color */
 }
+/* Hide the spinner/arrow for Chrome, Safari */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Hide the spinner/arrow for Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}

@@ -98,3 +98,7 @@ export const activities: EventActivityType[] = [
     done: false,
   },
 ];
+
+export const hours = Array.from({ length: 24 }, (_, i) => i);
+export const minutes = Array.from({ length: 60 }, (_, i) => i);
+export const seconds = Array.from({ length: 60 }, (_, i) => i);

@@ -27,7 +27,7 @@ async function main() {
       host: "Web3 Community Leaders",
       started: null, // Set the appropriate DateTime value
       stopped: null, // Set the appropriate DateTime value
-      duration: "30 minutes",
+      duration: "30",
       image: "/images/1.jpg",
       active: false,
       isReset: false,

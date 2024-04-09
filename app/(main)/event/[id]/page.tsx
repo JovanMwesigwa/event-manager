@@ -5,6 +5,7 @@ import EventTitle from "@/app/components/EventTitle";
 import useGetEvent from "@/hooks/reactquery/useGetEvent";
 import NewActivityBtn from "../NewActivityBtn";
 import { NewActivityForm } from "../../create/Form/NewActivity";
+import EmptyEventCard from "@/app/components/EmptyActivityCard";
 
 const EventPage = () => {
   const { data, error, isLoading, isError } = useGetEvent(1);
@@ -12,7 +13,8 @@ const EventPage = () => {
   if (!data || isLoading || isError) {
     return (
       <>
-        <NewActivityForm />
+        {/* <NewActivityForm /> */}
+        <NewActivityBtn isEditing={false} submit={() => {}} />
       </>
     );
   }
@@ -26,7 +28,9 @@ const EventPage = () => {
         <EventCard key={activity.id} item={activity} />
       ))}
 
-      <NewActivityForm />
+      {/* <NewActivityForm /> */}
+
+      <EmptyEventCard />
     </>
   );
 };
