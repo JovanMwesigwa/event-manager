@@ -40,7 +40,7 @@ const EventsPage = () => {
       location,
       duration: "Event Duration goes here..",
       image: "/images/event.jpg",
-      active: false,
+      active: true,
       isReset: false,
       currentTime: new Date().toLocaleTimeString(),
     } as Event;

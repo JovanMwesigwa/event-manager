@@ -9,7 +9,7 @@ import { RocketIcon } from "lucide-react";
 import FullScreenTimer from "./FullScreen/FullScreenTimer";
 
 const EventTitle = ({ event }: { event: Event }) => {
-  const { formattedTime, isLoading } = useTimer("1"); // Convert to string if necessary
+  const { formattedTime, isLoading } = useTimer(event.id.toString()); // Convert to string if necessary
 
   const {
     startMutation,

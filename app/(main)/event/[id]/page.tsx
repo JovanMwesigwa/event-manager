@@ -1,14 +1,16 @@
 "use client";
 
+import EmptyEventCard from "@/app/components/EmptyActivityCard";
 import EventCard from "@/app/components/EventCard";
 import EventTitle from "@/app/components/EventTitle";
 import useGetEvent from "@/hooks/reactquery/useGetEvent";
+import { useParams } from "next/navigation";
 import NewActivityBtn from "../NewActivityBtn";
-import { NewActivityForm } from "../../create/Form/NewActivity";
-import EmptyEventCard from "@/app/components/EmptyActivityCard";
 
 const EventPage = () => {
-  const { data, error, isLoading, isError } = useGetEvent(1);
+  const { id } = useParams();
+
+  const { data, error, isLoading, isError } = useGetEvent(Number(id));
 
   if (!data || isLoading || isError) {
     return (
