@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const ActivitySchema = z.object({
+export const ActivitySchema = z.object({
   title: z.string(),
   description: z.string().optional(),
   host: z.string(),
@@ -16,4 +16,15 @@ const ActivitySchema = z.object({
   eventId: z.number().int(),
 });
 
-export default ActivitySchema;
+export const EventSchema = z.object({
+  title: z.string(),
+  starts: z.string(),
+  host: z.string(),
+  description: z.string(),
+  location: z.string(),
+  duration: z.string(),
+  image: z.string(),
+  active: z.boolean(),
+  isReset: z.boolean(),
+  currentTime: z.string(),
+});

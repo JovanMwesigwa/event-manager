@@ -2,7 +2,13 @@ import { Input } from "@/components/ui/input";
 import { MapPin } from "lucide-react";
 import React from "react";
 
-const EventLocationCard = () => {
+const EventLocationCard = ({
+  location,
+  setLoction,
+}: {
+  location: string;
+  setLoction: any;
+}) => {
   return (
     <div className="flex w-full items-center justify-between  ml-3 mb-5">
       <div className="flex flex-1 justify-between h-full flex-col gap-3 p-4 bg-neutral-200 rounded-md ">
@@ -15,6 +21,9 @@ const EventLocationCard = () => {
           <Input
             className="w-1/2 h-full bg-neutral--100 border-b-4 border-b-neutral-300 text-neutral-700"
             placeholder="Enter location"
+            required
+            value={location}
+            onChange={(e) => setLoction(e.target.value)}
           />
         </div>
       </div>

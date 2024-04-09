@@ -1,15 +1,73 @@
 // In your EventsPage component
+"use client";
 
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
+
 import EventDatesCard from "./dates-card";
 import DescriptionCard from "./description-card";
 import CreateHeader from "./header";
 import EventLocationCard from "./location-card";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+import useCreateEvent from "@/hooks/reactquery/useCreateEvent";
+import { Event } from "@prisma/client";
+import { Loader } from "lucide-react";
 
 const EventsPage = () => {
+  const [title, setTitle] = useState<string>("");
+  const [description, setDescription] = useState<string>("Event Description");
+  const [location, setLocation] = useState<string>("Event Location");
+  const [startDate, setStartDate] = useState<Date>(new Date());
+  const [endDate, setEndDate] = useState<Date>(new Date());
+  const [startTime, setStartTime] = useState<string>("09:00 AM");
+  const [endTime, setEndTime] = useState<string>("05:00 PM");
+
+  const mutation = useCreateEvent();
+
+  const router = useRouter();
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+
+    // @ts-ignore
+    const data = {
+      title,
+      starts: startDate.toISOString(), // Example date: April 22, 2024
+      host: "Host goes here..", // Will be got from the UserObject...
+      description,
+      location,
+      duration: "Event Duration goes here..",
+      image: "/images/event.jpg",
+      active: false,
+      isReset: false,
+      currentTime: new Date().toLocaleTimeString(),
+    } as Event;
+
+    // console.log(data);
+
+    mutation.mutate(data, {
+      onSuccess: (data) => {
+        // Check if the event ID is defined before navigating
+        if (data?.id) {
+          router.push(`/event/${data.id}`);
+        } else {
+          console.error("Event ID is undefined.");
+        }
+      },
+    });
+  };
+
+  if (mutation.isPending)
+    return (
+      <div className="h-full w-full items-center justify-center flex flex-1">
+        <Loader />
+      </div>
+    );
+
   return (
-    <div className="grid grid-cols-12 h-screen text-neutral-500">
+    <form className="grid grid-cols-12 h-screen text-neutral-500">
       <div className="col-span-5 flex items-center flex-col pr-4">
         <div className="flex bg-neutral-200 cursor-pointer rounded-lg h-1/2 w-full"></div>
       </div>
@@ -19,23 +77,39 @@ const EventsPage = () => {
         <Input
           className=" text-5xl font-extrabold h-24 bg-slate-100 border-none text-neutral-700"
           placeholder="Event Name"
+          required
+          onChange={(e) => setTitle(e.target.value)}
+          value={title}
         />
 
-        <EventDatesCard />
+        <EventDatesCard
+          setStartDate={setStartDate}
+          setEndDate={setEndDate}
+          endDate={endDate}
+          startDate={startDate}
+          startTime={startTime}
+          endTime={endTime}
+          setStartTime={setStartTime}
+          setEndTime={setEndTime}
+        />
 
-        <EventLocationCard />
+        <EventLocationCard location={location} setLoction={setLocation} />
 
-        <DescriptionCard />
+        <DescriptionCard
+          description={description}
+          setDescription={setDescription}
+        />
 
-        <Link href="/event/1">
-          <div className="flex w-full justify-between  ml-3 mb-5">
-            <div className="h-12 w-full text-white rounded-md bg-primary flex items-center justify-center">
-              Create Event
-            </div>
-          </div>
-        </Link>
+        <div className="flex w-full justify-between  ml-3 mb-5">
+          <Button
+            onClick={handleSubmit}
+            className="h-12 w-full text-white rounded-md bg-primary flex items-center justify-center"
+          >
+            Create Event
+          </Button>
+        </div>
       </div>
-    </div>
+    </form>
   );
 };
 

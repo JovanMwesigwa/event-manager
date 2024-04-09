@@ -6,6 +6,7 @@ import {
   pauseTimer,
   setActiveEventAndActivity,
 } from "@/services/firebaseService";
+import { Event } from "@prisma/client";
 import { cache } from "react";
 
 export const startTheEvent = cache(async (eventId: number) => {
@@ -553,4 +554,35 @@ export const deleteActivity = async (activityId: number) => {
 
   // Delete the timer for the activity
   await deleteTimer(activityId.toString());
+};
+
+export const createAnEvent = async (data: Event) => {
+  const {
+    title,
+    starts,
+    host,
+    location,
+    duration,
+    image,
+    active,
+    isReset,
+    currentTime,
+  } = data;
+
+  // Create an event
+  const event = await prisma.event.create({
+    data: {
+      title,
+      starts,
+      host,
+      location,
+      duration,
+      image,
+      active,
+      isReset,
+      currentTime,
+    },
+  });
+
+  return event;
 };

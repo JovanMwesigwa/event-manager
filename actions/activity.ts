@@ -3,13 +3,15 @@
 import {
   activateNextActivity,
   createActivity,
+  createAnEvent,
   deleteActivity,
   jumpToActivity,
   updateCurrentEventTime,
 } from "@/db/mutations";
 import { getCurrentActivityTime, getTheActiveActivity } from "@/db/queries";
 import { setActiveEventAndActivity } from "@/services/firebaseService";
-import ActivitySchema from "@/validation";
+import { ActivitySchema, EventSchema } from "@/validation";
+import { Event } from "@prisma/client";
 
 export const upsertActivityCurrentTime = async (activityId: number) => {
   const activityTime = await getCurrentActivityTime(activityId);
@@ -48,7 +50,7 @@ export const addActiveEventAndActivity = async (
   return result;
 };
 
-export const upsertNewActivity = async (data: any) => {
+export const upsertNewActivity = async (data: Event) => {
   try {
     const validationSchema = ActivitySchema.safeParse(data);
 
@@ -68,4 +70,20 @@ export const upsertRemoveActivity = async (activityId: number) => {
   await deleteActivity(activityId);
 
   return;
+};
+
+export const upsertCreateNewEvent = async (data: Event) => {
+  try {
+    const validationSchema = EventSchema.safeParse(data);
+
+    if (!validationSchema.success) {
+      throw new Error(validationSchema.error.message);
+    }
+
+    const result = await createAnEvent(data);
+
+    return result;
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
 };

@@ -1,13 +1,14 @@
 import { upsertNewActivity } from "@/actions/activity";
-import { Activity } from "@prisma/client";
+import { Activity, Event } from "@prisma/client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 const useCreateActivity = () => {
   const queryClient = useQueryClient(); // Access the query client instance
 
   const createActivityMutation = useMutation({
-    mutationFn: async (data: Activity) => {
+    mutationFn: async (data: Event) => {
       const result = await upsertNewActivity(data);
 
       return result;
@@ -17,6 +18,9 @@ const useCreateActivity = () => {
     },
     onSettled: async () => {
       await queryClient.invalidateQueries();
+    },
+    onSuccess: (data: Activity) => {
+      toast("Activity created successfully");
     },
   });
 

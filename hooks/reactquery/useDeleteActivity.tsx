@@ -19,6 +19,9 @@ const useDeleteActivity = () => {
     onSettled: async () => {
       await queryClient.invalidateQueries();
     },
+    onSuccess: () => {
+      toast("Activity removed successfully");
+    },
   });
 
   return deleteActivityMutation;
