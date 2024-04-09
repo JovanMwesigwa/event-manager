@@ -24,7 +24,7 @@ export const EventSchema = z.object({
   location: z.string(),
   duration: z.string(),
   image: z.string(),
-  active: z.boolean(),
-  isReset: z.boolean(),
+  active: z.boolean().optional().default(false),
+  isReset: z.boolean().optional().default(false),
   currentTime: z.string(),
 });

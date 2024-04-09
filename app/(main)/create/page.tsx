@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import useCreateEvent from "@/hooks/reactquery/useCreateEvent";
 import { Event } from "@prisma/client";
 import { Loader } from "lucide-react";
+import Image from "next/image";
 
 const EventsPage = () => {
   const [title, setTitle] = useState<string>("");
@@ -40,8 +41,6 @@ const EventsPage = () => {
       location,
       duration: "Event Duration goes here..",
       image: "/images/event.jpg",
-      active: true,
-      isReset: false,
       currentTime: new Date().toLocaleTimeString(),
     } as Event;
 
@@ -69,7 +68,15 @@ const EventsPage = () => {
   return (
     <form className="grid grid-cols-12 h-screen text-neutral-500">
       <div className="col-span-5 flex items-center flex-col pr-4">
-        <div className="flex bg-neutral-200 cursor-pointer rounded-lg h-1/2 w-full"></div>
+        <div className="flex bg-neutral-200 cursor-pointer rounded-lg h-1/2 w-full relative overflow-hidden">
+          <Image
+            src="https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=2,quality=75,width=960,height=480/event-covers/ba/32c7dea4-d373-4d62-abf7-70e2482187d1"
+            alt={"Event Name"}
+            layout="fill"
+            objectFit="cover"
+            className="rounded-md"
+          />
+        </div>
       </div>
       <div className="col-span-7 flex flex-col">
         <CreateHeader />

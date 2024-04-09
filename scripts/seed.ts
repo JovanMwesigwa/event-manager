@@ -13,7 +13,6 @@ async function main() {
       location: "Decentraland",
       duration: "Full Day",
       image: "/images/event.jpg",
-      active: true,
       isReset: false,
       currentTime: "08:00:00",
     },

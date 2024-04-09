@@ -68,7 +68,7 @@ export default function TimePickerDemo({
       ) : (
         <div
           onClick={() => setEditing(true)}
-          className="flex items-center w-full flex-row group relative cursor-pointer"
+          className="flex items-center w-full flex-row group relative cursor-pointer text-neutral-400"
         >
           <div className="relative">
             <h1 className="text-2xl md:text-5xl font-extrabold relative cursor-pointer">

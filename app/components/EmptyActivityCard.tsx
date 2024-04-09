@@ -64,6 +64,7 @@ const EmptyEventCard = ({ eventId }: { eventId: number }) => {
       eventId, // Todo: Replace with the actual event ID
     } as Activity;
 
+    // @ts-ignore
     createActivity.mutate(eventData);
 
     // Reset the form

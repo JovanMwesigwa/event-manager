@@ -1,14 +1,12 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import useGetActiveActivity from "@/hooks/reactquery/useGetActiveActivity";
 import { useEventActions } from "@/hooks/useEventActions";
 import {
   Loader,
   PauseIcon,
   PlayIcon,
   Redo,
-  Redo2,
   StopCircleIcon,
 } from "lucide-react";
 
@@ -32,12 +30,6 @@ const ActionButtons = ({
     eventId,
     paused,
   });
-
-  // const { data } = useGetActiveActivity();
-
-  // console.log("====================================");
-  // console.log(data);
-  // console.log("====================================");
 
   return (
     <div className="flex flex-row items-center gap-2 ">
