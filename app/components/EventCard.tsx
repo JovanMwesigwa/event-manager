@@ -2,23 +2,26 @@ import EventSheet from "@/app/components/EventSheet";
 import Timer from "@/components/Timer";
 import { Progress } from "@/components/ui/progress";
 import useTimer from "@/hooks/useTimer";
+import { useEventActivityStore } from "@/stores/active-store";
 import { Activity } from "@prisma/client";
-import { CircleDot, ClockIcon, Delete, DeleteIcon, Trash } from "lucide-react";
-import { FaPlay, FaStop } from "react-icons/fa";
-import { MdSkipNext } from "react-icons/md";
+import { CircleDot, ClockIcon } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
-import CardButtons from "./buttons/CardButtons";
-import { Button } from "@/components/ui/button";
 import { DeleteAlert } from "./Modals/DeleteAlert";
+import CardButtons from "./buttons/CardButtons";
 
 const EventCard = ({ item }: { item: Activity }) => {
   const { secondsRemaining, isLoading } = useTimer(item.id.toString());
   const eventLife = item.active;
   const cardRef = useRef<HTMLDivElement>(null);
 
+  const { setEventId, setActiveActivityId } = useEventActivityStore();
+
   useEffect(() => {
     if (eventLife && cardRef.current) {
+      setEventId(item.eventId);
+      setActiveActivityId(item.id);
+
       cardRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
     }
   }, [eventLife]);

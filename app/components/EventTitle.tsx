@@ -7,16 +7,16 @@ import useTimer from "@/hooks/useTimer"; // Assuming this is the path to your ho
 import { Event } from "@prisma/client";
 import { RocketIcon } from "lucide-react";
 import FullScreenTimer from "./FullScreen/FullScreenTimer";
+import { useEventActivityStore } from "@/stores/active-store";
 
 const EventTitle = ({ event }: { event: Event }) => {
-  const { formattedTime, isLoading } = useTimer(event.id.toString()); // Convert to string if necessary
+  const { eventId, activeActivityId } = useEventActivityStore();
 
-  const {
-    startMutation,
-    pauseMutation,
-    stopMutation,
-    // jumpToNextActivityMutation,
-  } = useEventActions({
+  const { formattedTime, isLoading } = useTimer(
+    activeActivityId?.toString() || event.id.toString()
+  ); // Convert to string if necessary
+
+  const { startMutation } = useEventActions({
     eventId: event.id,
     paused: event.isPaused,
   });
