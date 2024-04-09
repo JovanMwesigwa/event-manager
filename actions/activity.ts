@@ -2,11 +2,13 @@
 
 import {
   activateNextActivity,
+  createActivity,
   jumpToActivity,
   updateCurrentEventTime,
 } from "@/db/mutations";
 import { getCurrentActivityTime, getTheActiveActivity } from "@/db/queries";
 import { setActiveEventAndActivity } from "@/services/firebaseService";
+import ActivitySchema from "@/validation";
 
 export const upsertActivityCurrentTime = async (activityId: number) => {
   const activityTime = await getCurrentActivityTime(activityId);
@@ -43,4 +45,20 @@ export const addActiveEventAndActivity = async (
   const result = await setActiveEventAndActivity(eventId, activityId);
 
   return result;
+};
+
+export const upsertNewActivity = async (data: any) => {
+  try {
+    const validationSchema = ActivitySchema.safeParse(data);
+
+    if (!validationSchema.success) {
+      throw new Error(validationSchema.error.message);
+    }
+
+    const result = await createActivity(data);
+
+    return result;
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
 };

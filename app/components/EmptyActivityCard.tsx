@@ -5,8 +5,10 @@ import { CircleDot, ClockIcon, PencilIcon } from "lucide-react";
 import { useRef, useState } from "react";
 import NewActivityBtn from "../(main)/event/NewActivityBtn";
 import TimePickerDemo from "./Inputs/TimePickerDemo";
+import useCreateActivity from "@/hooks/reactquery/useCreateActivity";
+import { Activity } from "@prisma/client";
 
-const EmptyEventCard = () => {
+const EmptyEventCard = ({ eventId }: { eventId: number }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const eventLife = true; // Assume the event is active for static data
   const progress = 0; // 50% progress for static data
@@ -35,6 +37,8 @@ const EmptyEventCard = () => {
 
   const isEditing = editTitle || editDescription || editHost || editTime;
 
+  const createActivity = useCreateActivity();
+
   const handleSubmit = () => {
     // Convert the time to seconds
     const hoursInSeconds = parseInt(selectedHour) * 3600;
@@ -44,11 +48,12 @@ const EmptyEventCard = () => {
     const durationInSeconds =
       hoursInSeconds + minutesInSeconds + secondsInTotal;
 
+    // @ts-ignore
     const eventData = {
       title,
       description,
       host,
-      duration: durationInSeconds,
+      duration: durationInSeconds.toString(),
       started: null, // Set the appropriate DateTime value
       stopped: null, // Set the appropriate DateTime value
       image: "/images/1.jpg",
@@ -56,13 +61,20 @@ const EmptyEventCard = () => {
       isReset: false,
       currentTime: "00:00:00",
       done: false,
-      eventId: 1, // Todo: Replace with the actual event ID
-    };
+      eventId, // Todo: Replace with the actual event ID
+    } as Activity;
 
-    console.log("Submitting event data:", eventData);
+    createActivity.mutate(eventData);
 
-    // Perform the submission action, e.g., sending data to a server
-    // Further actions after submission could also go here
+    // Reset the form
+    setTitle("Add a title to your activity");
+    setDescription("Add a description to your activity");
+    setHost("Add a Speaker");
+    setTime("00:00:00");
+    setSelectedHour("01");
+    setSelectedMinute("30");
+    setSeconds("00");
+    setDuration("01:30:00");
   };
 
   return (
@@ -291,7 +303,11 @@ const EmptyEventCard = () => {
         </div>
       </div>
 
-      <NewActivityBtn isEditing={isEditing} submit={handleSubmit} />
+      <NewActivityBtn
+        isEditing={isEditing}
+        submit={handleSubmit}
+        loading={createActivity.isPending}
+      />
     </>
   );
 };

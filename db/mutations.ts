@@ -482,3 +482,51 @@ export const activateNextActivity = async (eventId: number) => {
     nextActivity.id.toString()
   );
 };
+
+export const createActivity = async (data: any) => {
+  // Get the event
+  const event = await prisma.event.findUnique({
+    where: {
+      id: data.eventId,
+    },
+  });
+
+  if (!event) {
+    throw new Error("Event not found");
+  }
+
+  const {
+    title,
+    description,
+    host,
+    duration,
+    started,
+    stopped,
+    image,
+    active,
+    isReset,
+    currentTime,
+    done,
+    eventId,
+  } = data;
+
+  // Create the activity
+  const activity = await prisma.activity.create({
+    data: {
+      title,
+      description,
+      host,
+      duration,
+      started, // Set the appropriate DateTime value
+      stopped, // Set the appropriate DateTime value
+      image,
+      active,
+      isReset,
+      currentTime,
+      done,
+      eventId,
+    },
+  });
+
+  return activity;
+};

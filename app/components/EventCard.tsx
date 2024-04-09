@@ -49,7 +49,9 @@ const EventCard = ({ item }: { item: Activity }) => {
               >
                 {item.title}
               </h1>
-              <p className="text-neutral-400 text-sm">By: {item.host}</p>
+              <p className="text-neutral-400 text-sm line-clamp-1">
+                By: {item.host}
+              </p>
             </div>
 
             <CardButtons

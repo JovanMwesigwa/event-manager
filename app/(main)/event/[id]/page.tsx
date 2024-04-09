@@ -30,7 +30,7 @@ const EventPage = () => {
 
       {/* <NewActivityForm /> */}
 
-      <EmptyEventCard />
+      <EmptyEventCard eventId={data.id} />
     </>
   );
 };
