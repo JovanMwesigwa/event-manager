@@ -1,3 +1,4 @@
+import DeleteEventPop from "@/app/components/Pops/DeleteEventPop";
 import { Button } from "@/components/ui/button";
 import { Event } from "@prisma/client";
 import { EllipsisVertical, Eye, MapPin } from "lucide-react";
@@ -31,12 +32,8 @@ const AllEventCard = ({ event }: { event: Event }) => {
                 OPEN
               </Button>
             </Link>
-            <Button
-              variant="ghost"
-              className="border text-xs border-neutral-300 p-1 rounded-sm h-8 w-8"
-            >
-              <EllipsisVertical size={16} className="text-neutral-500" />
-            </Button>
+
+            <DeleteEventPop eventId={event.id} />
           </div>
         </div>
 

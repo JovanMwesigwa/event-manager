@@ -586,3 +586,32 @@ export const createAnEvent = async (data: Event) => {
 
   return event;
 };
+export const deleteAnEvent = async (eventId: number) => {
+  // Get the event
+  const event = await prisma.event.findUnique({
+    where: {
+      id: eventId,
+    },
+  });
+
+  if (!event) {
+    throw new Error("Event not found");
+  }
+
+  // Delete all activities related to the event first
+  await prisma.activity.deleteMany({
+    where: {
+      eventId: eventId,
+    },
+  });
+
+  // Then delete the event
+  await prisma.event.delete({
+    where: {
+      id: eventId,
+    },
+  });
+
+  // Delete the timer for the event, if necessary
+  await deleteTimer(eventId.toString());
+};

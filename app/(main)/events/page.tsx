@@ -13,7 +13,7 @@ const AllEventsPage = () => {
 
   return (
     <div className="grid grid-cols-6 gap-x-6">
-      <div className="  h-full col-span-4 grid grid-cols-6 ">
+      <div className="h-full col-span-6 md:col-span-4 grid grid-cols-6 ">
         {/* Left... */}
         <div className="col-span-3  ">
           <h1 className="font-bold text-xl">My Events</h1>
@@ -43,6 +43,15 @@ const AllEventsPage = () => {
             <p className="text-blue-500 underline ">See billing</p>
           </Link>
         </div>
+
+        {data?.length === 0 && (
+          <div className="col-span-6 flex flex-col opacity-50 items-center justify-center h-full">
+            <h1 className="text-xl font-bold">No events found</h1>
+            <p className="text-sm text-neutral-500">
+              Create an event to get started
+            </p>
+          </div>
+        )}
 
         {/* Botton */}
         {data?.map((event) => (

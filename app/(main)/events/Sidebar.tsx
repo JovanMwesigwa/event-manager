@@ -4,7 +4,7 @@ import React from "react";
 
 const Sidebar = () => {
   return (
-    <div className=" h-full col-span-2 flex flex-col gap-y-5">
+    <div className=" h-full col-span-6 mt-6 md:mt-0 md:col-span-2 flex flex-col gap-y-5">
       <div className="w-full h-20 bg-white rounded-md p-4 flex flex-row items-center justify-between border ">
         <div className="flex flex-row items-center gap-x-2 flex-1">
           <div className="size-8 rounded-full bg-neutral-300"></div>
@@ -16,7 +16,7 @@ const Sidebar = () => {
 
         {/* Upgrade btn */}
         <Button
-          className=" h-8 text-sm border rounded-sm border-b-2 border-b-blue-400 flex flex-row gap-x-2"
+          className=" h-8 text-xs border rounded-sm border-b-2 text-orange-400 bg-white border-b-orange-400 flex flex-row gap-x-2"
           variant="ghost"
           onClick={() => console.log("test")}
         >
@@ -36,12 +36,12 @@ const Sidebar = () => {
 
           {/* Upgrade btn */}
           <Button
-            className=" h-8 text-sm border rounded-sm border-b-2 border-b-green-400 flex flex-row gap-x-2"
+            className=" h-8 text-xs border rounded-sm border-b-2 bg-white text-blue-400  border-b-blue-400 flex flex-row gap-x-2"
             variant="ghost"
             onClick={() => console.log("test")}
           >
             Add team
-            <Users2 size={16} className="text-green-500" />
+            <Users2 size={16} className="text-blue-500" />
           </Button>
         </div>
 
