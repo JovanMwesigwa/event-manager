@@ -1,7 +1,7 @@
 import DeleteEventPop from "@/app/components/Pops/DeleteEventPop";
 import { Button } from "@/components/ui/button";
 import { Event } from "@prisma/client";
-import { EllipsisVertical, Eye, MapPin } from "lucide-react";
+import { EllipsisVertical, Eye, MapPin, PenLine } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -45,17 +45,24 @@ const AllEventCard = ({ event }: { event: Event }) => {
         </p>
 
         <div className="w-full flex flex-row items-center justify-between text-sm text-neutral-500 font-light">
-          {/* @ts-ignore */}
-          <p>{event.activityCount} Activities</p>
-          <div className="flex flex-row items-center gap-x-1">
+          <div className="flex flex-1">
+            {/* @ts-ignore */}
+            <p className="line-clamp-1">{event.activityCount} Activities</p>
+          </div>
+          <div className="flex flex-row items-center gap-x-1 flex-1 line-clamp-1">
             <MapPin size={16} className="text-neutral-500" />
-            <p>{event.location}</p>
+            <p className="line-clamp-1">{event.location}</p>
           </div>
-          <div className="flex flex-row items-center gap-x-1">
+          <div className="flex flex-row items-center gap-x-1 flex-1">
             <Eye size={16} className="text-neutral-500" />
-            <p>Public</p>
+            <p className="line-clamp-1">Public</p>
           </div>
-          <p>Created {event.createdAt.toLocaleDateString()}</p>
+          <div className="flex flex-1  gap-x-1 items-center">
+            <PenLine size={16} className="text-neutral-500" />
+            <p className="line-clamp-1">
+              {event.createdAt.toLocaleDateString()}
+            </p>
+          </div>
         </div>
       </div>
     </div>

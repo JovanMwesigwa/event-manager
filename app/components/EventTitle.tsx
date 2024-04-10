@@ -5,7 +5,7 @@ import useGetActiveActivity from "@/hooks/reactquery/useGetActiveActivity";
 import { useEventActions } from "@/hooks/useEventActions";
 import useTimer from "@/hooks/useTimer"; // Assuming this is the path to your hook
 import { Event } from "@prisma/client";
-import { ExpandIcon, Home, RocketIcon } from "lucide-react";
+import { ExpandIcon, Home, MapPin, RocketIcon } from "lucide-react";
 import FullScreenTimer from "./FullScreen/FullScreenTimer";
 import { useEventActivityStore } from "@/stores/active-store";
 import Link from "next/link";
@@ -30,13 +30,19 @@ const EventTitle = ({ event }: { event: Event }) => {
         <Link href="/events">
           <Button
             variant="ghost"
-            className="border max-w-40 border-b-2 border-b-neutral-300 bg-white flex flex-row items-center gap-2"
+            className="border border-b-2 border-b-neutral-300 bg-white flex flex-row items-center gap-2"
           >
             <Home size={17} className="text-orange-500 font-extrabold" />
           </Button>
         </Link>
 
-        <h1 className="text-2xl font-bold text-neutral-800">{event.title}</h1>
+        <div className="flex flex-col">
+          <h1 className="text-2xl font-bold text-neutral-800">{event.title}</h1>
+          <div className="flex flex-row items-center gap-x-1">
+            <MapPin size={16} className="text-neutral-400" />
+            <p className="text-sm text-neutral-400">{event.location}</p>
+          </div>
+        </div>
       </div>
 
       <div className="flex flex-row items-center gap-4">
