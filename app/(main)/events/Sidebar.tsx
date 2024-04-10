@@ -48,9 +48,11 @@ const Sidebar = () => {
         {/*  */}
         <div className="flex flex-row w-full">
           <div className="flex flex-row gap-x-2 flex-1 items-center">
-            <div className="size-6 rounded-full bg-neutral-300"></div>
+            <div className="size-6 rounded-full bg-neutral-300">
+              {/* <ClerkLoaded></ClerkLoaded> */}
+            </div>
             <div className="flex flex-col">
-              <p className="text-sm font-medium">Joavn Mwesigwa</p>
+              <p className="text-sm font-medium">Jovan Mwesigwa</p>
             </div>
           </div>
 

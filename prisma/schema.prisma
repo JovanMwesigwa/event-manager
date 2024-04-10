@@ -20,6 +20,7 @@ model Event {
   host        String
   location    String?
   duration    String
+  description String?
   image       String?
   active      Boolean    @default(false)
   isPaused    Boolean    @default(true)

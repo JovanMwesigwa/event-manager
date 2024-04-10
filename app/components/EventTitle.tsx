@@ -5,9 +5,10 @@ import useGetActiveActivity from "@/hooks/reactquery/useGetActiveActivity";
 import { useEventActions } from "@/hooks/useEventActions";
 import useTimer from "@/hooks/useTimer"; // Assuming this is the path to your hook
 import { Event } from "@prisma/client";
-import { RocketIcon } from "lucide-react";
+import { ExpandIcon, Home, RocketIcon } from "lucide-react";
 import FullScreenTimer from "./FullScreen/FullScreenTimer";
 import { useEventActivityStore } from "@/stores/active-store";
+import Link from "next/link";
 
 const EventTitle = ({ event }: { event: Event }) => {
   const { eventId, activeActivityId } = useEventActivityStore();
@@ -25,7 +26,19 @@ const EventTitle = ({ event }: { event: Event }) => {
 
   return (
     <div className="flex flex-row items-center justify-between w-full">
-      <h1 className="text-2xl font-bold text-neutral-800">{event.title}</h1>
+      <div className="flex flex-row items-center gap-x-2">
+        <Link href="/events">
+          <Button
+            variant="ghost"
+            className="border max-w-40 border-b-2 border-b-neutral-300 bg-white flex flex-row items-center gap-2"
+          >
+            <Home size={17} className="text-orange-500 font-extrabold" />
+          </Button>
+        </Link>
+
+        <h1 className="text-2xl font-bold text-neutral-800">{event.title}</h1>
+      </div>
+
       <div className="flex flex-row items-center gap-4">
         {/* <h1 className="text-sm text-neutral-600 font-bold">
           {isLoading ? "Loading timer..." : formattedTime}

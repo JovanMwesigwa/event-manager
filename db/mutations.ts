@@ -564,6 +564,7 @@ export const createAnEvent = async (data: Event) => {
     location,
     duration,
     image,
+    description,
     active,
     isReset,
     currentTime,
@@ -586,6 +587,7 @@ export const createAnEvent = async (data: Event) => {
 
   return event;
 };
+
 export const deleteAnEvent = async (eventId: number) => {
   // Get the event
   const event = await prisma.event.findUnique({

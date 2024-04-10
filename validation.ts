@@ -20,7 +20,7 @@ export const EventSchema = z.object({
   title: z.string(),
   starts: z.string(),
   host: z.string(),
-  description: z.string(),
+  description: z.string().optional(),
   location: z.string(),
   duration: z.string(),
   image: z.string(),
