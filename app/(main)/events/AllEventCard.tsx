@@ -1,7 +1,13 @@
 import DeleteEventPop from "@/app/components/Pops/DeleteEventPop";
 import { Button } from "@/components/ui/button";
 import { Event } from "@prisma/client";
-import { EllipsisVertical, Eye, MapPin, PenLine } from "lucide-react";
+import {
+  CalendarCheck,
+  EllipsisVertical,
+  Eye,
+  MapPin,
+  PenLine,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -49,7 +55,7 @@ const AllEventCard = ({ event }: { event: Event }) => {
             {/* @ts-ignore */}
             <p className="line-clamp-1">{event.activityCount} Activities</p>
           </div>
-          <div className="flex flex-row items-center gap-x-1 flex-1 line-clamp-1">
+          <div className="flex flex-row items-center gap-x-1 flex-1 ">
             <MapPin size={16} className="text-neutral-500" />
             <p className="line-clamp-1">{event.location}</p>
           </div>
@@ -58,9 +64,10 @@ const AllEventCard = ({ event }: { event: Event }) => {
             <p className="line-clamp-1">Public</p>
           </div>
           <div className="flex flex-1  gap-x-1 items-center">
-            <PenLine size={16} className="text-neutral-500" />
+            <CalendarCheck size={16} className="text-neutral-500" />
             <p className="line-clamp-1">
-              {event.createdAt.toLocaleDateString()}
+              {/* {event.createdAt.toLocaleDateString()} */}
+              {event.starts.toLocaleDateString()}
             </p>
           </div>
         </div>
