@@ -3,12 +3,28 @@ import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
 import { RadioGroup } from "@/components/ui/radio-group";
 import useGetPoll from "@/hooks/reactquery/useGetPoll";
-import { Check, CheckCircle, Loader, SendHorizonal } from "lucide-react";
+import useVotePoll from "@/hooks/reactquery/useVotePoll";
+import {
+  Check,
+  CheckCircle,
+  Loader,
+  Loader2,
+  SendHorizonal,
+} from "lucide-react";
 import { useState } from "react";
 
 const VotePoll = ({ pollId }: { pollId: number }) => {
   const [votedOption, setVotedOption] = useState<number | null>(null);
   const { data, error, isLoading } = useGetPoll(pollId);
+
+  const { mutate, isPending, isSuccess } = useVotePoll();
+
+  const submitVote = () => {
+    if (votedOption !== null) {
+      // @ts-ignore
+      mutate({ pollId, optionId: votedOption });
+    }
+  };
 
   if (isLoading) return <Loader className="w-10 h-10 text-primary-500" />;
 
@@ -56,8 +72,12 @@ const VotePoll = ({ pollId }: { pollId: number }) => {
             <p>Cast your vote</p>
           </div>
 
-          <Button className="h-8 rounded-sm flex flex-row items-center gap-x-2 bg-blue-500">
-            Submit
+          <Button
+            onClick={submitVote}
+            disabled={isPending !== false || votedOption === null}
+            className="h-8 rounded-sm flex flex-row items-center gap-x-2 bg-blue-500"
+          >
+            {isPending ? <Loader2 /> : <>Submit</>}
             <SendHorizonal size={12} />
           </Button>
         </div>

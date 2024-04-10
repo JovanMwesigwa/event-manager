@@ -649,3 +649,43 @@ export const createPoll = async (data: RawPollType) => {
 
   return poll;
 };
+
+export const votePoll = async (pollId: number, optionId: number) => {
+  // Check if the poll exists
+  const poll = await prisma.poll.findUnique({
+    where: { id: pollId },
+  });
+
+  if (!poll) {
+    throw new Error("Poll not found.");
+  }
+
+  // Check if the option exists
+  const option = await prisma.pollOption.findUnique({
+    where: { id: optionId },
+  });
+
+  if (!option) {
+    throw new Error("Option not found.");
+  }
+
+  // Increment the votes for the option
+  await prisma.pollOption.update({
+    where: { id: optionId },
+    data: {
+      votes: {
+        increment: 1,
+      },
+    },
+  });
+
+  // Temporary functionality:
+  // Close the poll after the user votes
+  // This will extended when i do user management...
+  await prisma.poll.update({
+    where: { id: pollId },
+    data: {
+      closed: true,
+    },
+  });
+};

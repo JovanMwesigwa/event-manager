@@ -13,6 +13,11 @@ export const getEventActivities = async (eventId: number) => {
         },
         include: {
           poll: true, // Include poll to check its existence
+          // poll: {
+          //   where: {
+          //     closed: false,
+          //   }
+          // }
         },
       },
     },

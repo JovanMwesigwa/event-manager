@@ -8,6 +8,7 @@ import {
   deleteActivity,
   jumpToActivity,
   updateCurrentEventTime,
+  votePoll,
 } from "@/db/mutations";
 import {
   getCurrentActivityTime,
@@ -108,4 +109,10 @@ export const upsertGetPoll = async (pollId: number) => {
   const poll = await getPoll(pollId);
 
   return poll;
+};
+
+export const upsertVotePoll = async (pollId: number, optionId: number) => {
+  const updatedPoll = await votePoll(pollId, optionId);
+
+  return updatedPoll;
 };
