@@ -74,7 +74,7 @@ const AddPollSheet = ({ event }: { event: Activity }) => {
             <h1 className="font-bold">Create a poll for this activity</h1>
             <Input
               placeholder="Ask a question"
-              className="border-none h-20 text-xl p-0 font-medium"
+              className="border-none h-16 text-xl p-0 font-medium"
               value={pollQuestion}
               onChange={(e) => setPollQuestion(e.target.value)}
             />
@@ -83,7 +83,7 @@ const AddPollSheet = ({ event }: { event: Activity }) => {
                 <div key={choice.id} className="flex flex-row items-center">
                   <Input
                     placeholder={`Choice ${index + 1}`}
-                    className="font-medium text-base flex-grow"
+                    className="font-medium text-sm flex-grow"
                     value={choice.name}
                     onChange={(e) =>
                       handleChoiceChange(choice.id, e.target.value)
@@ -91,10 +91,10 @@ const AddPollSheet = ({ event }: { event: Activity }) => {
                   />
                   <Button
                     onClick={() => removeChoice(choice.id)}
-                    className="ml-2 text-blue-500"
+                    className="ml-2 text-blue-500 text-sm"
                     variant="ghost"
                   >
-                    <Minus size={16} />
+                    <Minus size={15} />
                   </Button>
                 </div>
               ))}
@@ -109,7 +109,7 @@ const AddPollSheet = ({ event }: { event: Activity }) => {
             </div>
             <Button
               onClick={handleSubmitPoll}
-              className="my-4 flex flex-row items-center gap-x-2"
+              className="my-4 flex flex-row items-center gap-x-2 text-sm"
               disabled={isPending}
             >
               {isPending ? (
@@ -117,7 +117,7 @@ const AddPollSheet = ({ event }: { event: Activity }) => {
               ) : (
                 <>
                   Send
-                  <SendHorizonal size={16} />
+                  <SendHorizonal size={14} />
                 </>
               )}
             </Button>
