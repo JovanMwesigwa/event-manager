@@ -8,9 +8,8 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ChevronsRightIcon } from "lucide-react";
+import { ChevronsRightIcon, ListCollapse } from "lucide-react";
 import PollQuestion from "./PollQuestion";
-import { EventActivityType } from "@/types";
 import { Activity } from "@prisma/client";
 
 const EventSheet = ({ event }: { event: Activity }) => {
@@ -18,11 +17,15 @@ const EventSheet = ({ event }: { event: Activity }) => {
     <div className="flex w-full  justify-end  py-2 cursor-pointer ">
       <Sheet>
         <SheetTrigger>
-          <ChevronsRightIcon className="text-neutral-400 size-3 md:size-4" />
+          <div className="flex flex-row items-center text-neutral-400  gap-x-2">
+            <p className="text-xs">Add Poll</p>
+            <ListCollapse className="size-3 md:size-4" />
+            {/* <ChevronsRightIcon className="size-3 md:size-4" /> */}
+          </div>
         </SheetTrigger>
         <SheetContent
           side="right"
-          className="w-full md:w-[900px] md:m-3 md:rounded-md max-h-screen"
+          className="w-full md:w-[988px] md:m-3 md:rounded-md max-h-screen"
         >
           {/* Engaments and Polls */}
           <Tabs

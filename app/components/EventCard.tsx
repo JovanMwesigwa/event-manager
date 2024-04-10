@@ -9,6 +9,7 @@ import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { DeleteAlert } from "./Modals/DeleteAlert";
 import CardButtons from "./buttons/CardButtons";
+import AddPollSheet from "./AddPollSheet";
 
 const EventCard = ({ item }: { item: Activity }) => {
   const { secondsRemaining, isLoading } = useTimer(item.id.toString());
@@ -178,7 +179,8 @@ const EventCard = ({ item }: { item: Activity }) => {
               )}
             </div>
 
-            <EventSheet event={item} />
+            {/* <EventSheet event={item} /> */}
+            <AddPollSheet event={item} />
           </div>
         </div>
       </div>
