@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 
-const VotePoll = ({ pollId }: { pollId: number }) => {
+const VotePoll = ({ pollId, closed }: { pollId: number; closed: boolean }) => {
   const [votedOption, setVotedOption] = useState<number | null>(null);
   const { data, error, isLoading } = useGetPoll(pollId);
 
@@ -69,17 +69,19 @@ const VotePoll = ({ pollId }: { pollId: number }) => {
 
         <div className="w-full flex flex-row items-center justify-between my-4">
           <div className="flex flex-row items-center text-xs gap-2">
-            <p>Cast your vote</p>
+            {closed ? <p>Poll is closed</p> : <p>Cast your vote</p>}
           </div>
 
-          <Button
-            onClick={submitVote}
-            disabled={isPending !== false || votedOption === null}
-            className="h-8 rounded-sm flex flex-row items-center gap-x-2 bg-blue-500"
-          >
-            {isPending ? <Loader2 /> : <>Submit</>}
-            <SendHorizonal size={12} />
-          </Button>
+          {!closed && (
+            <Button
+              onClick={submitVote}
+              disabled={isPending !== false || votedOption === null}
+              className="h-8 rounded-sm flex flex-row items-center gap-x-2 bg-blue-500"
+            >
+              {isPending ? <Loader2 /> : <>Submit</>}
+              <SendHorizonal size={12} />
+            </Button>
+          )}
         </div>
       </RadioGroup>
     </div>

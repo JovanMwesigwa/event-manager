@@ -11,6 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Activity } from "@prisma/client";
 import { ChevronsRightIcon } from "lucide-react";
 import VotePoll from "./VotePoll";
+import ShowPollResults from "./ShowPollVotes";
 
 const EventSheet = ({ event }: { event: Activity }) => {
   // @ts-ignore
@@ -47,8 +48,17 @@ const EventSheet = ({ event }: { event: Activity }) => {
               value="engage"
               className="py-4 flex flex-col overflow-y-auto h-full "
             >
+              {hasPoll &&
+                // @ts-ignore
+                (event.poll.reavealed ? (
+                  // @ts-ignore
+                  <ShowPollResults pollId={event.poll.id} />
+                ) : (
+                  // @ts-ignore
+                  <VotePoll pollId={event.poll.id} closed={event.poll.closed} />
+                ))}
+
               {/* @ts-ignore */}
-              {hasPoll && <VotePoll pollId={event.poll.id} />}
             </TabsContent>
 
             {/* Details */}
