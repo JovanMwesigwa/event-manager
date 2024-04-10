@@ -3,7 +3,7 @@ import { Progress } from "@/components/ui/progress";
 import { Textarea } from "@/components/ui/textarea";
 import { CircleDot, ClockIcon, PencilIcon } from "lucide-react";
 import { useRef, useState } from "react";
-import NewActivityBtn from "../(main)/event/NewActivityBtn";
+import NewActivityBtn from "../(main)/events/NewActivityBtn";
 import TimePickerDemo from "./Inputs/TimePickerDemo";
 import useCreateActivity from "@/hooks/reactquery/useCreateActivity";
 import { Activity } from "@prisma/client";

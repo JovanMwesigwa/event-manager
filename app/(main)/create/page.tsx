@@ -83,7 +83,7 @@ const EventsPage = () => {
 
         <Input
           className=" text-5xl font-extrabold h-24 bg-slate-100 border-none text-neutral-700"
-          placeholder="Event Name"
+          placeholder="Enter Event Name"
           required
           onChange={(e) => setTitle(e.target.value)}
           value={title}
