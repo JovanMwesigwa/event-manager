@@ -1,7 +1,7 @@
 "use server";
 
 import { pauseTheEvent, startTheEvent, stopTheEvent } from "@/db/mutations";
-import { getEventActivities } from "@/db/queries";
+import { getAllEvents, getEventActivities } from "@/db/queries";
 
 export const upsertEvent = async (eventId: number) => {
   const eventWithActivities = await getEventActivities(eventId);
@@ -23,4 +23,10 @@ export const pauseEvent = async (eventId: number) => {
 export const stopEvent = async (eventId: number) => {
   const event = await stopTheEvent(eventId);
   return event;
+};
+
+export const upsertAllEvents = async () => {
+  const events = await getAllEvents();
+
+  return events;
 };

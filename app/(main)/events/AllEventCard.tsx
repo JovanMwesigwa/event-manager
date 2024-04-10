@@ -1,9 +1,11 @@
 import { Button } from "@/components/ui/button";
+import { Event } from "@prisma/client";
 import { EllipsisVertical, Eye, MapPin } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
-const AllEventCard = () => {
+const AllEventCard = ({ event }: { event: Event }) => {
   return (
     <div className="col-span-6 h-32 p-2 border overflow-hidden bg-white rounded-sm gap-4 flex flex-row mb-4">
       <div className="h-full w-36 bg-neutral-300 rounded-sm relative">
@@ -18,15 +20,17 @@ const AllEventCard = () => {
 
       <div className="flex flex-1 flex-col justify-between">
         <div className="col-span-6 flex flex-row items-center justify-between">
-          <h1 className="font-bold text-neutral-500">PyLadies 2.0</h1>
+          <h1 className="font-bold text-neutral-500">{event.title}</h1>
 
           <div className="flex flex-row items-center gap-x-2">
-            <Button
-              variant="ghost"
-              className="border border-green-400 hover:bg-green-200 text-xs text-green-800  p-1 rounded-sm bg-green-100 h-8 w-16"
-            >
-              OPEN
-            </Button>
+            <Link href={`/events/${event.id}`}>
+              <Button
+                variant="ghost"
+                className="border border-green-400 hover:bg-green-200 text-xs text-green-800  p-1 rounded-sm bg-green-100 h-8 w-16"
+              >
+                OPEN
+              </Button>
+            </Link>
             <Button
               variant="ghost"
               className="border text-xs border-neutral-300 p-1 rounded-sm h-8 w-8"
@@ -44,16 +48,17 @@ const AllEventCard = () => {
         </p>
 
         <div className="w-full flex flex-row items-center justify-between text-sm text-neutral-500 font-light">
-          <p>2 Activities</p>
+          {/* @ts-ignore */}
+          <p>{event.activityCount} Activities</p>
           <div className="flex flex-row items-center gap-x-1">
             <MapPin size={16} className="text-neutral-500" />
-            <p>Kampala, Uganda</p>
+            <p>{event.location}</p>
           </div>
           <div className="flex flex-row items-center gap-x-1">
             <Eye size={16} className="text-neutral-500" />
             <p>Public</p>
           </div>
-          <p>Created 4/8/2024</p>
+          <p>Created {event.createdAt.toLocaleDateString()}</p>
         </div>
       </div>
     </div>

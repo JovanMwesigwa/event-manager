@@ -10,7 +10,7 @@ const useGetActiveActivity = (eventId: number) => {
   };
 
   const response = useQuery({
-    queryKey: ["active", eventId],
+    queryKey: ["activeActivity", eventId],
     queryFn: request,
     refetchIntervalInBackground: true,
     // refetchInterval: 1000,

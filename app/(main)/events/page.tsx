@@ -1,16 +1,16 @@
 "use client";
 
 import MainButton from "@/app/components/buttons/MainButton";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { Eye, MapPin, Pin, Plus, RocketIcon, Star, Trophy } from "lucide-react";
+import useGetAllEvents from "@/hooks/reactquery/useGetAllEvents";
+import { Plus, Star } from "lucide-react";
 import Link from "next/link";
-import React from "react";
 import AllEventCard from "./AllEventCard";
 import Sidebar from "./Sidebar";
 
 const AllEventsPage = () => {
+  const { data, isLoading, error } = useGetAllEvents();
+
   return (
     <div className="grid grid-cols-6 gap-x-6">
       <div className="  h-full col-span-4 grid grid-cols-6 ">
@@ -45,11 +45,9 @@ const AllEventsPage = () => {
         </div>
 
         {/* Botton */}
-        <AllEventCard />
-        <AllEventCard />
-        <AllEventCard />
-        <AllEventCard />
-        <AllEventCard />
+        {data?.map((event) => (
+          <AllEventCard key={event.id} event={event} />
+        ))}
       </div>
 
       <Sidebar />

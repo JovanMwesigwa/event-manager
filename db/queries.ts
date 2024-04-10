@@ -80,3 +80,21 @@ export const getTheActiveActivity = cache(async (eventId: number) => {
 
   return activeActivity; // Return an empty object (or suitable default) if no event is found
 });
+
+export const getAllEvents = cache(async () => {
+  const events = await prisma.event.findMany({
+    orderBy: {
+      id: "desc",
+    },
+    include: {
+      _count: {
+        select: { activities: true },
+      },
+    },
+  });
+
+  return events.map((event) => ({
+    ...event,
+    activityCount: event._count.activities,
+  }));
+});
