@@ -1,7 +1,7 @@
 import prisma from "@/prisma/client";
 import { cache } from "react";
 
-export const getEventActivities = cache(async (eventId: number) => {
+export const getEventActivities = async (eventId: number) => {
   const eventWithActivities = await prisma.event.findUnique({
     where: {
       id: eventId,
@@ -11,12 +11,29 @@ export const getEventActivities = cache(async (eventId: number) => {
         orderBy: {
           id: "asc",
         },
-      }, // Fetch all activities related to the event and order them by id
+        include: {
+          poll: true, // Include poll to check its existence
+        },
+      },
     },
   });
 
+  if (eventWithActivities && eventWithActivities.activities) {
+    const activitiesWithPollCount = eventWithActivities.activities.map(
+      (activity) => ({
+        ...activity,
+        pollCount: activity.poll ? 1 : 0,
+      })
+    );
+
+    return {
+      ...eventWithActivities,
+      activities: activitiesWithPollCount,
+    };
+  }
+
   return eventWithActivities;
-});
+};
 
 export const getCurrentActivityTime = cache(async (activityId: number) => {
   const event = await prisma.activity.findUnique({
@@ -98,3 +115,17 @@ export const getAllEvents = cache(async () => {
     activityCount: event._count.activities,
   }));
 });
+
+// Function to get a poll by ID including its options
+export const getPoll = async (pollId: number) => {
+  const poll = await prisma.poll.findUnique({
+    where: {
+      id: pollId,
+    },
+    include: {
+      options: true, // Include related PollOption records
+    },
+  });
+
+  return poll;
+};

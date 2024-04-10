@@ -4,7 +4,13 @@ import { Progress } from "@/components/ui/progress";
 import useTimer from "@/hooks/useTimer";
 import { useEventActivityStore } from "@/stores/active-store";
 import { Activity } from "@prisma/client";
-import { CircleDot, ClockIcon } from "lucide-react";
+import {
+  AlignCenterVertical,
+  AlignStartVertical,
+  CircleDot,
+  ClockIcon,
+  LayoutList,
+} from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { DeleteAlert } from "./Modals/DeleteAlert";
@@ -155,8 +161,15 @@ const EventCard = ({ item }: { item: Activity }) => {
                 }`}
               >
                 <h1 className="text-[10px] md:text-xs line-clamp-1 ">
-                  Starts 05:00 AM, ends 12:00 PM, runs for {item.duration}
+                  Starts 05:00 AM, ends 12:00 PM
                 </h1>
+                <div className="flex flex-row items-center gap-x-1">
+                  <AlignStartVertical className="size-3" />
+                  <h1 className="text-[10px] md:text-xs line-clamp-1 ">
+                    {/* @ts-ignore */}
+                    {item.pollCount} Poll(s)
+                  </h1>
+                </div>
               </div>
             </div>
           </div>
@@ -181,8 +194,8 @@ const EventCard = ({ item }: { item: Activity }) => {
               )}
             </div>
 
-            {/* <EventSheet event={item} /> */}
-            <AddPollSheet event={item} />
+            <EventSheet event={item} />
+            {/* <AddPollSheet event={item} /> */}
           </div>
         </div>
       </div>

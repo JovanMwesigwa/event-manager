@@ -1,12 +1,12 @@
-"use client";
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Activity } from "@prisma/client";
-import { ListCollapse, Plus, Minus, SendHorizonal } from "lucide-react";
+import { Plus, Minus, SendHorizonal, Loader } from "lucide-react";
 import { useState } from "react";
 import PollQuestion from "./PollQuestion";
+import { toast } from "sonner";
+import useCreatePoll from "@/hooks/reactquery/useCreatePoll";
 
 const AddPollSheet = ({ event }: { event: Activity }) => {
   const [pollQuestion, setPollQuestion] = useState("");
@@ -15,6 +15,8 @@ const AddPollSheet = ({ event }: { event: Activity }) => {
     { id: 2, name: "Choice 2" },
     { id: 3, name: "Choice 3" },
   ]);
+
+  const { mutate: createPoll, isPending } = useCreatePoll();
 
   const handleChoiceChange = (id: number, name: string) => {
     setChoices(
@@ -34,13 +36,34 @@ const AddPollSheet = ({ event }: { event: Activity }) => {
     setChoices(choices.filter((choice) => choice.id !== id));
   };
 
+  const handleSubmitPoll = () => {
+    const pollData = {
+      question: pollQuestion,
+      options: choices.map((choice) => choice.name),
+      activityId: event.id, // Assuming you want to link this poll to the current activity
+    };
+    createPoll(pollData, {
+      onSuccess: () => {
+        toast("Poll created successfully");
+        setPollQuestion("");
+        setChoices([
+          { id: 1, name: "Choice 1" },
+          { id: 2, name: "Choice 2" },
+          { id: 3, name: "Choice 3" },
+        ]);
+      },
+      onError: (error) => {
+        toast(`Error creating poll: ${error.message}`);
+      },
+    });
+  };
+
   return (
     <div className="flex w-full justify-end py-2 cursor-pointer">
       <Sheet>
         <SheetTrigger>
           <div className="flex flex-row items-center text-neutral-400 gap-x-2">
             <p className="text-xs">Add Poll</p>
-            <ListCollapse className="size-3 md:size-4" />
           </div>
         </SheetTrigger>
         <SheetContent
@@ -84,9 +107,19 @@ const AddPollSheet = ({ event }: { event: Activity }) => {
                 Add Choice
               </Button>
             </div>
-            <Button className="my-4 flex flex-row items-center gap-x-2">
-              Send
-              <SendHorizonal size={16} />
+            <Button
+              onClick={handleSubmitPoll}
+              className="my-4 flex flex-row items-center gap-x-2"
+              disabled={isPending}
+            >
+              {isPending ? (
+                <Loader size={16} />
+              ) : (
+                <>
+                  Send
+                  <SendHorizonal size={16} />
+                </>
+              )}
             </Button>
           </div>
           <h1 className="font-bold mt-4 text-blue-400">Preview</h1>

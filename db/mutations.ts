@@ -6,6 +6,7 @@ import {
   pauseTimer,
   setActiveEventAndActivity,
 } from "@/services/firebaseService";
+import { RawPollType } from "@/types";
 import { Event } from "@prisma/client";
 import { cache } from "react";
 
@@ -616,4 +617,35 @@ export const deleteAnEvent = async (eventId: number) => {
 
   // Delete the timer for the event, if necessary
   await deleteTimer(eventId.toString());
+};
+
+export const createPoll = async (data: RawPollType) => {
+  // Validate input data
+  if (!data.question || data.options.length === 0) {
+    throw new Error("Question and options are required to create a poll.");
+  }
+
+  // Check if the related activity exists, if an activityId is provided
+  const activity = await prisma.activity.findUnique({
+    where: { id: data.activityId },
+  });
+
+  if (!activity) {
+    throw new Error("Related activity not found.");
+  }
+
+  // Create the poll along with its options
+  const poll = await prisma.poll.create({
+    data: {
+      question: data.question,
+      activityId: data.activityId,
+      options: {
+        create: data.options.map((optionText) => ({
+          text: optionText,
+        })),
+      },
+    },
+  });
+
+  return poll;
 };

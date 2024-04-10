@@ -8,19 +8,22 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ChevronsRightIcon, ListCollapse } from "lucide-react";
-import PollQuestion from "./PollQuestion";
 import { Activity } from "@prisma/client";
+import { ChevronsRightIcon } from "lucide-react";
+import VotePoll from "./VotePoll";
 
 const EventSheet = ({ event }: { event: Activity }) => {
+  // @ts-ignore
+  const hasPoll = event.poll ? true : false;
+
   return (
     <div className="flex w-full  justify-end  py-2 cursor-pointer ">
       <Sheet>
         <SheetTrigger>
           <div className="flex flex-row items-center text-neutral-400  gap-x-2">
-            <p className="text-xs">Add Poll</p>
-            <ListCollapse className="size-3 md:size-4" />
-            {/* <ChevronsRightIcon className="size-3 md:size-4" /> */}
+            <p className="text-xs">Vote Poll</p>
+            {/* <ListCollapse className="size-3 md:size-4" /> */}
+            <ChevronsRightIcon className="size-3 md:size-4" />
           </div>
         </SheetTrigger>
         <SheetContent
@@ -34,7 +37,7 @@ const EventSheet = ({ event }: { event: Activity }) => {
           >
             <TabsList className="w-full">
               <TabsTrigger className="w-full" value="engage">
-                Engagements
+                Polls
               </TabsTrigger>
               <TabsTrigger className="w-full" value="details">
                 Details
@@ -44,7 +47,8 @@ const EventSheet = ({ event }: { event: Activity }) => {
               value="engage"
               className="py-4 flex flex-col overflow-y-auto h-full "
             >
-              <PollQuestion />
+              {/* @ts-ignore */}
+              {hasPoll && <VotePoll pollId={event.poll.id} />}
             </TabsContent>
 
             {/* Details */}

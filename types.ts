@@ -13,3 +13,9 @@ export type EventActivityType = {
   currentTime: string;
   done: boolean;
 };
+
+export type RawPollType = {
+  question: string;
+  options: string[];
+  activityId: number;
+};

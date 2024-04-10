@@ -4,14 +4,20 @@ import {
   activateNextActivity,
   createActivity,
   createAnEvent,
+  createPoll,
   deleteActivity,
   jumpToActivity,
   updateCurrentEventTime,
 } from "@/db/mutations";
-import { getCurrentActivityTime, getTheActiveActivity } from "@/db/queries";
+import {
+  getCurrentActivityTime,
+  getPoll,
+  getTheActiveActivity,
+} from "@/db/queries";
 import { setActiveEventAndActivity } from "@/services/firebaseService";
+import { RawPollType } from "@/types";
 import { ActivitySchema, EventSchema } from "@/validation";
-import { Event } from "@prisma/client";
+import { Event, Poll } from "@prisma/client";
 
 export const upsertActivityCurrentTime = async (activityId: number) => {
   const activityTime = await getCurrentActivityTime(activityId);
@@ -86,4 +92,20 @@ export const upsertCreateNewEvent = async (data: Event) => {
   } catch (error: any) {
     throw new Error(error.message);
   }
+};
+
+export const upsertCreatePoll = async (data: RawPollType) => {
+  try {
+    const result = await createPoll(data);
+
+    return result;
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+};
+
+export const upsertGetPoll = async (pollId: number) => {
+  const poll = await getPoll(pollId);
+
+  return poll;
 };

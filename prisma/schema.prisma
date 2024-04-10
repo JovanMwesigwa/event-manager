@@ -47,4 +47,24 @@ model Activity {
   createdAt   DateTime  @default(now())
   eventId     Int
   event       Event     @relation(fields: [eventId], references: [id])
+  poll        Poll?
+}
+
+model Poll {
+  id         Int          @id @default(autoincrement())
+  question   String
+  createdAt  DateTime     @default(now())
+  activityId Int?         @unique // This makes the relationship one-to-one
+  activity   Activity?    @relation(fields: [activityId], references: [id])
+  options    PollOption[]
+  reavealed  Boolean      @default(false)
+  closed     Boolean      @default(false)
+}
+
+model PollOption {
+  id     Int    @id @default(autoincrement())
+  text   String
+  pollId Int
+  poll   Poll   @relation(fields: [pollId], references: [id])
+  votes  Int    @default(0)
 }
