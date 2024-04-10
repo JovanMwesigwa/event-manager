@@ -50,7 +50,8 @@ const EventsPage = () => {
       onSuccess: (data) => {
         // Check if the event ID is defined before navigating
         if (data?.id) {
-          router.push(`/events/${data.id}`);
+          // router.push(`/events/${data.id}`);
+          router.push(`/events/`);
         } else {
           console.error("Event ID is undefined.");
         }

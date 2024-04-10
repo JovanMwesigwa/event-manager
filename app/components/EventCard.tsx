@@ -10,6 +10,7 @@ import { useEffect, useRef } from "react";
 import { DeleteAlert } from "./Modals/DeleteAlert";
 import CardButtons from "./buttons/CardButtons";
 import AddPollSheet from "./AddPollSheet";
+import DeleteActivityPop from "./Pops/DeleteActivityPop";
 
 const EventCard = ({ item }: { item: Activity }) => {
   const { secondsRemaining, isLoading } = useTimer(item.id.toString());
@@ -163,7 +164,8 @@ const EventCard = ({ item }: { item: Activity }) => {
           <div className="col-span-3 flex md:items-center  justify-end p-4 flex-col">
             {!eventLife && (
               <div className="flex justify-end p-2 w-full">
-                <DeleteAlert item={item} />
+                {/* <DeleteAlert item={item} /> */}
+                <DeleteActivityPop activityId={item.id} />
               </div>
             )}
 
