@@ -106,16 +106,16 @@ export default function Home() {
 
         {/* Right */}
         <div className="flex flex-1 items-center justify-center md:pl-5">
-          <div className="w-full h-full md:h-1/2 bg-neutral-300 rounded-md flex justify-center items-center">
+          <div className="w-full h-full md:h-1/2 bg-neutral-300 rounded-md overflow-hidden flex justify-center items-center">
             {/* Responsive iframe container */}
-            <div className="w-full h-full aspect-w-16 aspect-h-9">
+            <div className="w-full h-full aspect-w-16 aspect-h-9 overflow-hidden">
               <iframe
                 className="w-full h-full"
-                src="https://youtu.be/MVAj3zaKfvE"
+                src="https://www.youtube.com/embed/MVAj3zaKfvE"
                 title="YouTube video player"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
-              ></iframe>
+              />
             </div>
           </div>
         </div>
