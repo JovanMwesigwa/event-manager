@@ -17,7 +17,10 @@ const EventSheet = ({ event }: { event: Activity }) => {
   // @ts-ignore
   const hasPoll = event.poll ? true : false;
 
-  if (!hasPoll) return null;
+  if (!hasPoll)
+    return (
+      <div className="flex w-full  justify-end  py-2 cursor-pointer h-4"></div>
+    );
 
   return (
     <div className="flex w-full  justify-end  py-2 cursor-pointer ">

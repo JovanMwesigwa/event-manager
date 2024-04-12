@@ -708,3 +708,29 @@ export const revealPoll = async (pollId: number) => {
     },
   });
 };
+
+export const deletePoll = async (pollId: number) => {
+  // Start a transaction
+  const result = await prisma.$transaction(async (prisma) => {
+    // Check if the poll exists
+    const poll = await prisma.poll.findUnique({
+      where: { id: pollId },
+    });
+
+    if (!poll) {
+      throw new Error("Poll not found.");
+    }
+
+    // First, delete all related PollOptions
+    await prisma.pollOption.deleteMany({
+      where: { pollId: pollId },
+    });
+
+    // Then, delete the poll
+    return prisma.poll.delete({
+      where: { id: pollId },
+    });
+  });
+
+  return result;
+};

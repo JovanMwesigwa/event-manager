@@ -1,8 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
+import useDeletePoll from "@/hooks/reactquery/useDeletePoll";
 import useGetPoll from "@/hooks/reactquery/useGetPoll";
 import useRevealPoll from "@/hooks/reactquery/useRevealPoll";
-import { Loader, LockKeyholeOpen } from "lucide-react";
+import { Loader, LockKeyholeOpen, Trash2 } from "lucide-react";
 
 const ShowPollResults = ({
   pollId,
@@ -14,6 +15,7 @@ const ShowPollResults = ({
   const { data, isLoading } = useGetPoll(pollId);
 
   const { mutate, isPending, error } = useRevealPoll();
+  const { mutate: deletePoll, isPending: isDeleting } = useDeletePoll();
 
   if (isLoading) return <Loader className="w-10 h-10 text-primary-500" />;
 
@@ -42,20 +44,36 @@ const ShowPollResults = ({
       })}
 
       {isAdmin && (
-        <Button
-          onClick={() => mutate(pollId)}
-          disabled={isPending}
-          className="mt-4 h-9 flex flex-row items-center text-sm"
-        >
-          {isPending ? (
-            <Loader size={16} />
-          ) : (
-            <>
-              Reveal
-              <LockKeyholeOpen size={14} className="ml-2" />
-            </>
-          )}
-        </Button>
+        <div className="flex flex-row w-full gap-x-4">
+          <Button
+            onClick={() => mutate(pollId)}
+            disabled={isPending}
+            className="mt-4 h-9 flex flex-row items-center text-sm w-full "
+          >
+            {isPending ? (
+              <Loader size={16} />
+            ) : (
+              <>
+                Reveal
+                <LockKeyholeOpen size={14} className="ml-2" />
+              </>
+            )}
+          </Button>
+          <Button
+            onClick={() => deletePoll(pollId)}
+            disabled={isDeleting}
+            className="mt-4 h-9 flex flex-row items-center text-sm bg-red-500"
+          >
+            {isDeleting ? (
+              <Loader size={16} />
+            ) : (
+              <>
+                Delete
+                <Trash2 size={14} className="ml-2" />
+              </>
+            )}
+          </Button>
+        </div>
       )}
     </div>
   );

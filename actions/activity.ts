@@ -6,6 +6,7 @@ import {
   createAnEvent,
   createPoll,
   deleteActivity,
+  deletePoll,
   jumpToActivity,
   revealPoll,
   updateCurrentEventTime,
@@ -122,4 +123,10 @@ export const upsertRevealPoll = async (pollId: number) => {
   const poll = await revealPoll(pollId);
 
   return poll;
+};
+
+export const upsertDeletePoll = async (pollId: number) => {
+  await deletePoll(pollId);
+
+  return;
 };
