@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
-import Footer from "../(link)/[event]/footer";
-import Header from "../(link)/[event]/header";
+import Footer from "../(link)/[eventId]/[event]/footer";
+import Header from "../(link)/[eventId]/[event]/header";
 import AuthChangeListener from "@/providers/auth-user-provider";
 
 const EventLayout = ({ children }: { children: ReactNode }) => {

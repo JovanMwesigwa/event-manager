@@ -2,13 +2,20 @@
 
 import EventTitle from "@/app/components/EventTitle";
 import useGetEvent from "@/hooks/reactquery/useGetEvent";
-import EventCard from "../../components/EventCard";
+import { useParams } from "next/navigation";
+import EventCard from "../../../components/EventCard";
 
 const EventPage = () => {
-  const { data, error, isLoading, isError } = useGetEvent(1);
+  const { event, eventId } = useParams<{ eventId: string; event: string }>();
+
+  const { data, error, isLoading, isError } = useGetEvent(Number(eventId));
 
   if (!data || isLoading || isError) {
-    return <div>Event not found</div>;
+    return (
+      <div className="flex flex-1 items-center justify-center">
+        <h1 className="text-2xl font-bold text-neutral-400">Event not found</h1>
+      </div>
+    );
   }
 
   return (

@@ -15,16 +15,23 @@ const EventPage = () => {
 
   const { user } = useUserStore();
 
+  const isAdmin = !user?.id;
+
   if (!data || isLoading || isError) {
     return (
       <>
-        {/* <NewActivityForm /> */}
-        <NewActivityBtn isEditing={false} submit={() => {}} />
+        {isAdmin ? (
+          <div className="flex flex-1 items-center justify-center">
+            <h1 className="text-2xl font-bold text-neutral-400">
+              Event not found
+            </h1>
+          </div>
+        ) : (
+          <NewActivityBtn isEditing={false} submit={() => {}} />
+        )}
       </>
     );
   }
-
-  const isAdmin = !user?.id;
 
   return (
     <>
