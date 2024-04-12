@@ -13,6 +13,7 @@ import {
   useSignIn,
   useUser,
 } from "@clerk/nextjs";
+import { SendHorizonal } from "lucide-react";
 
 export default function Home() {
   const words = ["brochures", "flyers", "guides", "leaflets"];
@@ -82,6 +83,7 @@ export default function Home() {
                       size="lg"
                     >
                       Create a program
+                      <SendHorizonal className="size-5 ml-2" />
                     </Button>
                   </SignUpButton>
                 </SignedOut>

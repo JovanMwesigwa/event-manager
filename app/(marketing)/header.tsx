@@ -3,6 +3,8 @@ import useUserStore from "@/stores/user-store";
 import {
   ClerkLoaded,
   ClerkLoading,
+  SignUpButton,
+  SignedOut,
   UserButton,
   useSignIn,
   useUser,
@@ -18,22 +20,28 @@ const MainHeader = () => {
       <div className="mx-auto flex items-center justify-between h-full ">
         <div className=" pl-4 flex items-center gap-x-3">
           {/* <Image src="/mascot.svg" height={40} width={40} alt="Mascot" /> */}
-          <div className="size-8 rounded-full bg-neutral-100 font-bold text-xl flex items-center justify-center text-blue-500"></div>
+          <div className="size-8 rounded-full bg-white font-bold text-xl flex items-center justify-center text-blue-500"></div>
           <h1 className="text-lg font-extrabold  tracking-wide">
             Events Manager
           </h1>
         </div>
 
         <div className="p-4 flex flex-row gap-x-2">
-          <Button
-            className={`text-white hover:text-blue-500 flex flex-row ${
-              !isSignedIn ? "bg-blue-500 " : "bg-green-500"
-            } h-8 rounded-full`}
-            variant="ghost"
-          >
-            {!isSignedIn ? "Join early" : "Joined"}
-            <ArrowUpRight className="w-4 h-4 ml-2" />
-          </Button>
+          <ClerkLoaded>
+            <SignedOut>
+              <SignUpButton mode="modal" afterSignInUrl="/" afterSignUpUrl="/">
+                <Button
+                  className={`text-white hover:text-blue-500 flex flex-row ${
+                    !isSignedIn ? "bg-blue-500 " : "bg-green-500"
+                  } h-8 rounded-full`}
+                  variant="ghost"
+                >
+                  {!isSignedIn ? "Join early" : "Joined"}
+                  <ArrowUpRight className="w-4 h-4 ml-2" />
+                </Button>
+              </SignUpButton>
+            </SignedOut>
+          </ClerkLoaded>
 
           <ClerkLoading>
             <Loader className="w-5 h-5 text-muted-foreground animate-spin" />
