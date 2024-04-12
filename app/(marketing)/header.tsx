@@ -1,16 +1,13 @@
 import { Button } from "@/components/ui/button";
-import useUserStore from "@/stores/user-store";
 import {
   ClerkLoaded,
   ClerkLoading,
   SignUpButton,
   SignedOut,
   UserButton,
-  useSignIn,
   useUser,
 } from "@clerk/nextjs";
 import { ArrowUpRight, Loader } from "lucide-react";
-import React from "react";
 
 const MainHeader = () => {
   const { isSignedIn } = useUser();
