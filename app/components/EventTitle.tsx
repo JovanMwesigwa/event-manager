@@ -78,8 +78,16 @@ const EventTitle = ({ event }: { event: Event }) => {
               event.active && "border-b-green-500"
             }  `}
           >
-            <div className="bg-orange-200 p-1 rounded-md">
-              <Loader2Icon size={16} className="text-orange-600" />
+            <div
+              className={`${
+                event.active ? "bg-green-200" : " bg-orange-200"
+              } p-1 rounded-md`}
+            >
+              {event.active ? (
+                <RocketIcon size={16} className="text-green-600" />
+              ) : (
+                <Loader2Icon size={16} className="text-orange-600" />
+              )}
             </div>
 
             {!isLoading && event.active ? formattedTime : "Waiting to start "}

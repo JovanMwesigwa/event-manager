@@ -7,6 +7,7 @@ import {
   createPoll,
   deleteActivity,
   jumpToActivity,
+  revealPoll,
   updateCurrentEventTime,
   votePoll,
 } from "@/db/mutations";
@@ -115,4 +116,10 @@ export const upsertVotePoll = async (pollId: number, optionId: number) => {
   const updatedPoll = await votePoll(pollId, optionId);
 
   return updatedPoll;
+};
+
+export const upsertRevealPoll = async (pollId: number) => {
+  const poll = await revealPoll(pollId);
+
+  return poll;
 };

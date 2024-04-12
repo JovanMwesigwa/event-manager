@@ -689,3 +689,22 @@ export const votePoll = async (pollId: number, optionId: number) => {
     },
   });
 };
+
+export const revealPoll = async (pollId: number) => {
+  // Check if the poll exists
+  const poll = await prisma.poll.findUnique({
+    where: { id: pollId },
+  });
+
+  if (!poll) {
+    throw new Error("Poll not found.");
+  }
+
+  // Reveal the poll
+  await prisma.poll.update({
+    where: { id: pollId },
+    data: {
+      reavealed: true,
+    },
+  });
+};

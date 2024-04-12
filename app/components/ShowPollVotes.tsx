@@ -1,9 +1,19 @@
+import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import useGetPoll from "@/hooks/reactquery/useGetPoll";
-import { Loader } from "lucide-react";
+import useRevealPoll from "@/hooks/reactquery/useRevealPoll";
+import { Loader, LockKeyholeOpen } from "lucide-react";
 
-const ShowPollResults = ({ pollId }: { pollId: number }) => {
+const ShowPollResults = ({
+  pollId,
+  isAdmin,
+}: {
+  pollId: number;
+  isAdmin?: boolean;
+}) => {
   const { data, isLoading } = useGetPoll(pollId);
+
+  const { mutate, isPending, error } = useRevealPoll();
 
   if (isLoading) return <Loader className="w-10 h-10 text-primary-500" />;
 
@@ -30,6 +40,23 @@ const ShowPollResults = ({ pollId }: { pollId: number }) => {
           </div>
         );
       })}
+
+      {isAdmin && (
+        <Button
+          onClick={() => mutate(pollId)}
+          disabled={isPending}
+          className="mt-4 h-9 flex flex-row items-center text-sm"
+        >
+          {isPending ? (
+            <Loader size={16} />
+          ) : (
+            <>
+              Reveal
+              <LockKeyholeOpen size={14} className="ml-2" />
+            </>
+          )}
+        </Button>
+      )}
     </div>
   );
 };
