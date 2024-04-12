@@ -1,5 +1,6 @@
 // src/stores/counter-store.ts
-import create from "zustand";
+
+import { create } from "zustand";
 
 export type CounterState = {
   count: number;

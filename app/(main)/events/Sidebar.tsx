@@ -1,8 +1,12 @@
 import { Button } from "@/components/ui/button";
+import useUserStore from "@/stores/user-store";
 import { Trophy, Users2 } from "lucide-react";
+import Image from "next/image";
 import React from "react";
 
 const Sidebar = () => {
+  const { user } = useUserStore();
+
   return (
     <div className=" h-full col-span-6 mt-6 md:mt-0 md:col-span-2 flex flex-col gap-y-5">
       <div className="w-full h-20 bg-white rounded-md p-4 flex flex-row items-center justify-between border ">
@@ -48,11 +52,13 @@ const Sidebar = () => {
         {/*  */}
         <div className="flex flex-row w-full">
           <div className="flex flex-row gap-x-2 flex-1 items-center">
-            <div className="size-6 rounded-full bg-neutral-300">
-              {/* <ClerkLoaded></ClerkLoaded> */}
+            <div className="size-6 rounded-full relative overflow-hidden bg-neutral-300">
+              {user?.imageUrl && (
+                <Image src={user.imageUrl} fill alt="User image" />
+              )}
             </div>
             <div className="flex flex-col">
-              <p className="text-sm font-medium">Jovan Mwesigwa</p>
+              <p className="text-sm font-medium">{user?.fullName}</p>
             </div>
           </div>
 

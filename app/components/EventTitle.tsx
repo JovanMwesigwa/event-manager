@@ -5,13 +5,22 @@ import useGetActiveActivity from "@/hooks/reactquery/useGetActiveActivity";
 import { useEventActions } from "@/hooks/useEventActions";
 import useTimer from "@/hooks/useTimer"; // Assuming this is the path to your hook
 import { Event } from "@prisma/client";
-import { ExpandIcon, Home, MapPin, RocketIcon } from "lucide-react";
+import {
+  ExpandIcon,
+  Home,
+  Loader2Icon,
+  MapPin,
+  RocketIcon,
+} from "lucide-react";
 import FullScreenTimer from "./FullScreen/FullScreenTimer";
 import { useEventActivityStore } from "@/stores/active-store";
 import Link from "next/link";
+import useUserStore from "@/stores/user-store";
 
 const EventTitle = ({ event }: { event: Event }) => {
-  const { eventId, activeActivityId } = useEventActivityStore();
+  const { activeActivityId } = useEventActivityStore();
+
+  const { user } = useUserStore();
 
   const { formattedTime, isLoading } = useTimer(
     activeActivityId?.toString() || event.id.toString()
@@ -24,17 +33,21 @@ const EventTitle = ({ event }: { event: Event }) => {
 
   const { data, error, isLoading: loading } = useGetActiveActivity(event.id);
 
+  const isAdmin = !user?.id;
+
   return (
     <div className="flex flex-row items-center justify-between w-full">
       <div className="flex flex-row items-center gap-x-2">
-        <Link href="/events">
-          <Button
-            variant="ghost"
-            className="border border-b-2 border-b-neutral-300 bg-white flex flex-row items-center gap-2"
-          >
-            <Home size={17} className="text-orange-500 font-extrabold" />
-          </Button>
-        </Link>
+        {!isAdmin && (
+          <Link href="/events">
+            <Button
+              variant="ghost"
+              className="border border-b-2 border-b-neutral-300 bg-white flex flex-row items-center gap-2"
+            >
+              <Home size={17} className="text-orange-500 font-extrabold" />
+            </Button>
+          </Link>
+        )}
 
         <div className="flex flex-col">
           <h1 className="text-2xl font-bold text-neutral-800">{event.title}</h1>
@@ -58,21 +71,35 @@ const EventTitle = ({ event }: { event: Event }) => {
           </div>
         )}
 
-        <Button
-          variant="ghost"
-          onClick={() => startMutation.mutate()}
-          disabled={startMutation.isPending}
-          className={`border max-w-40 border-b-2 p-3 border-b-neutral-300 bg-white flex flex-row items-center gap-2 ${
-            event.active && "border-b-green-500"
-          }  `}
-        >
-          <div className="bg-green-200 p-1 rounded-md">
-            <RocketIcon size={16} className="text-green-600" />
-          </div>
+        {isAdmin ? (
+          <Button
+            variant="ghost"
+            className={`border max-w-44 border-b-2 p-3 border-b-neutral-300 bg-white flex flex-row items-center gap-2 ${
+              event.active && "border-b-green-500"
+            }  `}
+          >
+            <div className="bg-orange-200 p-1 rounded-md">
+              <Loader2Icon size={16} className="text-orange-600" />
+            </div>
 
-          {!isLoading && event.active ? formattedTime : "Start the event"}
-        </Button>
+            {!isLoading && event.active ? formattedTime : "Waiting to start "}
+          </Button>
+        ) : (
+          <Button
+            variant="ghost"
+            onClick={() => startMutation.mutate()}
+            disabled={startMutation.isPending}
+            className={`border max-w-40 border-b-2 p-3 border-b-neutral-300 bg-white flex flex-row items-center gap-2 ${
+              event.active && "border-b-green-500"
+            }  `}
+          >
+            <div className="bg-green-200 p-1 rounded-md">
+              <RocketIcon size={16} className="text-green-600" />
+            </div>
 
+            {!isLoading && event.active ? formattedTime : "Start the event"}
+          </Button>
+        )}
         {!loading && !error && (
           <FullScreenTimer event={event} activity={data} />
         )}

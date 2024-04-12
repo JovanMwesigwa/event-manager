@@ -3,20 +3,14 @@ import Timer from "@/components/Timer";
 import { Progress } from "@/components/ui/progress";
 import useTimer from "@/hooks/useTimer";
 import { useEventActivityStore } from "@/stores/active-store";
+import useUserStore from "@/stores/user-store";
 import { Activity } from "@prisma/client";
-import {
-  AlignCenterVertical,
-  AlignStartVertical,
-  CircleDot,
-  ClockIcon,
-  LayoutList,
-} from "lucide-react";
+import { AlignStartVertical, CircleDot, ClockIcon } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
-import { DeleteAlert } from "./Modals/DeleteAlert";
+import DeleteActivityPop from "./Pops/DeleteActivityPop";
 import CardButtons from "./buttons/CardButtons";
 import AddPollSheet from "./AddPollSheet";
-import DeleteActivityPop from "./Pops/DeleteActivityPop";
 
 const EventCard = ({ item }: { item: Activity }) => {
   const { secondsRemaining, isLoading } = useTimer(item.id.toString());
@@ -24,6 +18,8 @@ const EventCard = ({ item }: { item: Activity }) => {
   const cardRef = useRef<HTMLDivElement>(null);
 
   const { setEventId, setActiveActivityId } = useEventActivityStore();
+
+  const { user } = useUserStore();
 
   useEffect(() => {
     if (eventLife && cardRef.current) {
@@ -46,6 +42,9 @@ const EventCard = ({ item }: { item: Activity }) => {
     eventLife &&
     !item.isPaused;
 
+  // check if user object is empty
+  const isAdmin = !user?.id;
+
   return (
     <>
       <div
@@ -66,11 +65,13 @@ const EventCard = ({ item }: { item: Activity }) => {
               </p>
             </div>
 
-            <CardButtons
-              eventId={item.eventId}
-              activityId={item.id}
-              paused={item.isPaused}
-            />
+            {!isAdmin && (
+              <CardButtons
+                eventId={item.eventId}
+                activityId={item.id}
+                paused={item.isPaused}
+              />
+            )}
 
             <Timer
               activityId={item.id.toString()}
@@ -175,9 +176,8 @@ const EventCard = ({ item }: { item: Activity }) => {
           </div>
 
           <div className="col-span-3 flex md:items-center  justify-end p-4 flex-col">
-            {!eventLife && (
+            {!isAdmin && !eventLife && (
               <div className="flex justify-end p-2 w-full">
-                {/* <DeleteAlert item={item} /> */}
                 <DeleteActivityPop activityId={item.id} />
               </div>
             )}
@@ -194,8 +194,11 @@ const EventCard = ({ item }: { item: Activity }) => {
               )}
             </div>
 
-            <EventSheet event={item} />
-            {/* <AddPollSheet event={item} /> */}
+            {!isAdmin ? (
+              <AddPollSheet event={item} />
+            ) : (
+              <EventSheet event={item} />
+            )}
           </div>
         </div>
       </div>

@@ -1,7 +1,7 @@
 // src/stores/timer-store.ts
 import database from "@/firebase/firebaseConfig";
 import { onValue, ref } from "firebase/database";
-import create from "zustand";
+import { create } from "zustand";
 
 interface TimerData {
   startTime: number;

@@ -6,11 +6,14 @@ import EventTitle from "@/app/components/EventTitle";
 import useGetEvent from "@/hooks/reactquery/useGetEvent";
 import { useParams } from "next/navigation";
 import NewActivityBtn from "../NewActivityBtn";
+import useUserStore from "@/stores/user-store";
 
 const EventPage = () => {
   const { id } = useParams();
 
   const { data, error, isLoading, isError } = useGetEvent(Number(id));
+
+  const { user } = useUserStore();
 
   if (!data || isLoading || isError) {
     return (
@@ -20,6 +23,8 @@ const EventPage = () => {
       </>
     );
   }
+
+  const isAdmin = !user?.id;
 
   return (
     <>
@@ -32,7 +37,7 @@ const EventPage = () => {
 
       {/* <NewActivityForm /> */}
 
-      <EmptyEventCard eventId={data.id} />
+      {!isAdmin && <EmptyEventCard eventId={data.id} />}
     </>
   );
 };

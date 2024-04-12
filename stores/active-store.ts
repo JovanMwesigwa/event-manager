@@ -1,5 +1,6 @@
 // src/stores/eventActivityStore.ts
-import create from "zustand";
+
+import { create } from "zustand";
 
 interface EventActivityState {
   eventId: number | null;

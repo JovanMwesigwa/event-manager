@@ -3,6 +3,7 @@
 import MainButton from "@/app/components/buttons/MainButton";
 import { Separator } from "@/components/ui/separator";
 import useGetAllEvents from "@/hooks/reactquery/useGetAllEvents";
+import { useUser } from "@clerk/nextjs";
 import { Plus, Star } from "lucide-react";
 import Link from "next/link";
 import AllEventCard from "./AllEventCard";
