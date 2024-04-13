@@ -82,7 +82,7 @@ export default function Home() {
                       className="rounded-md text-lg tracking-wide  text-white h-12"
                       size="lg"
                     >
-                      Create a program
+                      Join the waitlist
                       <SendHorizonal className="size-5 ml-2" />
                     </Button>
                   </SignUpButton>
