@@ -172,7 +172,7 @@ const EmptyEventCard = ({ eventId }: { eventId: number }) => {
 
         {/* Right side */}
         <div
-          className={`rounded-md col-span-9 ml-3 flex ${
+          className={`rounded-md col-span-9 md:ml-3 flex ${
             eventLife && "relative border bg-white pl-3"
           } overflow-hidden grid grid-cols-12`}
         >
@@ -296,8 +296,8 @@ const EmptyEventCard = ({ eventId }: { eventId: number }) => {
             </div>
           </div>
 
-          <div className="col-span-3 flex md:items-center justify-center p-4 flex-col ">
-            <div className="size-24 md:size-28 bg-neutral-200 rounded-md relative">
+          <div className="col-span-3 flex items-center justify-center md:p-4  flex-col ">
+            <div className="size-14 md:size-28 bg-neutral-200 rounded-md relative mr-3 md:mr-0">
               {/* Uploaded image here... */}
             </div>
           </div>

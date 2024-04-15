@@ -68,8 +68,8 @@ const AddPollSheet = ({ event }: { event: Activity }) => {
     <div className="flex w-full justify-end py-2 cursor-pointer">
       <Sheet>
         <SheetTrigger>
-          <div className="flex flex-row items-center text-neutral-400 gap-x-2">
-            <p className="text-xs">Add Poll</p>
+          <div className="flex flex-row md:items-center text-neutral-400 gap-x-2">
+            <p className="text-[10px] md:text-xs">Add Poll</p>
           </div>
         </SheetTrigger>
         <SheetContent
