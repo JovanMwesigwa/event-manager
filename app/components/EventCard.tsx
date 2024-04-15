@@ -141,13 +141,15 @@ const EventCard = ({ item }: { item: Activity }) => {
                 )}
               </div>
 
-              <h1
-                className={`${
-                  !eventLife ? "text-neutral-400" : " text-neutral-800"
-                } md:text-sm text-[11px]`}
-              >
-                By {item.host}
-              </h1>
+              <div className="w-full">
+                <h1
+                  className={`${
+                    !eventLife ? "text-neutral-400" : " text-neutral-800"
+                  } md:text-sm text-[11px] line-clamp-1`}
+                >
+                  By {item.host}
+                </h1>
+              </div>
             </div>
 
             <div className="flex flex-row items-center gap-2 md:flex">
