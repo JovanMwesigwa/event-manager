@@ -27,7 +27,7 @@ const EventSheet = ({ event }: { event: Activity }) => {
       <Sheet>
         <SheetTrigger>
           <div className="flex flex-row items-center text-neutral-400  gap-x-2">
-            <p className="text-xs">Vote Poll</p>
+            <p className="text-[10px] text-xs">Vote Poll</p>
             {/* <ListCollapse className="size-3 md:size-4" /> */}
             <ChevronsRightIcon className="size-3 md:size-4" />
           </div>
