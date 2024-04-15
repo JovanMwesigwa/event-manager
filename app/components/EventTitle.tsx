@@ -36,20 +36,20 @@ const EventTitle = ({ event }: { event: Event }) => {
   const isAdmin = !user?.id;
 
   return (
-    <div className="flex flex-row items-center justify-between w-full">
+    <div className="flex flex-col md:flex-row md:items-center gap-y-4 md:gap-y-0 justify-between w-full">
       <div className="flex flex-row items-center gap-x-2">
         {!isAdmin && (
           <Link href="/events">
             <Button
               variant="ghost"
-              className="border border-b-2 border-b-neutral-300 bg-white flex flex-row items-center gap-2"
+              className="hidden border border-b-2 border-b-neutral-300 bg-white md:flex flex-row items-center gap-2"
             >
               <Home size={17} className="text-orange-500 font-extrabold" />
             </Button>
           </Link>
         )}
 
-        <div className="flex flex-col">
+        <div className="flex flex-col ">
           <h1 className="text-2xl font-bold text-neutral-800">{event.title}</h1>
           <div className="flex flex-row items-center gap-x-1">
             <MapPin size={16} className="text-neutral-400" />
@@ -74,7 +74,7 @@ const EventTitle = ({ event }: { event: Event }) => {
         {isAdmin ? (
           <Button
             variant="ghost"
-            className={`border max-w-44 border-b-2 p-3 border-b-neutral-300 bg-white flex flex-row items-center gap-2 ${
+            className={`border w-full md:max-w-44 border-b-2 p-3 border-b-neutral-300 bg-white flex flex-row items-center gap-2 ${
               event.active && "border-b-green-500"
             }  `}
           >
@@ -97,7 +97,7 @@ const EventTitle = ({ event }: { event: Event }) => {
             variant="ghost"
             onClick={() => startMutation.mutate()}
             disabled={startMutation.isPending}
-            className={`border max-w-40 border-b-2 p-3 border-b-neutral-300 bg-white flex flex-row items-center gap-2 ${
+            className={`border w-full md:max-w-40 border-b-2 p-3 border-b-neutral-300 bg-white flex flex-row items-center gap-2 ${
               event.active && "border-b-green-500"
             }  `}
           >

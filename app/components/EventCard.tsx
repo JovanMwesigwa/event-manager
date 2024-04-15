@@ -49,7 +49,7 @@ const EventCard = ({ item }: { item: Activity }) => {
     <>
       <div
         ref={cardRef}
-        className="grid md:grid-cols-12 min-h-[150px]  md:min-h-[200px] md:my-4 md:gap-6"
+        className="grid md:grid-cols-12 min-h-[150px]   md:min-h-[200px] md:my-4 md:gap-6"
       >
         {/* Left Side */}
         <div className="hidden md:flex flex-row col-span-3 justify-between md:w-[255px] ">
