@@ -120,8 +120,8 @@ export default function Home() {
               <iframe
                 className="w-full h-full"
                 src="https://www.youtube.com/embed/MVAj3zaKfvE"
-                title="YouTube video player"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                title="Event Manager Demo"
+                allow="picture-in-picture"
                 allowFullScreen
               />
             </div>
