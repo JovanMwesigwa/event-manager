@@ -14,6 +14,7 @@ import {
   useUser,
 } from "@clerk/nextjs";
 import { SendHorizonal } from "lucide-react";
+import Link from "next/link";
 
 export default function Home() {
   const words = ["brochures", "flyers", "guides", "leaflets"];
@@ -67,9 +68,16 @@ export default function Home() {
 
           <div className="flex flex-row justify-between items-center">
             {isSignedIn ? (
-              <h1 className="text-sm wiggle-animation">
-                🎉 Thanks for your interest in EventManager. 🤩
-              </h1>
+              <Link href="/events">
+                <Button
+                  className="rounded-md text-lg tracking-wide  text-white h-12 bg-blue-500"
+                  size="lg"
+                  variant="link"
+                >
+                  Go to my events
+                  <SendHorizonal className="size-5 ml-2" />
+                </Button>
+              </Link>
             ) : (
               <ClerkLoaded>
                 <SignedOut>
