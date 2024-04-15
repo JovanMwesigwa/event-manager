@@ -175,14 +175,16 @@ const EventCard = ({ item }: { item: Activity }) => {
             </div>
           </div>
 
-          <div className="col-span-3 flex items-end justify-end md:p-4 flex-col">
+          <div className="col-span-3 flex items-end md:justify-end justify-between p-4   flex-col">
             {!isAdmin && !eventLife && (
               <div className="flex justify-end p-2 w-full">
                 <DeleteActivityPop activityId={item.id} />
               </div>
             )}
 
-            <div className="size-14 md:size-28 bg-neutral-200 rounded-md relative">
+            <div className="block md:hidden"></div>
+
+            <div className="size-14 md:size-28 bg-neutral-200 rounded-md  relative">
               {eventLife && (
                 <Image
                   src="https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=2,quality=75,width=960,height=480/event-covers/ba/32c7dea4-d373-4d62-abf7-70e2482187d1"
