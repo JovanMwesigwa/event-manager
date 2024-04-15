@@ -1,16 +1,16 @@
 import { upsertAllEvents } from "@/actions/event";
 import { useQuery } from "@tanstack/react-query";
 
-const useGetAllEvents = () => {
-  const request = async () => {
-    const events = await upsertAllEvents();
+const useGetAllEvents = (userId: string) => {
+  const request = async (id: string) => {
+    const events = await upsertAllEvents(id);
 
     return events;
   };
 
   const response = useQuery({
-    queryKey: ["allEvents"],
-    queryFn: request,
+    queryKey: ["allEvents", userId],
+    queryFn: () => request(userId),
     refetchIntervalInBackground: true,
     // refetchInterval: 1000,
   });

@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Heart, Loader, Plus } from "lucide-react";
+import { Heart, Loader, Plus, Save } from "lucide-react";
 import React from "react";
 
 const NewActivityBtn = ({
@@ -23,15 +23,15 @@ const NewActivityBtn = ({
       >
         <div
           className={` ${
-            !isEditing ? "bg-green-200" : " bg-pink-200"
-          } p-1 rounded-md`}
+            !isEditing ? "bg-green-200" : " bg-blue-200"
+          } p-1 rounded-md `}
         >
           {loading ? (
             <Loader size={22} className="text-pink-600" />
           ) : !isEditing ? (
             <Plus size={20} className="text-green-600" />
           ) : (
-            <Heart size={20} className="text-pink-600" />
+            <Save size={18} className="text-blue-600" />
           )}
         </div>
         {isEditing ? "Save the changes" : "Add an activity"}

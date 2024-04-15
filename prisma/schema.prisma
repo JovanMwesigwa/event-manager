@@ -15,6 +15,7 @@ datasource db {
 
 model Event {
   id          Int        @id @default(autoincrement())
+  userId      String
   title       String     @db.VarChar(255)
   starts      DateTime
   host        String

@@ -17,6 +17,7 @@ export const ActivitySchema = z.object({
 });
 
 export const EventSchema = z.object({
+  userId: z.string(),
   title: z.string(),
   starts: z.string(),
   host: z.string(),

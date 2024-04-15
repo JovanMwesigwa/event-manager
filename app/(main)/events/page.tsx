@@ -3,14 +3,16 @@
 import MainButton from "@/app/components/buttons/MainButton";
 import { Separator } from "@/components/ui/separator";
 import useGetAllEvents from "@/hooks/reactquery/useGetAllEvents";
-import { useUser } from "@clerk/nextjs";
+import useUserStore from "@/stores/user-store";
 import { Plus, Star } from "lucide-react";
 import Link from "next/link";
 import AllEventCard from "./AllEventCard";
 import Sidebar from "./Sidebar";
 
 const AllEventsPage = () => {
-  const { data, isLoading, error } = useGetAllEvents();
+  const { user } = useUserStore();
+
+  const { data, isLoading, error } = useGetAllEvents(user?.id);
 
   return (
     <div className="grid grid-cols-6 gap-x-6">

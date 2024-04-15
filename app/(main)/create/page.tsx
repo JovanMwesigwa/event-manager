@@ -15,6 +15,7 @@ import useCreateEvent from "@/hooks/reactquery/useCreateEvent";
 import { Event } from "@prisma/client";
 import { Loader } from "lucide-react";
 import Image from "next/image";
+import { useUser } from "@clerk/nextjs";
 
 const EventsPage = () => {
   const [title, setTitle] = useState<string>("");
@@ -25,6 +26,8 @@ const EventsPage = () => {
   const [startTime, setStartTime] = useState<string>("09:00 AM");
   const [endTime, setEndTime] = useState<string>("05:00 PM");
 
+  const { user } = useUser();
+
   const mutation = useCreateEvent();
 
   const router = useRouter();
@@ -32,8 +35,11 @@ const EventsPage = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
+    if (!user) return;
+
     // @ts-ignore
     const data = {
+      userId: user.id,
       title,
       starts: startDate.toISOString(), // Example date: April 22, 2024
       host: "Host goes here..", // Will be got from the UserObject...

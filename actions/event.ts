@@ -30,8 +30,8 @@ export const stopEvent = async (eventId: number) => {
   return event;
 };
 
-export const upsertAllEvents = async () => {
-  const events = await getAllEvents();
+export const upsertAllEvents = async (userId: string) => {
+  const events = await getAllEvents(userId);
 
   return events;
 };

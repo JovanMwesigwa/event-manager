@@ -151,19 +151,19 @@ const EventCard = ({ item }: { item: Activity }) => {
             </div>
 
             <div className="flex flex-row items-center gap-2 md:flex">
-              <ClockIcon
+              {/* <ClockIcon
                 className={`hidden md:block md:size-5 ${
                   !eventLife ? "text-neutral-400" : " text-green-500"
                 }`}
-              />
+              /> */}
               <div
                 className={`flex flex-row gap-2 ${
                   !eventLife ? "text-neutral-400" : " text-neutral-800"
                 }`}
               >
-                <h1 className="text-[10px] md:text-xs line-clamp-1 ">
+                {/* <h1 className="text-[10px] md:text-xs line-clamp-1 ">
                   Starts 05:00 AM, ends 12:00 PM
-                </h1>
+                </h1> */}
                 <div className="flex flex-row items-center gap-x-1">
                   <AlignStartVertical className="size-3" />
                   <h1 className="text-[10px] md:text-xs line-clamp-1 ">

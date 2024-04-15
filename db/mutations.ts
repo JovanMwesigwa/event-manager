@@ -559,6 +559,7 @@ export const deleteActivity = async (activityId: number) => {
 
 export const createAnEvent = async (data: Event) => {
   const {
+    userId,
     title,
     starts,
     host,
@@ -574,6 +575,7 @@ export const createAnEvent = async (data: Event) => {
   // Create an event
   const event = await prisma.event.create({
     data: {
+      userId,
       title,
       starts,
       host,
