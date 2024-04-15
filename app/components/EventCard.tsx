@@ -177,7 +177,7 @@ const EventCard = ({ item }: { item: Activity }) => {
 
           <div className="col-span-3 flex items-end md:justify-end justify-between p-4   flex-col">
             {!isAdmin && !eventLife && (
-              <div className="flex justify-end p-2 w-full">
+              <div className="flex p-0 justify-end  w-full">
                 <DeleteActivityPop activityId={item.id} />
               </div>
             )}
