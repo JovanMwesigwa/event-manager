@@ -7,6 +7,7 @@ async function main() {
   // Create an event
   const event = await prisma.event.create({
     data: {
+      userId: "user_set_by_seed_script",
       title: "Web3 Summit 2024",
       starts: new Date(2024, 3, 22), // Example date: April 22, 2024
       host: "Blockchain Innovators",
