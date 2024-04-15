@@ -23,6 +23,7 @@ const MainHeader = () => {
           </h1>
         </div>
 
+        {/* Trigger redeploy */}
         <div className="p-4 flex flex-row gap-x-2">
           <ClerkLoaded>
             <SignedOut>
