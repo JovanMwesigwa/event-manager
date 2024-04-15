@@ -17,7 +17,7 @@ const DeleteEventPop = ({ eventId }: { eventId: number }) => {
       <PopoverTrigger asChild>
         <Button
           variant="ghost"
-          className="border text-xs border-neutral-300 p-1 rounded-sm h-8 w-8"
+          className="border text-[11px] md:text-xs border-neutral-300 p-1 rounded-sm md:h-8 h-6  w-8"
         >
           <EllipsisVertical size={16} className="text-neutral-500" />
         </Button>

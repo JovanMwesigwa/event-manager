@@ -39,17 +39,19 @@ const AllEventsPage = () => {
 
         <Separator className="col-span-6 my-4" />
 
-        <div className="w-full text-sm px-4 gap-x-2 h-10 mb-4 bg-neutral-200 border border-neutral-300 rounded-sm col-span-6 flex flex-row items-center">
+        <div className="w-full text-[11px] md:text-sm px-4 gap-x-2 h-10 mb-4 bg-neutral-200 border border-neutral-300 rounded-sm col-span-6 flex flex-row items-center">
           <Star size={16} className="text-yellow-500" />
           <h1>Create unlimited events beyond just 3 by upgrading. </h1>
           <Link href="/billing">
-            <p className="text-blue-500 underline ">See billing</p>
+            <p className="text-blue-500 underline hidden md:block">
+              See billing
+            </p>
           </Link>
         </div>
 
         {data?.length === 0 && (
           <div className="col-span-6 flex flex-col opacity-50 items-center justify-center h-full">
-            <h1 className="text-xl font-bold">No events found</h1>
+            <h1 className=" md:text-xl font-bold">No events found</h1>
             <p className="text-sm text-neutral-500">
               Create an event to get started
             </p>

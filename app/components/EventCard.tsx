@@ -208,7 +208,7 @@ const EventCard = ({ item }: { item: Activity }) => {
       </div>
 
       <div
-        className={`w-full flex-row items-center  md:hidden justify-between mb-6 ${
+        className={`w-full flex-row items-center  md:hidden justify-between md:mb-6 ${
           !eventLife && "text-neutral-300"
         }`}
       >

@@ -8,7 +8,7 @@ const Sidebar = () => {
   const { user } = useUserStore();
 
   return (
-    <div className=" h-full col-span-6 mt-6 md:mt-0 md:col-span-2 flex flex-col gap-y-5">
+    <div className=" h-full col-span-6 mt-0 md:col-span-2 flex flex-col gap-y-5">
       <div className="w-full h-20 bg-white rounded-md p-4 flex flex-row items-center justify-between border ">
         <div className="flex flex-row items-center gap-x-2 flex-1">
           <div className="size-8 rounded-full bg-neutral-300"></div>
