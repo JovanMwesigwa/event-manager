@@ -34,7 +34,7 @@ const MainHeader = () => {
               >
                 <Button
                   className={`text-white hover:text-blue-500 flex flex-row ${
-                    !isSignedIn ? "bg-blue-500 " : "bg-green-500"
+                    !isSignedIn ? "bg-green-500 " : "bg-green-500"
                   } h-8 rounded-full`}
                   variant="ghost"
                 >

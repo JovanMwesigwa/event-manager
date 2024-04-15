@@ -70,7 +70,7 @@ export default function Home() {
             {isSignedIn ? (
               <Link href="/events">
                 <Button
-                  className="rounded-md text-lg tracking-wide  text-white h-12 bg-blue-500"
+                  className="rounded-md text-lg tracking-wide  text-green-500 h-12 border-2 border-green-500"
                   size="lg"
                   variant="link"
                 >
@@ -87,7 +87,7 @@ export default function Home() {
                     afterSignUpUrl="/events"
                   >
                     <Button
-                      className="rounded-md text-lg tracking-wide  text-white h-12"
+                      className="rounded-md text-lg tracking-wide  text-white h-12 bg-green-500"
                       size="lg"
                     >
                       Create an event
