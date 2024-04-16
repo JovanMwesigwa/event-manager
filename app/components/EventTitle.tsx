@@ -10,6 +10,7 @@ import {
   Home,
   Loader2Icon,
   MapPin,
+  RefreshCcw,
   RocketIcon,
 } from "lucide-react";
 import FullScreenTimer from "./FullScreen/FullScreenTimer";
@@ -108,6 +109,13 @@ const EventTitle = ({ event }: { event: Event }) => {
             {!isLoading && event.active ? formattedTime : "Start the event"}
           </Button>
         )}
+        <Button
+          variant="ghost"
+          onClick={() => {}}
+          className="border max-w-40 border-b-2 border-b-neutral-300 bg-white flex flex-row items-center gap-2"
+        >
+          <RefreshCcw size={15} />
+        </Button>
         {!loading && !error && (
           <FullScreenTimer event={event} activity={data} />
         )}

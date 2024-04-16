@@ -38,7 +38,7 @@ const EventCard = ({ item }: { item: Activity }) => {
 
   const isEndingSoon =
     !isLoading &&
-    secondsRemaining <= durationInSeconds * 0.3 &&
+    secondsRemaining <= durationInSeconds * 0.1 &&
     eventLife &&
     !item.isPaused;
 

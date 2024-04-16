@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEventActions } from "@/hooks/useEventActions";
 import useTimer from "@/hooks/useTimer";
 import { PauseIcon } from "lucide-react";
+import React, { useEffect, useState } from "react";
 import { Progress } from "./ui/progress";
-import { jumpToNextActivity } from "@/actions/activity"; // Import the function you want to call
-import { useEventActions } from "@/hooks/useEventActions";
+import { useDebounce } from "@/hooks/useDebounce";
 
 interface TimerProps {
   activityId: string;
@@ -29,30 +29,34 @@ const Timer: React.FC<TimerProps> = ({
   const { formattedTime, isLoading, secondsRemaining } = useTimer(activityId);
 
   // Don't delete this logic, it will allow auto navigation
-  // const { jumpToNextActivityMutation } = useEventActions({ eventId, paused });
-  // // State to track if the initial load is complete
-  // const [initialized, setInitialized] = useState(false);
+  const { jumpToNextActivityMutation } = useEventActions({ eventId, paused });
+  // State to track if the initial load is complete
+  const [initialized, setInitialized] = useState(false);
 
-  // useEffect(() => {
-  //   if (!initialized) {
-  //     setInitialized(true);
-  //     return;
-  //   }
+  const debouncedJumpToNextActivity = useDebounce(() => {
+    jumpToNextActivityMutation.mutate();
+  }, 5000); // Debounce for 5000 ms (5 seconds)
 
-  //   const handler = setTimeout(() => {
-  //     if (
-  //       secondsRemaining === 0 &&
-  //       !paused &&
-  //       eventLife &&
-  //       !jumpToNextActivityMutation.isPending &&
-  //       !jumpToNextActivityMutation.isError
-  //     ) {
-  //       jumpToNextActivityMutation.mutate();
-  //     }
-  //   }, 1000); // Delay the execution by 1 second to prevent immediate jumping
+  useEffect(() => {
+    if (!initialized) {
+      setInitialized(true);
+      return;
+    }
 
-  //   return () => clearTimeout(handler);
-  // }, [secondsRemaining, eventId, paused, eventLife, initialized]);
+    const handler = setTimeout(() => {
+      if (
+        secondsRemaining === 0 &&
+        !paused &&
+        eventLife &&
+        !jumpToNextActivityMutation.isPending &&
+        !jumpToNextActivityMutation.isError
+      ) {
+        jumpToNextActivityMutation.mutate();
+      }
+    }, 1000); // Delay the execution by 1 second to prevent immediate jumping
+
+    return () => clearTimeout(handler);
+  }, [secondsRemaining, eventId, paused, eventLife, initialized]);
 
   const progress =
     eventLife && !isLoading && durationInSeconds > 0

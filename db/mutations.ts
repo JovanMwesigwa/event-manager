@@ -411,22 +411,37 @@ export const activateNextActivity = async (eventId: number) => {
     },
   });
 
-  if (!activeActivity || activeActivity.activities.length < 0) {
+  if (!activeActivity || activeActivity.activities.length === 0) {
     // throw new Error("No active activity found");
     return { error: "No active activity found" };
   }
 
-  const currentTimer = await getTimerData(
-    activeActivity.activities[0].id.toString()
-  );
+  const activeActivityId = activeActivity.activities[0].id;
+
+  const timerData = await getTimerData(activeActivityId.toString());
+
+  // Only continue if the timer
+  const now = Date.now();
+
+  // Check if the timer for the current activity has finished
+  if (
+    !timerData.paused &&
+    timerData.startTime + timerData.duration * 1000 > now
+  ) {
+    console.log("Current activity is still active based on timer data.");
+    return { error: "Current activity is not yet finished." };
+  }
+
+  const nextActivityId = activeActivity.activities[0].id + 1;
 
   // Get the next activity
   const nextActivity = await prisma.activity.findFirst({
     where: {
       eventId: eventId,
-      id: {
-        gt: activeActivity.activities[0].id,
-      },
+      id: nextActivityId,
+      // id: {
+      //   gt: activeActivity.activities[0].id,
+      // },
     },
     orderBy: {
       id: "asc",
@@ -439,25 +454,10 @@ export const activateNextActivity = async (eventId: number) => {
     return { error: "No next activity found" };
   }
 
-  // Pause the active activity
-  await prisma.activity.update({
-    where: {
-      id: activeActivity.activities[0].id,
-    },
-    data: {
-      active: false,
-      isPaused: true,
-      stopped: new Date(),
-    },
-  });
-
-  // Pause the timer for the active activity
-  await pauseTimer(activeActivity.activities[0].id.toString(), true);
-
   // Save the active activity and event to the firebase realtime database
   await setActiveEventAndActivity(
     eventId.toString(),
-    activeActivity.activities[0].id.toString()
+    activeActivityId.toString()
   );
 
   // Start the next activity
@@ -484,6 +484,22 @@ export const activateNextActivity = async (eventId: number) => {
     eventId.toString(),
     nextActivity.id.toString()
   );
+
+  // Pause the active activity
+  await prisma.activity.update({
+    where: {
+      id: activeActivityId,
+    },
+    data: {
+      active: false,
+      isPaused: true,
+      stopped: new Date(),
+      done: true,
+    },
+  });
+
+  // Pause the timer for the active activity
+  await pauseTimer(activeActivityId.toString(), true);
 };
 
 export const createActivity = async (data: any) => {

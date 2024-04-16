@@ -19,13 +19,16 @@ export function useEventActions({ eventId, paused }: UseEventActionsProps) {
       }
 
       await startEvent(eventId);
-      toast("Event has been started");
     },
     onError: () => {
       toast("Failed to start the event");
     },
     onSettled: async () => {
       await queryClient.invalidateQueries();
+    },
+    onSuccess: () => {
+      // Do something when the mutation is successful
+      toast("Event has been started");
     },
   });
 
@@ -56,6 +59,9 @@ export function useEventActions({ eventId, paused }: UseEventActionsProps) {
     },
     onSettled: async () => {
       await queryClient.invalidateQueries();
+    },
+    onSuccess: () => {
+      toast("Starting next activity");
     },
   });
 
