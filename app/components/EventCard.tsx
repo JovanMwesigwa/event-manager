@@ -212,8 +212,7 @@ const EventCard = ({ item }: { item: Activity }) => {
           !eventLife && "text-neutral-300"
         }`}
       >
-        <div className="flex flex-1"></div>
-        <div className="">
+        <div className="flex items-end justify-end">
           <Timer
             activityId={item.id.toString()}
             paused={item.isPaused}
@@ -224,6 +223,13 @@ const EventCard = ({ item }: { item: Activity }) => {
             isEndingSoon={isEndingSoon}
           />
         </div>
+        {!isAdmin && (
+          <CardButtons
+            eventId={item.eventId}
+            activityId={item.id}
+            paused={item.isPaused}
+          />
+        )}
       </div>
     </>
   );

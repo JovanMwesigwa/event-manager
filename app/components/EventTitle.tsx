@@ -39,7 +39,7 @@ const EventTitle = ({ event }: { event: Event }) => {
   const isAdmin = !user?.id;
 
   return (
-    <div className="flex flex-col md:flex-row md:items-center gap-y-4 mb-5 md:mb-0 md:gap-y-0 justify-between w-full">
+    <div className="flex flex-col md:flex-row md:items-center gap-y-4  md:mb-0 md:gap-y-0 justify-between w-full">
       <div className="flex flex-row items-center gap-x-2">
         {!isAdmin && (
           <Link href="/events">
