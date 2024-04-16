@@ -13,7 +13,7 @@ const PageNotFound = () => {
           The page you are looking for does not exist.
         </h1>
         {/* Add a go back home page */}
-        <Link href="/" className="text-lg font-bold text-neutral-800">
+        <Link href="/events" className="text-lg font-bold text-neutral-800">
           Go back home
         </Link>
       </div>
