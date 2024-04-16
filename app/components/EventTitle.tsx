@@ -4,22 +4,24 @@ import { Button } from "@/components/ui/button";
 import useGetActiveActivity from "@/hooks/reactquery/useGetActiveActivity";
 import { useEventActions } from "@/hooks/useEventActions";
 import useTimer from "@/hooks/useTimer"; // Assuming this is the path to your hook
+import { useEventActivityStore } from "@/stores/active-store";
+import useUserStore from "@/stores/user-store";
 import { Event } from "@prisma/client";
 import {
-  ExpandIcon,
   Home,
   Loader2Icon,
   MapPin,
   RefreshCcw,
   RocketIcon,
 } from "lucide-react";
-import FullScreenTimer from "./FullScreen/FullScreenTimer";
-import { useEventActivityStore } from "@/stores/active-store";
 import Link from "next/link";
-import useUserStore from "@/stores/user-store";
+import FullScreenTimer from "./FullScreen/FullScreenTimer";
+import { useQueryClient } from "@tanstack/react-query";
 
 const EventTitle = ({ event }: { event: Event }) => {
   const { activeActivityId } = useEventActivityStore();
+
+  const queryClient = useQueryClient(); // Access the query client instance
 
   const { user } = useUserStore();
 
@@ -111,7 +113,7 @@ const EventTitle = ({ event }: { event: Event }) => {
         )}
         <Button
           variant="ghost"
-          onClick={() => {}}
+          onClick={() => queryClient.invalidateQueries()}
           className="border max-w-40 border-b-2 border-b-neutral-300 bg-white flex flex-row items-center gap-2"
         >
           <RefreshCcw size={15} />
