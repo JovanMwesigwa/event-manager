@@ -30,7 +30,8 @@ const FullScreenTimer = ({
     true
   );
 
-  const eventUrl = siteUrl + path + "/" + title.replace(/ /g, "");
+  // const eventUrl = siteUrl + path + "/" + title.replace(/ /g, "");
+  const eventUrl = siteUrl + path;
 
   // if (!activity) return;
 

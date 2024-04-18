@@ -21,7 +21,8 @@ export function ShareDialog({ title }: { title: string }) {
 
   const path = usePathname();
 
-  const eventUrl = siteUrl + path + "/" + title.replace(/ /g, "");
+  // const eventUrl = siteUrl + path + "/" + title.replace(/ /g, "");
+  const eventUrl = siteUrl + path;
 
   return (
     <Dialog>
