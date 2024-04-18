@@ -105,7 +105,7 @@ const FullScreenTimer = ({
                         />
                       </div>
 
-                      <div className="flex bg-white w-full rounded-md my-5 h-64 p-3 relative opacity-80">
+                      <div className="flex bg-white w-full rounded-md my-5 h-64 p-3 relative ">
                         <Image
                           src={thumnailUrl}
                           layout="fill"

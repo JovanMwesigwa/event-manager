@@ -1,7 +1,9 @@
 "use client";
 
 import { Progress } from "@/components/ui/progress";
+import { thumnailUrl } from "@/data";
 import { PauseIcon, Trophy } from "lucide-react";
+import Image from "next/image";
 import { QRCodeSVG } from "qrcode.react";
 
 const EmptyFullScreenTimer = ({ eventUrl }: { eventUrl: string }) => {
@@ -25,14 +27,22 @@ const EmptyFullScreenTimer = ({ eventUrl }: { eventUrl: string }) => {
         <div className="h-full w-1/5 bg-neutral-900  md:flex flex-col hidden">
           <div className="flex flex-1 flex-col p-4">
             <h1 className="text-2xl font-bold text-white">Scan the QR</h1>
+            <h1 className=" font-medium text-white">
+              To follow along the event
+            </h1>
 
             <div className="flex bg-white w-full rounded-md my-5 h-64 p-3">
               <QRCodeSVG value={eventUrl} className="w-full h-full " />
             </div>
 
-            <h1 className=" font-medium text-white">
-              To follow along the event
-            </h1>
+            <div className="flex bg-white w-full rounded-md my-5 h-64 p-3 relative ">
+              <Image
+                src={thumnailUrl}
+                layout="fill"
+                objectFit="contain"
+                alt="activity image"
+              />
+            </div>
           </div>
 
           <div className="w-full h-20 bg-purple-500 "></div>
