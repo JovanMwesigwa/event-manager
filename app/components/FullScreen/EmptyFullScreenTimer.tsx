@@ -32,7 +32,6 @@ const EmptyFullScreenTimer = ({ eventUrl }: { eventUrl: string }) => {
 
             <h1 className=" font-medium text-white">
               To follow along the event
-              {eventUrl}
             </h1>
           </div>
 
