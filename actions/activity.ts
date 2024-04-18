@@ -7,6 +7,7 @@ import {
   createPoll,
   deleteActivity,
   deletePoll,
+  goToNextActivity,
   jumpToActivity,
   revealPoll,
   updateCurrentEventTime,
@@ -40,6 +41,12 @@ export const activateActivity = async (activityId: number, eventId: number) => {
 
 export const jumpToNextActivity = async (eventId: number) => {
   const activity = await activateNextActivity(eventId);
+
+  return activity;
+};
+
+export const upsertGoToNextActivity = async (eventId: number) => {
+  const activity = await goToNextActivity(eventId);
 
   return activity;
 };

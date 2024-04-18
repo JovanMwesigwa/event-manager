@@ -1,5 +1,6 @@
 import DeleteEventPop from "@/app/components/Pops/DeleteEventPop";
 import { Button } from "@/components/ui/button";
+import { thumnailUrl } from "@/data";
 import { Event } from "@prisma/client";
 import {
   CalendarCheck,
@@ -18,7 +19,7 @@ const AllEventCard = ({ event }: { event: Event }) => {
     <div className="col-span-6 h-28 md:h-32 p-2 border overflow-hidden bg-white rounded-sm md:gap-4 flex flex-row mb-4">
       <div className="h-full md:w-36 bg-neutral-300 rounded-sm relative">
         <Image
-          src="https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=2,quality=75,width=960,height=480/event-covers/ba/32c7dea4-d373-4d62-abf7-70e2482187d1"
+          src={thumnailUrl}
           alt={"Event Name"}
           layout="fill"
           objectFit="cover"

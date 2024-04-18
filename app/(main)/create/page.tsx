@@ -16,6 +16,7 @@ import { Event } from "@prisma/client";
 import { Loader } from "lucide-react";
 import Image from "next/image";
 import { useUser } from "@clerk/nextjs";
+import { thumnailUrl } from "@/data";
 
 const EventsPage = () => {
   const [title, setTitle] = useState<string>("");
@@ -77,7 +78,7 @@ const EventsPage = () => {
       <div className="col-span-5 flex items-center flex-col pr-4">
         <div className="flex bg-neutral-200 cursor-pointer rounded-lg h-1/2 w-full relative overflow-hidden">
           <Image
-            src="https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=2,quality=75,width=960,height=480/event-covers/ba/32c7dea4-d373-4d62-abf7-70e2482187d1"
+            src={thumnailUrl}
             alt={"Event Name"}
             layout="fill"
             objectFit="cover"

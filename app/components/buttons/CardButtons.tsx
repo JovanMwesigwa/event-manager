@@ -26,6 +26,7 @@ const CardButtons = ({
     pauseMutation,
     stopMutation,
     jumpToNextActivityMutation,
+    goToNext,
   } = useEventActions({
     eventId,
     paused,
@@ -103,8 +104,8 @@ const CardButtons = ({
         )}
 
         <Button
-          onClick={() => jumpToNextActivityMutation.mutate()}
-          disabled={jumpToNextActivityMutation.isPending}
+          onClick={() => goToNext.mutate()}
+          disabled={goToNext.isPending}
           variant="ghost"
           className={`border w-full border-b-2 border-b-neutral-300  ${
             nowActive && "bg-white border-b-2 border-b-blue-500"

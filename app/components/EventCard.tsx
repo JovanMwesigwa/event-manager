@@ -11,6 +11,7 @@ import { useEffect, useRef } from "react";
 import DeleteActivityPop from "./Pops/DeleteActivityPop";
 import CardButtons from "./buttons/CardButtons";
 import AddPollSheet from "./AddPollSheet";
+import { thumnailUrl } from "@/data";
 
 const EventCard = ({ item }: { item: Activity }) => {
   const { secondsRemaining, isLoading } = useTimer(item.id.toString());
@@ -132,7 +133,7 @@ const EventCard = ({ item }: { item: Activity }) => {
               <div className="size-5 rounded-full bg-neutral-200 relative overflow-hidden">
                 {eventLife && (
                   <Image
-                    src="https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=2,quality=75,width=960,height=480/event-covers/ba/32c7dea4-d373-4d62-abf7-70e2482187d1"
+                    src={thumnailUrl}
                     alt={item.title}
                     layout="fill"
                     objectFit="cover"
@@ -189,7 +190,7 @@ const EventCard = ({ item }: { item: Activity }) => {
             <div className="size-14 md:size-28 bg-neutral-200 rounded-md  relative">
               {eventLife && (
                 <Image
-                  src="https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=2,quality=75,width=960,height=480/event-covers/ba/32c7dea4-d373-4d62-abf7-70e2482187d1"
+                  src={thumnailUrl}
                   alt={item.title}
                   layout="fill"
                   objectFit="cover"

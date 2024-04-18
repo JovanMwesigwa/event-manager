@@ -384,6 +384,123 @@ export const jumpToActivity = async (activityId: number, eventId: number) => {
   await setActiveEventAndActivity(eventId.toString(), activityId.toString());
 };
 
+export const goToNextActivity = async (eventId: number) => {
+  // Get the event
+  const event = await prisma.event.findUnique({
+    where: {
+      id: eventId,
+    },
+  });
+
+  if (!event) {
+    throw new Error("Event not found");
+  }
+
+  // Get the active activity
+  const activeActivity = await prisma.event.findUnique({
+    where: {
+      id: eventId,
+    },
+    include: {
+      activities: {
+        where: {
+          active: true,
+          isPaused: false,
+        },
+      },
+    },
+  });
+
+  if (!activeActivity || activeActivity.activities.length === 0) {
+    // throw new Error("No active activity found");
+    return { error: "No active activity found" };
+  }
+
+  const activeActivityId = activeActivity.activities[0].id;
+
+  const timerData = await getTimerData(activeActivityId.toString());
+
+  // Only continue if the timer
+  // const now = Date.now();
+
+  // Check if the timer for the current activity has finished
+  // if (
+  //   !timerData.paused &&
+  //   timerData.startTime + timerData.duration * 1000 > now
+  // ) {
+  //   return { error: "Current activity is not yet finished." };
+  // }
+
+  const nextActivityId = activeActivity.activities[0].id + 1;
+
+  // Get the next activity
+  const nextActivity = await prisma.activity.findFirst({
+    where: {
+      eventId: eventId,
+      id: nextActivityId,
+      // id: {
+      //   gt: activeActivity.activities[0].id,
+      // },
+    },
+    orderBy: {
+      id: "asc",
+    },
+  });
+
+  if (!nextActivity) {
+    // throw new Error("No next activity found");
+    console.log("No next activity found");
+    return { error: "No next activity found" };
+  }
+
+  // Save the active activity and event to the firebase realtime database
+  await setActiveEventAndActivity(
+    eventId.toString(),
+    activeActivityId.toString()
+  );
+
+  // Start the next activity
+  await prisma.activity.update({
+    where: {
+      id: nextActivity.id,
+    },
+    data: {
+      active: true,
+      isPaused: false,
+      started: new Date(),
+    },
+  });
+
+  // Add a timer for the next activity
+  await addTimer(
+    nextActivity.id.toString(),
+    Number(nextActivity.duration),
+    false
+  );
+
+  // Save the active activity and event to the firebase realtime database
+  await setActiveEventAndActivity(
+    eventId.toString(),
+    nextActivity.id.toString()
+  );
+
+  // Pause the active activity
+  await prisma.activity.update({
+    where: {
+      id: activeActivityId,
+    },
+    data: {
+      active: false,
+      isPaused: true,
+      stopped: new Date(),
+      done: true,
+    },
+  });
+
+  // Pause the timer for the active activity
+  await pauseTimer(activeActivityId.toString(), true);
+};
+
 export const activateNextActivity = async (eventId: number) => {
   // Get the event
   const event = await prisma.event.findUnique({
@@ -428,7 +545,6 @@ export const activateNextActivity = async (eventId: number) => {
     !timerData.paused &&
     timerData.startTime + timerData.duration * 1000 > now
   ) {
-    console.log("Current activity is still active based on timer data.");
     return { error: "Current activity is not yet finished." };
   }
 

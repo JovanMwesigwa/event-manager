@@ -33,7 +33,7 @@ export function ShareDialog({ title }: { title: string }) {
           <LucideLink size={15} />
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[500px]">
+      <DialogContent className="sm:max-w-[500px] ">
         <DialogHeader>
           <DialogTitle>Share the event rundown</DialogTitle>
           <DialogDescription>
@@ -47,9 +47,9 @@ export function ShareDialog({ title }: { title: string }) {
           </div>
 
           <div className="flex flex-row items-center w-full justify-between gap-x-2">
-            <div className="flex flex-1 bg-neutral-200 p-2 rounded-sm px-2 text-sm">
+            <div className="flex flex-1 bg-neutral-200 p-2 w-full rounded-sm px-2 text-sm">
               <CopyToClipboard text={eventUrl}>
-                <h1>{eventUrl}</h1>
+                <h1 className="text-xs line-clamp-1">{eventUrl}</h1>
               </CopyToClipboard>
             </div>
             <CopyToClipboard
