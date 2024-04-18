@@ -8,20 +8,29 @@ import { Activity, Event } from "@prisma/client";
 import { ExpandIcon, PauseIcon } from "lucide-react";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import EmptyFullScreenTimer from "./EmptyFullScreenTimer";
+import { QRCodeSVG } from "qrcode.react";
+import { usePathname } from "next/navigation";
+import { siteUrl } from "@/data";
 
 const FullScreenTimer = ({
   event,
   activity,
+  title,
 }: {
   event: Event;
   activity: any;
+  title: string;
 }) => {
   const handle = useFullScreenHandle();
+
+  const path = usePathname();
 
   const { formattedTime, isLoading, secondsRemaining } = useTimer(
     activity?.id,
     true
   );
+
+  const eventUrl = siteUrl + path + "/" + title.replace(/ /g, "");
 
   // if (!activity) return;
 
@@ -52,7 +61,7 @@ const FullScreenTimer = ({
         <>
           {handle.active &&
             (!activity.id ? (
-              <EmptyFullScreenTimer />
+              <EmptyFullScreenTimer eventUrl={eventUrl} />
             ) : (
               <div className="flex justify-center items-center w-full h-full bg-black  flex-col">
                 <div className="flex flex-1 h-full w-full flex-row items-center">
@@ -63,7 +72,7 @@ const FullScreenTimer = ({
                           isEndingSoon
                             ? "text-red-500 minheartbeat"
                             : "text-white"
-                        }  font-extrabold text-[300px]`}
+                        }  font-extrabold text-[200px] md:text-[300px]`}
                       >
                         {!isLoading && (
                           <>{formattedTime ? formattedTime : "N/A"}</>
@@ -78,7 +87,26 @@ const FullScreenTimer = ({
                     </div>
                   </div>
 
-                  {/* <div className="h-full w-1/5 bg-neutral-800 p-4 flex flex-col"></div> */}
+                  <div className="h-full w-1/5 bg-neutral-900 hidden md:flex flex-col ">
+                    <div className="flex flex-1 flex-col p-4">
+                      <h1 className="text-2xl font-bold text-white">
+                        Scan the QR
+                      </h1>
+
+                      <div className="flex bg-white w-full rounded-md my-5 h-64 p-3">
+                        <QRCodeSVG
+                          value={eventUrl}
+                          className="w-full h-full "
+                        />
+                      </div>
+
+                      <h1 className=" font-medium text-white">
+                        To follow along the event
+                      </h1>
+                    </div>
+
+                    <div className="w-full h-20 bg-purple-500 "></div>
+                  </div>
                 </div>
 
                 <div className="w-full h-1/5 gap-4 flex  flex-col bg-green-500">

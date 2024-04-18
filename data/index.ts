@@ -102,3 +102,9 @@ export const activities: EventActivityType[] = [
 export const hours = Array.from({ length: 24 }, (_, i) => i);
 export const minutes = Array.from({ length: 60 }, (_, i) => i);
 export const seconds = Array.from({ length: 60 }, (_, i) => i);
+
+// dev URL
+// export const siteUrl = "http://localhost:3000";
+
+// production URL
+export const siteUrl = "https://events-manager-ui.vercel.app";

@@ -70,7 +70,7 @@ export default function Home() {
             {isSignedIn ? (
               <Link href="/events">
                 <Button
-                  className="rounded-md text-lg tracking-wide  text-green-500 h-12 border-2 border-green-500"
+                  className="rounded-md text-lg tracking-wide  text-green-500 h-12 border-green-500"
                   size="lg"
                   variant="link"
                 >

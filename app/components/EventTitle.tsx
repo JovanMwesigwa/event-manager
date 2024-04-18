@@ -9,6 +9,8 @@ import useUserStore from "@/stores/user-store";
 import { Event } from "@prisma/client";
 import {
   Home,
+  Link2,
+  Link as LucideLink,
   Loader2Icon,
   MapPin,
   RefreshCcw,
@@ -17,6 +19,7 @@ import {
 import Link from "next/link";
 import FullScreenTimer from "./FullScreen/FullScreenTimer";
 import { useQueryClient } from "@tanstack/react-query";
+import { ShareDialog } from "./Modals/ShareDialog";
 
 const EventTitle = ({ event }: { event: Event }) => {
   const { activeActivityId } = useEventActivityStore();
@@ -118,8 +121,11 @@ const EventTitle = ({ event }: { event: Event }) => {
         >
           <RefreshCcw size={15} />
         </Button>
+
+        <ShareDialog title={event.title} />
+
         {!loading && !error && (
-          <FullScreenTimer event={event} activity={data} />
+          <FullScreenTimer event={event} activity={data} title={event.title} />
         )}
       </div>
     </div>
