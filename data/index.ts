@@ -110,4 +110,4 @@ export const seconds = Array.from({ length: 60 }, (_, i) => i);
 export const siteUrl = "https://events-manager-ui.vercel.app";
 
 export const thumnailUrl =
-  "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?q=80&w=2912&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+  "https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=2,quality=75,width=400,height=400/event-covers/fv/8583f85e-8bb5-4d29-95e3-27c50a2277de";
