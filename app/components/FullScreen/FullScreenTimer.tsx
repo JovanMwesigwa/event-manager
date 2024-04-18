@@ -105,7 +105,7 @@ const FullScreenTimer = ({
                       </h1>
                     </div>
 
-                    <div className="w-full h-20 bg-purple-500 "></div>
+                    <div className="w-full h-20 bg-orange-500 "></div>
                   </div>
                 </div>
 
