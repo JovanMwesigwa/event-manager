@@ -10,7 +10,8 @@ import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import EmptyFullScreenTimer from "./EmptyFullScreenTimer";
 import { QRCodeSVG } from "qrcode.react";
 import { usePathname } from "next/navigation";
-import { siteUrl } from "@/data";
+import { siteUrl, thumnailUrl } from "@/data";
+import Image from "next/image";
 
 const FullScreenTimer = ({
   event,
@@ -93,6 +94,9 @@ const FullScreenTimer = ({
                       <h1 className="text-2xl font-bold text-white">
                         Scan the QR
                       </h1>
+                      <h1 className=" font-medium text-white">
+                        To follow along the event
+                      </h1>
 
                       <div className="flex bg-white w-full rounded-md my-5 h-64 p-3">
                         <QRCodeSVG
@@ -101,9 +105,14 @@ const FullScreenTimer = ({
                         />
                       </div>
 
-                      <h1 className=" font-medium text-white">
-                        To follow along the event
-                      </h1>
+                      <div className="flex bg-white w-full rounded-md my-5 h-64 p-3 relative opacity-80">
+                        <Image
+                          src={thumnailUrl}
+                          layout="fill"
+                          objectFit="contain"
+                          alt="activity image"
+                        />
+                      </div>
                     </div>
 
                     <div className="w-full h-20 bg-orange-500 "></div>
