@@ -54,7 +54,7 @@ const FullScreenTimer = ({
       <Button
         variant="ghost"
         onClick={handle.enter}
-        className="border max-w-40 border-b-2 border-b-neutral-300 bg-white flex flex-row items-center gap-2"
+        className="border hidden  max-w-40 border-b-2 border-b-neutral-300 bg-white md:flex flex-row items-center gap-2"
       >
         <ExpandIcon size={15} />
       </Button>
