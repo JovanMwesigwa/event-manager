@@ -1,4 +1,5 @@
 import { EventActivityType } from "@/types";
+import staticImg from "../public/event.jpeg";
 
 export const activities: EventActivityType[] = [
   {
@@ -109,5 +110,5 @@ export const seconds = Array.from({ length: 60 }, (_, i) => i);
 // production URL
 export const siteUrl = "https://events-manager-ui.vercel.app";
 
-export const thumnailUrl =
-  "https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=2,quality=75,width=400,height=400/event-covers/fv/8583f85e-8bb5-4d29-95e3-27c50a2277de";
+export const thumnailUrl = staticImg;
+// "https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=2,quality=75,width=400,height=400/event-covers/fv/8583f85e-8bb5-4d29-95e3-27c50a2277de";
