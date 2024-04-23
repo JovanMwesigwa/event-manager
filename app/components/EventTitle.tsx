@@ -121,7 +121,9 @@ const EventTitle = ({ event }: { event: Event }) => {
           <RefreshCcw size={15} />
         </Button>
 
-        <FullScreenModal event={event} activity={data} title={event.title} />
+        {!loading && !error && (
+          <FullScreenModal event={event} activity={data} title={event.title} />
+        )}
 
         <ShareDialog title={event.title} />
 
