@@ -58,7 +58,7 @@ export function FullScreenModal({
           <ExpandIcon size={15} />
         </Button>
       </DialogTrigger>
-      <DialogContent className="w-full h-screen p-0 ">
+      <DialogContent className="min-w-full h-screen p-0 ">
         <div className="flex justify-center items-center w-full h-screen relative bg-black flex-col">
           <Minimize2
             onClick={() => setOpen(false)}
@@ -78,7 +78,7 @@ export function FullScreenModal({
                 )}
 
                 {!activity.id ? (
-                  <h1 className="text-white font-extrabold text-8xl md:text-[250px] ">
+                  <h1 className="text-white font-extrabold text-8xl md:text-9xl ">
                     00&middot;00&middot;00
                   </h1>
                 ) : (
