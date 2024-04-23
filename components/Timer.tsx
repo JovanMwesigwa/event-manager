@@ -33,10 +33,6 @@ const Timer: React.FC<TimerProps> = ({
   // State to track if the initial load is complete
   const [initialized, setInitialized] = useState(false);
 
-  const debouncedJumpToNextActivity = useDebounce(() => {
-    jumpToNextActivityMutation.mutate();
-  }, 5000); // Debounce for 5000 ms (5 seconds)
-
   useEffect(() => {
     if (!initialized) {
       setInitialized(true);

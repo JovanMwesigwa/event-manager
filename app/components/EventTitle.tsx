@@ -7,10 +7,9 @@ import useTimer from "@/hooks/useTimer"; // Assuming this is the path to your ho
 import { useEventActivityStore } from "@/stores/active-store";
 import useUserStore from "@/stores/user-store";
 import { Event } from "@prisma/client";
+import { useQueryClient } from "@tanstack/react-query";
 import {
   Home,
-  Link2,
-  Link as LucideLink,
   Loader2Icon,
   MapPin,
   RefreshCcw,
@@ -18,7 +17,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import FullScreenTimer from "./FullScreen/FullScreenTimer";
-import { useQueryClient } from "@tanstack/react-query";
+import { FullScreenModal } from "./Modals/FullScreenModal";
 import { ShareDialog } from "./Modals/ShareDialog";
 
 const EventTitle = ({ event }: { event: Event }) => {
@@ -121,6 +120,8 @@ const EventTitle = ({ event }: { event: Event }) => {
         >
           <RefreshCcw size={15} />
         </Button>
+
+        <FullScreenModal event={event} activity={data} title={event.title} />
 
         <ShareDialog title={event.title} />
 

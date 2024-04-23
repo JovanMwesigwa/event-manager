@@ -2,21 +2,19 @@
 
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import useGetActiveActivity from "@/hooks/reactquery/useGetActiveActivity";
+import { siteUrl, thumnailUrl } from "@/data";
 import useTimer from "@/hooks/useTimer";
-import { Activity, Event } from "@prisma/client";
+import { Event } from "@prisma/client";
 import { ExpandIcon, PauseIcon } from "lucide-react";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { QRCodeSVG } from "qrcode.react";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import EmptyFullScreenTimer from "./EmptyFullScreenTimer";
-import { QRCodeSVG } from "qrcode.react";
-import { usePathname } from "next/navigation";
-import { siteUrl, thumnailUrl } from "@/data";
-import Image from "next/image";
 
 const FullScreenTimer = ({
   event,
   activity,
-  title,
 }: {
   event: Event;
   activity: any;
