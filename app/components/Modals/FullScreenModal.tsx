@@ -73,19 +73,19 @@ export function FullScreenModal({
               <div className="relative">
                 {event.isPaused && (
                   <div className="absolute top-0 bg-yellow-500 right-0 rounded-md p-1 flex items-center">
-                    <PauseIcon className="text-white heartbeat size-8 md:size-3" />
+                    <PauseIcon className="text-white heartbeat size-8" />
                   </div>
                 )}
 
                 {!activity.id ? (
-                  <h1 className="text-white font-extrabold text-8xl md:text-4xl ">
+                  <h1 className="text-white font-extrabold text-8xl  ">
                     00&middot;00&middot;00
                   </h1>
                 ) : (
                   <h1
                     className={`${
                       isEndingSoon ? "text-red-500 minheartbeat" : "text-white"
-                    }  font-extrabold text-8xl md:text-[300px]`}
+                    }  font-extrabold text-8xl `}
                   >
                     {!isLoading && <>{formattedTime ? formattedTime : "N/A"}</>}
                   </h1>
@@ -94,7 +94,7 @@ export function FullScreenModal({
             </div>
           </div>
 
-          <div className="w-full h-1/5 gap-4 flex  flex-col bg-green-500">
+          <div className="w-full h-40 gap-4 flex  flex-col bg-green-500">
             <div className="w-full h-5  relative">
               <Progress
                 value={progress}
@@ -106,17 +106,17 @@ export function FullScreenModal({
               />
             </div>
 
-            <div className="flex flex-col p-4 md:py-0 text-black ">
+            <div className="flex flex-col p-4  text-black py-0">
               {!activity.title ? (
                 <>
                   <p>{title}</p>
-                  <h1 className="text-2xl font-extrabold md:text-xl ">
+                  <h1 className="text-2xl font-extrabold  ">
                     Event will start soon
                   </h1>
                 </>
               ) : (
                 <>
-                  <h1 className="text-2xl md:text-xl font-extrabold line-clamp-1 ">
+                  <h1 className="text-2xl  font-extrabold line-clamp-2 ">
                     {activity.title}
                   </h1>
 
