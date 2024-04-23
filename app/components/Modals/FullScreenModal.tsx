@@ -58,12 +58,12 @@ export function FullScreenModal({
           <ExpandIcon size={15} />
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[500px] h-screen p-0 ">
+      <DialogContent className="w-full h-screen p-0 ">
         <div className="flex justify-center items-center w-full h-screen relative bg-black flex-col">
           <Minimize2
             onClick={() => setOpen(false)}
             size={55}
-            className="absolute cursor-pointer top-0 text-white right-0 p-4 z-30"
+            className="absolute cursor-pointer top-5 text-white right-5 p-4 z-30"
           />
 
           <div className="flex flex-1 h-full w-full flex-row items-center ">
@@ -71,6 +71,12 @@ export function FullScreenModal({
               {/*  */}
 
               <div className="relative">
+                {event.isPaused && (
+                  <div className="absolute top-0 bg-yellow-500 right-0 rounded-md p-1 flex items-center">
+                    <PauseIcon className="text-white heartbeat size-8" />
+                  </div>
+                )}
+
                 {!activity.id ? (
                   <h1 className="text-white font-extrabold text-8xl md:text-[250px] ">
                     00&middot;00&middot;00
@@ -83,12 +89,6 @@ export function FullScreenModal({
                   >
                     {!isLoading && <>{formattedTime ? formattedTime : "N/A"}</>}
                   </h1>
-                )}
-
-                {event.isPaused && (
-                  <div className="absolute bottom-9 right-0 rounded-md p-1 flex items-center">
-                    <PauseIcon className="text-white heartbeat size-8" />
-                  </div>
                 )}
               </div>
             </div>
