@@ -10,6 +10,7 @@ import { Event } from "@prisma/client";
 import { useQueryClient } from "@tanstack/react-query";
 import {
   Home,
+  Hourglass,
   Loader2Icon,
   MapPin,
   RefreshCcw,
@@ -55,7 +56,9 @@ const EventTitle = ({ event }: { event: Event }) => {
         )}
 
         <div className="flex flex-col ">
-          <h1 className="text-2xl font-bold text-neutral-800">{event.title}</h1>
+          <h1 className="text-lg md:text-2xl font-bold text-neutral-800">
+            {event.title}
+          </h1>
           <div className="flex flex-row items-center gap-x-1">
             <MapPin size={16} className="text-neutral-400" />
             <p className="text-sm text-neutral-400">{event.location}</p>
@@ -91,7 +94,7 @@ const EventTitle = ({ event }: { event: Event }) => {
               {event.active ? (
                 <RocketIcon size={16} className="text-green-600" />
               ) : (
-                <Loader2Icon size={16} className="text-orange-600" />
+                <Hourglass size={16} className="text-orange-600" />
               )}
             </div>
 
