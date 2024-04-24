@@ -93,7 +93,7 @@ const EventTitle = ({ event }: { event: Event }) => {
               } p-1 rounded-md`}
             >
               {event.active ? (
-                <RocketIcon size={16} className="text-green-600" />
+                <RocketIcon size={16} className="text-green-600 animate-spin" />
               ) : (
                 <Hourglass size={16} className="text-orange-600" />
               )}
