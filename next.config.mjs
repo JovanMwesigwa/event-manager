@@ -6,6 +6,7 @@ const nextConfig = {
       "img.clerk.com",
       "images.unsplash.com",
       "images.lemonade.social",
+      "cdn.hashnode.com",
       "pbs.twimg.com",
     ],
   },
