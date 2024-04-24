@@ -7,6 +7,7 @@ import useGetEvent from "@/hooks/reactquery/useGetEvent";
 import { useParams } from "next/navigation";
 import NewActivityBtn from "../NewActivityBtn";
 import useUserStore from "@/stores/user-store";
+import { Loader } from "lucide-react";
 
 const EventPage = () => {
   const { id } = useParams();
@@ -23,7 +24,7 @@ const EventPage = () => {
         {isAdmin ? (
           <div className="flex flex-1 items-center justify-center">
             <h1 className="text-2xl font-bold text-neutral-400">
-              Event not found
+              <Loader className="siz-8 animate-spin" />
             </h1>
           </div>
         ) : (
