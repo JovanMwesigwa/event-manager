@@ -11,7 +11,7 @@ const useGetEvent = (eventId: number) => {
     queryKey: ["event", eventId],
     queryFn: () => request(eventId),
     refetchIntervalInBackground: true,
-    refetchInterval: 3000,
+    refetchInterval: 5000,
   });
 
   return {
