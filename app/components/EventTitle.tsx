@@ -11,6 +11,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import {
   Home,
   Hourglass,
+  Loader,
   Loader2Icon,
   MapPin,
   RefreshCcw,
@@ -118,10 +119,14 @@ const EventTitle = ({ event }: { event: Event }) => {
         )}
         <Button
           variant="ghost"
-          onClick={() => queryClient.invalidateQueries()}
+          onClick={() => queryClient.refetchQueries()}
           className="border max-w-40 border-b-2 border-b-neutral-300 bg-white flex flex-row items-center gap-2"
         >
-          <RefreshCcw size={15} />
+          {queryClient.isFetching() ? (
+            <Loader2Icon size={15} className="animate-spin" />
+          ) : (
+            <RefreshCcw size={15} />
+          )}
         </Button>
 
         {!loading && !error && (

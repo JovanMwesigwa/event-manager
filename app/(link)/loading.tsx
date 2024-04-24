@@ -6,7 +6,7 @@ import React from "react";
 const EventLoadingPage = () => {
   return (
     <div className="flex flex-1 items-center justify-center">
-      <Loader size={32} />
+      <Loader size={32} className="animate-spin" />
     </div>
   );
 };
