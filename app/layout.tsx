@@ -9,7 +9,7 @@ import EventQueryProvider from "@/context/event-query-provider";
 const inter = Nunito({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "EventManager",
+  title: "TimeFlow",
   description:
     "Tool to follow and manage every activity happening in every event.",
 };

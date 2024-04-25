@@ -4,10 +4,7 @@ import React from "react";
 const Logo = () => {
   return (
     <div className=" flex items-center  ">
-      <div className="size-16 flex items-center justify-center mb-1 overflow-hidden relative ">
-        <Image src="/timeflow.svg" fill alt="Mascot" />
-      </div>
-      <h1 className="text-lg font-extrabold tracking-wide">TimeFlow</h1>
+      <Image src="/timeflow.svg" width={150} height={100} alt="Mascot" />
     </div>
   );
 };

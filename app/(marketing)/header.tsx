@@ -16,7 +16,7 @@ const MainHeader = () => {
 
   return (
     <header className="h-20 hidden  w-full px-4 md:block fixed">
-      <div className="mx-auto flex items-center justify-between h-full ">
+      <div className="mx-auto flex items-center justify-between h-full pl-5 ">
         <Logo />
 
         {/* Trigger redeploy */}
