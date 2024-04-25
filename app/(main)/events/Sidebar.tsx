@@ -22,12 +22,12 @@ const Sidebar = () => {
 
         {/* Upgrade btn */}
         <Button
-          className=" h-8 text-xs border bg-neutral-900 rounded-sm border-b-4 text-[#F6B900] border-b-[#F6B900] flex flex-row gap-x-2"
+          className=" h-8 text-xs border bg-gradient-to-r  font-bold from-red-500 to-orange-500 rounded-sm text-white flex flex-row gap-x-2"
           variant="ghost"
           onClick={() => console.log("test")}
         >
           Upgrade
-          <Trophy size={16} className="text-[#F6B900]" />
+          {/* <Trophy size={16} className="text-black" /> */}
         </Button>
       </div>
 
