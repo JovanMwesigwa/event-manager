@@ -8,6 +8,8 @@ import {
   useUser,
 } from "@clerk/nextjs";
 import { ArrowUpRight, Loader } from "lucide-react";
+import Image from "next/image";
+import Logo from "../components/Logo";
 
 const MainHeader = () => {
   const { isSignedIn } = useUser();
@@ -15,13 +17,7 @@ const MainHeader = () => {
   return (
     <header className="h-20 hidden  w-full px-4 md:block fixed">
       <div className="mx-auto flex items-center justify-between h-full ">
-        <div className=" pl-4 flex items-center gap-x-3">
-          {/* <Image src="/mascot.svg" height={40} width={40} alt="Mascot" /> */}
-          <div className="size-8 rounded-full bg-white font-bold text-xl flex items-center justify-center text-blue-500"></div>
-          <h1 className="text-lg font-extrabold  tracking-wide">
-            Events Manager
-          </h1>
-        </div>
+        <Logo />
 
         {/* Trigger redeploy */}
         <div className="p-4 flex flex-row gap-x-2">

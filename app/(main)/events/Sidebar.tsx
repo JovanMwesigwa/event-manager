@@ -15,8 +15,8 @@ const Sidebar = () => {
             <h1 className="text-lg">🏆</h1>
           </div>
           <div className="flex flex-col ">
-            <h1 className="font-bold">Free plan</h1>
-            <p className="text-xs font-medium">Up-to 3 events</p>
+            <h1 className="font-bold">Buy TimeFlow</h1>
+            <p className="text-xs font-medium">Buy once, use forever</p>
           </div>
         </div>
 
