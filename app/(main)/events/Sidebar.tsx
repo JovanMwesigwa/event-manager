@@ -11,8 +11,10 @@ const Sidebar = () => {
     <div className=" h-full col-span-6 mt-0 md:col-span-2 flex flex-col gap-y-5">
       <div className="w-full h-20 bg-white rounded-md p-4 flex flex-row items-center justify-between border ">
         <div className="flex flex-row items-center gap-x-2 flex-1">
-          <div className="size-8 rounded-full bg-neutral-300"></div>
-          <div className="flex flex-col">
+          <div className="size-9 rounded-full flex items-center justify-center bg-neutral-900">
+            <h1 className="text-lg">🏆</h1>
+          </div>
+          <div className="flex flex-col ">
             <h1 className="font-bold">Free plan</h1>
             <p className="text-xs font-medium">Up-to 3 events</p>
           </div>
@@ -20,12 +22,12 @@ const Sidebar = () => {
 
         {/* Upgrade btn */}
         <Button
-          className=" h-8 text-xs border rounded-sm border-b-2 text-orange-400 bg-white border-b-orange-400 flex flex-row gap-x-2"
+          className=" h-8 text-xs border bg-neutral-900 rounded-sm border-b-4 text-[#F6B900] border-b-[#F6B900] flex flex-row gap-x-2"
           variant="ghost"
           onClick={() => console.log("test")}
         >
           Upgrade
-          <Trophy size={16} className="text-orange-500" />
+          <Trophy size={16} className="text-[#F6B900]" />
         </Button>
       </div>
 

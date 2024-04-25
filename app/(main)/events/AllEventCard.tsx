@@ -46,10 +46,7 @@ const AllEventCard = ({ event }: { event: Event }) => {
         </div>
 
         <p className="text-[11px] md:text-xs text-neutral-400 line-clamp-2">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus
-          corporis suscipit dignissimos? Lorem ipsum dolor, sit amet consectetur
-          adipisicing elit. Cupiditate asperiores molestias quaerat impedit
-          maxime nulla reiciendis ducimus. Iste, molestiae veniam.
+          {event.description}
         </p>
 
         <div className="w-full flex flex-row items-center justify-between text-[11px] md:text-sm text-neutral-500 font-light">
@@ -59,7 +56,7 @@ const AllEventCard = ({ event }: { event: Event }) => {
             <p className="line-clamp-1">{event.activityCount} Activities</p>
           </div>
           <div className="flex flex-row items-center gap-x-1 flex-1 ">
-            <MapPin className="text-neutral-500 size-5" />
+            <MapPin className="text-neutral-500 size-3" />
             <p className="line-clamp-1">{event.location}</p>
           </div>
           <div className="flex flex-row items-center gap-x-1 flex-1">
