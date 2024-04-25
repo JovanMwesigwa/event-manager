@@ -307,6 +307,7 @@ const EditingCard = ({
         isEditing={isEditing}
         submit={handleSubmit}
         loading={isPending}
+        fromEdit={true}
       />
     </>
   );

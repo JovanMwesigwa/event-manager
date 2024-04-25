@@ -6,10 +6,12 @@ const NewActivityBtn = ({
   isEditing,
   submit,
   loading,
+  fromEdit,
 }: {
   isEditing: boolean;
   submit: any;
   loading?: boolean;
+  fromEdit?: boolean;
 }) => {
   // if (!isEditing) return;
 
@@ -34,7 +36,11 @@ const NewActivityBtn = ({
             <Save size={18} className="text-blue-400" />
           )}
         </div>
-        {isEditing ? "Save the changes" : "Add an activity"}
+        {fromEdit ? (
+          "Save the changes"
+        ) : (
+          <>{isEditing ? "Save the changes" : "Add an activity"}</>
+        )}
       </Button>
     </div>
   );
