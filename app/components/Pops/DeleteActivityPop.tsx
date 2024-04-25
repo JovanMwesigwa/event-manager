@@ -7,9 +7,15 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import useDeleteActivity from "@/hooks/reactquery/useDeleteActivity";
-import { EllipsisVertical, Loader, Trash2 } from "lucide-react";
+import { Edit, EllipsisVertical, Loader, Trash2 } from "lucide-react";
 
-const DeleteActivityPop = ({ activityId }: { activityId: number }) => {
+const DeleteActivityPop = ({
+  activityId,
+  setEdit,
+}: {
+  activityId: number;
+  setEdit: (value: boolean) => void;
+}) => {
   const mutation = useDeleteActivity();
 
   return (
@@ -23,6 +29,15 @@ const DeleteActivityPop = ({ activityId }: { activityId: number }) => {
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[150px] p-1">
+        <Button
+          variant="ghost"
+          disabled={mutation.isPending}
+          onClick={() => setEdit(true)}
+          className="text-xs  p-1 rounded-sm  px-3 h-8 w-full flex flex-row justify-start gap-x-2 font-bold"
+        >
+          <Edit size={18} className="text-teal-500 font-bold" />
+          EDIT
+        </Button>
         <div className="w-full flex flex-row items-center p-0">
           <Button
             variant="ghost"

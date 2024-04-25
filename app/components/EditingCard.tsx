@@ -7,37 +7,50 @@ import { CircleDot, PencilIcon } from "lucide-react";
 import { useRef, useState } from "react";
 import NewActivityBtn from "../(main)/events/NewActivityBtn";
 import TimePickerDemo from "./Inputs/TimePickerDemo";
+import useUpdateActivity from "@/hooks/reactquery/useUpdateActivity";
 
-const EmptyEventCard = ({ eventId }: { eventId: number }) => {
+const EditingCard = ({
+  eventId,
+  activity,
+  setEdit,
+}: {
+  eventId: number;
+  activity: Activity;
+  setEdit: (value: boolean) => void;
+}) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const eventLife = true; // Assume the event is active for static data
   const progress = 0; // 50% progress for static data
 
-  const [title, setTitle] = useState("Add a title to your activity");
+  const [title, setTitle] = useState(
+    activity.title || "Add a title to your activity"
+  );
   const [editTitle, setEditTitle] = useState(false);
   const [editTitleTwo, setEditTitleTwo] = useState(false);
 
   const [description, setDescription] = useState(
-    "Add a description to your activity"
+    activity.description || "Add a description to your activity"
   );
   const [editDescription, setEditDescription] = useState(false);
 
-  const [host, setHost] = useState("Add a Speaker");
+  const [host, setHost] = useState(activity.host || "Add a Speaker");
   const [editHost, setEditHost] = useState(false);
   const [editHostTwo, setEditHostTwo] = useState(false);
 
-  const [time, setTime] = useState("00:00:00");
+  const [time, setTime] = useState(activity.currentTime || "00:00:00");
   const [editTime, setEditTime] = useState(false);
 
   const [selectedHour, setSelectedHour] = useState<string>("01");
   const [selectedMinute, setSelectedMinute] = useState<string>("30");
   const [seconds, setSeconds] = useState<string>("00");
 
-  const [duration, setDuration] = useState<string>("01:30:00");
+  const [duration, setDuration] = useState<string>(
+    activity.duration || "01:30:00"
+  );
 
   const isEditing = editTitle || editDescription || editHost || editTime;
 
-  const createActivity = useCreateActivity();
+  const { mutate, data, isPending, isSuccess } = useUpdateActivity(activity.id);
 
   const handleSubmit = () => {
     // Convert the time to seconds
@@ -65,7 +78,7 @@ const EmptyEventCard = ({ eventId }: { eventId: number }) => {
     } as Activity;
 
     // @ts-ignore
-    createActivity.mutate(eventData);
+    mutate(eventData);
 
     // Reset the form
     setTitle("Add a title to your activity");
@@ -75,7 +88,10 @@ const EmptyEventCard = ({ eventId }: { eventId: number }) => {
     setSelectedHour("01");
     setSelectedMinute("30");
     setSeconds("00");
+
     setDuration("01:30:00");
+
+    setEdit(false);
   };
 
   return (
@@ -106,7 +122,7 @@ const EmptyEventCard = ({ eventId }: { eventId: number }) => {
               ) : (
                 <h1
                   onClick={() => setEditTitle(true)}
-                  className={`line-clamp-1 font-bold text-lg hover:text-neutral-500 ${
+                  className={`line-clamp-1 font-bold text-lg ${
                     !eventLife && "text-neutral-400"
                   } cursor-pointer`}
                 >
@@ -134,7 +150,7 @@ const EmptyEventCard = ({ eventId }: { eventId: number }) => {
                 ) : (
                   <p
                     onClick={() => setEditHost(true)}
-                    className={`md:text-sm text-[10px] line-clamp-1 text-neutral-400 hover:text-neutral-500 cursor-pointer ${
+                    className={`md:text-sm text-[10px] line-clamp-1 text-neutral-400 cursor-pointer ${
                       !eventLife && "text-neutral-400"
                     }`}
                   >
@@ -192,7 +208,7 @@ const EmptyEventCard = ({ eventId }: { eventId: number }) => {
                 <Input
                   type="text"
                   autoFocus
-                  className="text-lg font-medium  line-clamp-1 border-none px-0 bg-transparent mb-3"
+                  className="text-lg font-medium  line-clamp-1 border-none px-0 bg-transparent"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   // Add the ability to save the title when the user presses enter
@@ -206,12 +222,12 @@ const EmptyEventCard = ({ eventId }: { eventId: number }) => {
               ) : (
                 <h1
                   onClick={() => setEditTitleTwo(true)}
-                  className={`md:text-lg font-medium cursor-pointer hover:text-neutral-500 ${
+                  className={`md:text-lg font-medium cursor-pointer ${
                     !eventLife && "text-neutral-400"
                   }`}
                 >
                   {title}
-                  <PencilIcon className="hidden group-hover:block absolute hover:text-blue-500 right-0 top-0 text-neutral-800 size-3" />
+                  <PencilIcon className="hidden group-hover:block absolute hover:text-blue-500 right-0 top-0 text-neutral-800 size-4" />
                 </h1>
               )}
 
@@ -234,12 +250,12 @@ const EmptyEventCard = ({ eventId }: { eventId: number }) => {
                 ) : (
                   <p
                     onClick={() => setEditDescription(true)}
-                    className={`md:text-sm text-[10px] line-clamp-2 text-neutral-400 hover:text-neutral-500 cursor-pointer ${
+                    className={`md:text-sm text-[10px] line-clamp-2 text-neutral-400 cursor-pointer ${
                       !eventLife && "text-neutral-400"
                     }`}
                   >
                     {description}
-                    <PencilIcon className="hidden group-hover:block absolute hover:text-blue-500 right-0 top-0 text-neutral-400 size-2" />
+                    <PencilIcon className="hidden group-hover:block absolute hover:text-blue-500 right-0 top-0 text-neutral-400 size-4" />
                   </p>
                 )}
               </div>
@@ -268,7 +284,7 @@ const EmptyEventCard = ({ eventId }: { eventId: number }) => {
               ) : (
                 <p
                   onClick={() => setEditHostTwo(true)}
-                  className={`md:text-sm text-[10px] line-clamp-1 text-neutral-400 hover:text-neutral-500 cursor-pointer ${
+                  className={`md:text-sm text-[10px] line-clamp-1 text-neutral-400 cursor-pointer ${
                     !eventLife && "text-neutral-400"
                   }`}
                 >
@@ -290,10 +306,10 @@ const EmptyEventCard = ({ eventId }: { eventId: number }) => {
       <NewActivityBtn
         isEditing={isEditing}
         submit={handleSubmit}
-        loading={createActivity.isPending}
+        loading={isPending}
       />
     </>
   );
 };
 
-export default EmptyEventCard;
+export default EditingCard;

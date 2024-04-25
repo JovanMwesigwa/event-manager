@@ -868,3 +868,28 @@ export const deletePoll = async (pollId: number) => {
 
   return result;
 };
+
+export const updateActivity = async (activityId: number, data: any) => {
+  // Get the activity
+  const activity = await prisma.activity.findUnique({
+    where: {
+      id: activityId,
+    },
+  });
+
+  if (!activity) {
+    throw new Error("Activity not found");
+  }
+
+  // Update the activity
+  const updatedActivity = await prisma.activity.update({
+    where: {
+      id: activityId,
+    },
+    data: {
+      ...data,
+    },
+  });
+
+  return updatedActivity;
+};

@@ -31,7 +31,7 @@ const NewActivityBtn = ({
           ) : !isEditing ? (
             <Plus size={20} className="text-green-600" />
           ) : (
-            <Save size={18} className="text-blue-600" />
+            <Save size={18} className="text-blue-400" />
           )}
         </div>
         {isEditing ? "Save the changes" : "Add an activity"}
